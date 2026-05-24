@@ -299,6 +299,7 @@ export default function App() {
   const [offlinePlayers, setOfflinePlayers] = useState(initialPlayers);
   const [offlineParticipants, setOfflineParticipants] = useState([]);
   const [offlineBidsLog, setOfflineBidsLog] = useState([]);
+  const [selectedBotTeams, setSelectedBotTeams] = useState(FRANCHISES.map(f => f.id));
 
   // Refs for realtime subscriptions & timers
   const roomSubscriptionRef = useRef(null);
@@ -984,8 +985,8 @@ export default function App() {
       return;
     }
 
-    // Set up 9 CPU Bots for other franchises
-    const availableFranchises = FRANCHISES.filter(f => f.id !== selectedTeam);
+    // Set up CPU Bots for selected franchises
+    const availableFranchises = FRANCHISES.filter(f => f.id !== selectedTeam && selectedBotTeams.includes(f.id));
     const bots = availableFranchises.map((f, index) => ({
       id: `bot_${f.id}`,
       user_id: `bot_${f.id}`,
@@ -1442,6 +1443,35 @@ export default function App() {
                       ))}
                     </div>
                   </div>
+
+                  {gameMode === 'offline' && selectedTeam && (
+                    <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginTop: '4px' }}>
+                      <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        <span>Select Opponent Bots ({selectedBotTeams.filter(t => t !== selectedTeam).length} Selected)</span>
+                        <span style={{ fontSize: '10px', backgroundColor: '#f1f5f9', padding: '2px 8px', borderRadius: '4px' }}>Max 9</span>
+                      </label>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
+                        {FRANCHISES.filter(f => f.id !== selectedTeam).map(f => {
+                          const isSelected = selectedBotTeams.includes(f.id);
+                          return (
+                            <button
+                              key={`bot-${f.id}`}
+                              onClick={() => {
+                                setSelectedBotTeams(prev => 
+                                  prev.includes(f.id) ? prev.filter(t => t !== f.id) : [...prev, f.id]
+                                );
+                              }}
+                              style={{ padding: '8px 4px', borderRadius: '8px', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: isSelected ? '2px solid #94a3b8' : '1px dashed #cbd5e1', backgroundColor: isSelected ? '#f8fafc' : '#ffffff', opacity: isSelected ? 1 : 0.5 }}
+                              title={`${isSelected ? 'Remove' : 'Add'} ${f.name} Bot`}
+                            >
+                              <TeamLogo teamId={f.id} className="w-8 h-8 mx-auto mb-1" style={{ filter: isSelected ? 'none' : 'grayscale(100%)' }} />
+                              <span style={{ fontSize: '10px', fontWeight: 'bold', color: isSelected ? '#334155' : '#94a3b8' }}>{f.id}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   {gameMode === 'online' && (
                     <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginTop: '4px' }}>
