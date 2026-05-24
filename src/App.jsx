@@ -1333,53 +1333,53 @@ export default function App() {
           <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-stretch">
             
             {/* Left side info */}
-            <div className="glass-panel p-8 flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl" />
-              <div>
-                <Trophy size={48} className="text-amber-500 mb-6" />
-                <h1 className="text-4xl font-bold mb-4 leading-tight text-white">
-                  Assemble Your <span className="text-amber-500">Dream IPL Squad</span>
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden' }}>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div style={{ position: 'relative', zIndex: 10 }}>
+                <Trophy size={56} style={{ color: '#d97706', marginBottom: '24px' }} />
+                <h1 className="font-display" style={{ fontSize: '48px', fontWeight: '800', marginBottom: '16px', lineHeight: '1.1', color: '#0f172a', textTransform: 'uppercase' }}>
+                  Assemble Your <br /><span style={{ color: '#d97706' }}>Dream IPL Squad</span>
                 </h1>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                <p style={{ color: '#475569', fontSize: '16px', marginBottom: '32px', lineHeight: '1.6' }}>
                   Manage finances, bid strategically against bots or live players, and build a high-performance squad under standard IPL salary cap and team composition limits.
                 </p>
-                <div className="space-y-3 text-sm text-slate-300">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle size={16} className="text-emerald-500" />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '15px', color: '#334155', fontWeight: '500' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle size={20} style={{ color: '#059669' }} />
                     <span>₹120 Crore budget cap</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle size={16} className="text-emerald-500" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle size={20} style={{ color: '#059669' }} />
                     <span>Real 2025/2026 player star pool</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle size={16} className="text-emerald-500" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle size={20} style={{ color: '#059669' }} />
                     <span>Real-time multiplayer database synchronization</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle size={16} className="text-emerald-500" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle size={20} style={{ color: '#059669' }} />
                     <span>Smart AI bidding agents (Sandbox mode)</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-slate-800 text-xs text-slate-500">
+              <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', fontSize: '13px', color: '#64748b', position: 'relative', zIndex: 10 }}>
                 Created with React, Vite, and Supabase.
               </div>
             </div>
 
             {/* Right side form */}
-            <div className="glass-panel p-8 flex flex-col justify-between">
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <h2 className="text-2xl font-bold mb-6 text-white font-display">GET STARTED</h2>
+                <h2 className="font-display" style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '32px', color: '#0f172a', letterSpacing: '0.05em' }}>GET STARTED</h2>
                 
                 {/* Mode Selector */}
-                <div className="grid grid-cols-2 gap-2 mb-6 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '32px', backgroundColor: '#f8fafc', padding: '6px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
                   <button 
                     onClick={() => setGameMode('offline')}
-                    className={`py-2 px-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${gameMode === 'offline' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'}`}
+                    style={{ padding: '12px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', transition: 'all 0.2s', backgroundColor: gameMode === 'offline' ? '#ffffff' : 'transparent', color: gameMode === 'offline' ? '#d97706' : '#64748b', boxShadow: gameMode === 'offline' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', border: 'none', cursor: 'pointer' }}
                   >
-                    Local Sandbox (Bots)
+                    Local Sandbox
                   </button>
                   <button 
                     onClick={() => {
@@ -1389,66 +1389,71 @@ export default function App() {
                       }
                       setGameMode('online');
                     }}
-                    className={`py-2 px-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition flex items-center justify-center gap-1.5 ${gameMode === 'online' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'}`}
+                    style={{ padding: '12px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: gameMode === 'online' ? '#ffffff' : 'transparent', color: gameMode === 'online' ? '#d97706' : '#64748b', boxShadow: gameMode === 'online' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', border: 'none', cursor: 'pointer' }}
                   >
                     Online Multiplayer
                   </button>
                 </div>
 
-                <div className="space-y-4">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {/* Name field */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Manager Name</label>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Manager Name</label>
                     <input 
                       type="text" 
                       placeholder="Enter your name" 
                       value={userName} 
                       onChange={(e) => setUserName(e.target.value)} 
-                      className="input-field"
+                      style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', transition: 'border-color 0.2s', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}
+                      onFocus={(e) => e.target.style.borderColor = '#d97706'}
+                      onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
                     />
                   </div>
 
                   {gameMode === 'online' && (
                     <div>
-                      <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Expected Real Players (Max 10)</label>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Expected Real Players (Max 10)</label>
                       <input 
                         type="number" 
                         min="1" max="10"
                         value={expectedPlayers} 
                         onChange={(e) => setExpectedPlayers(parseInt(e.target.value) || 2)} 
-                        className="input-field"
+                        style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', transition: 'border-color 0.2s', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}
+                        onFocus={(e) => e.target.style.borderColor = '#d97706'}
+                        onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
                       />
                     </div>
                   )}
 
                   {/* Franchise choice */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Select Your Franchise</label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Select Your Franchise</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
                       {FRANCHISES.map(f => (
                         <button
                           key={f.id}
                           onClick={() => setSelectedTeam(f.id)}
-                          className={`py-2 rounded-lg font-bold border transition ${selectedTeam === f.id ? `border-amber-500 bg-amber-500/20 text-amber-400 scale-105 shadow-lg` : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-white'}`}
+                          style={{ padding: '10px 4px', borderRadius: '10px', fontWeight: 'bold', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: selectedTeam === f.id ? '2px solid #f59e0b' : '1px solid #e2e8f0', backgroundColor: selectedTeam === f.id ? '#fffbeb' : '#f8fafc', color: selectedTeam === f.id ? '#b45309' : '#64748b', transform: selectedTeam === f.id ? 'scale(1.05)' : 'scale(1)', boxShadow: selectedTeam === f.id ? '0 4px 12px rgba(245, 158, 11, 0.2)' : 'none' }}
                           title={f.name}
                         >
-                          <TeamLogo teamId={f.id} className="w-12 h-12 mx-auto mb-2" />
-                          <div className="hidden items-center justify-center w-12 h-12 mx-auto mb-2 bg-slate-800 rounded-full text-xs font-bold">{f.id}</div>
-                          <span className="text-[10px] block">{f.id}</span>
+                          <TeamLogo teamId={f.id} className="w-10 h-10 mx-auto mb-2" />
+                          <span style={{ fontSize: '11px', letterSpacing: '0.05em' }}>{f.id}</span>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   {gameMode === 'online' && (
-                    <div className="pt-2 border-t border-slate-800">
-                      <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Room Code (To Join)</label>
+                    <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginTop: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Room Code (To Join)</label>
                       <input 
                         type="text" 
                         placeholder="ENTER 6-CHARACTER CODE" 
                         value={roomCode} 
                         onChange={(e) => setRoomCode(e.target.value.toUpperCase())} 
-                        className="input-field uppercase text-center font-bold tracking-widest text-amber-500"
+                        style={{ width: '100%', backgroundColor: '#f8fafc', border: '1px dashed #94a3b8', color: '#d97706', padding: '16px', borderRadius: '10px', fontSize: '18px', fontWeight: 'bold', outline: 'none', textAlign: 'center', letterSpacing: '0.2em', textTransform: 'uppercase', transition: 'border-color 0.2s' }}
+                        onFocus={(e) => e.target.style.borderColor = '#d97706'}
+                        onBlur={(e) => e.target.style.borderColor = '#94a3b8'}
                         maxLength={6}
                       />
                     </div>
@@ -1456,31 +1461,34 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 mt-8">
+              <div style={{ display: 'grid', gridTemplateColumns: gameMode === 'online' ? '1fr 1fr' : '1fr', gap: '16px', marginTop: '40px' }}>
                 {gameMode === 'online' ? (
                   <>
                     <button 
                       onClick={handleJoinRoomOnline} 
                       disabled={!userName || !selectedTeam || !roomCode}
-                      className="btn-secondary justify-center py-3 text-xs tracking-wider"
+                      className="btn-secondary"
+                      style={{ justifyContent: 'center', padding: '16px', fontSize: '14px', borderRadius: '12px' }}
                     >
-                      JOIN LOBBY <Users size={16} />
+                      JOIN LOBBY <Users size={18} />
                     </button>
                     <button 
                       onClick={handleCreateRoomOnline} 
                       disabled={!userName || !selectedTeam}
-                      className="btn-primary justify-center py-3 text-xs tracking-wider"
+                      className="btn-primary"
+                      style={{ justifyContent: 'center', padding: '16px', fontSize: '14px', borderRadius: '12px' }}
                     >
-                      CREATE ROOM <Plus size={16} />
+                      CREATE ROOM <Plus size={18} />
                     </button>
                   </>
                 ) : (
                   <button 
                     onClick={handleCreateRoomOffline} 
                     disabled={!userName || !selectedTeam}
-                    className="btn-primary col-span-2 justify-center py-3 text-sm tracking-wider"
+                    className="btn-primary"
+                    style={{ justifyContent: 'center', padding: '16px', fontSize: '15px', borderRadius: '12px' }}
                   >
-                    START SIMULATOR <Play size={18} />
+                    START SIMULATOR <Play size={20} />
                   </button>
                 )}
               </div>
