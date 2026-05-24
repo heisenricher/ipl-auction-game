@@ -72,17 +72,18 @@ CREATE INDEX idx_bids_log_room ON bids_log(room_id);
 
 -- 6. Enable Realtime Replication
 -- This enables Supabase to broadcast database changes to clients subscribed via websockets.
-begin;
-  -- remove the tables if they are already in the publication
-  alter publication supabase_realtime delete table rooms, participants, room_players, bids_log;
-exception when others then
-  -- publication might not exist or tables not in it, ignore
+do $$
+begin
+  -- Create the publication if it does not exist
+  if not exists (select 1 from pg_publication where pubname = 'supabase_realtime') then
+    create publication supabase_realtime;
+  end if;
 end;
+$$;
 
-alter publication supabase_realtime add table rooms;
-alter publication supabase_realtime add table participants;
-alter publication supabase_realtime add table room_players;
-alter publication supabase_realtime add table bids_log;
+-- Set the tables in the publication (replacing any existing list safely)
+alter publication supabase_realtime set table rooms, participants, room_players, bids_log;
+
 
 -- 7. Bypass RLS for simplicity in sandbox/game environment.
 -- In a production enterprise app we would configure Row Level Security (RLS) rules.

@@ -1,25 +1,56 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Trophy, Users, User, ArrowRight, Play, Square, SkipForward, RotateCcw, 
-  Volume2, VolumeX, ShieldAlert, Award, Globe, DollarSign, ListFilter,
+  Volume2, VolumeX, ShieldAlert, Award, Globe, DollarSign, ListFilter, Settings,
   CheckCircle, Plus, Send, AlertTriangle, RefreshCw, LogOut
 } from 'lucide-react';
 import { supabase } from './supabaseClient';
 import { players as initialPlayers } from './data/players';
 import confetti from 'canvas-confetti';
 
+// Team Logo Component
+const TeamLogo = ({ teamId, className = "", style = {} }) => {
+  if (!teamId) return null;
+  
+  // Try to extract width/height from className if style doesn't have it
+  const isW12 = className.includes('w-12');
+  const isW6 = className.includes('w-6');
+  const defaultSize = isW12 ? '48px' : isW6 ? '24px' : '40px';
+  
+  const mergedStyle = {
+    width: defaultSize,
+    height: defaultSize,
+    objectFit: 'contain',
+    ...style
+  };
+
+  return (
+    <img 
+      src={`/logos/${teamId.toLowerCase()}.svg`} 
+      alt={`${teamId} Logo`} 
+      className={className}
+      style={mergedStyle}
+      onError={(e) => {
+        // Fallback to text if image fails to load
+        e.target.style.display = 'none';
+        if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+      }}
+    />
+  );
+};
+
 // IPL Franchise List
 const FRANCHISES = [
-  { id: 'CSK', name: 'Chennai Super Kings', color: '#F7D117', text: '#1e1b4b', logo: '🦁' },
-  { id: 'MI', name: 'Mumbai Indians', color: '#004BA0', text: '#ffffff', logo: '🌪️' },
-  { id: 'RCB', name: 'Royal Challengers Bengaluru', color: '#EC1C24', text: '#ffffff', logo: '👑' },
-  { id: 'KKR', name: 'Kolkata Knight Riders', color: '#3A225D', text: '#ffffff', logo: '⚔️' },
-  { id: 'RR', name: 'Rajasthan Royals', color: '#EA1B85', text: '#ffffff', logo: '🏰' },
-  { id: 'SRH', name: 'Sunrisers Hyderabad', color: '#F26522', text: '#ffffff', logo: '🦅' },
-  { id: 'DC', name: 'Delhi Capitals', color: '#1B3E8F', text: '#ffffff', logo: '🐯' },
-  { id: 'LSG', name: 'Lucknow Super Giants', color: '#00A9E0', text: '#0f172a', logo: '✈️' },
-  { id: 'GT', name: 'Gujarat Titans', color: '#0B2240', text: '#ffffff', logo: '⚡' },
-  { id: 'PBKS', name: 'Punjab Kings', color: '#D71920', text: '#ffffff', logo: '🦁' }
+  { id: 'CSK', name: 'Chennai Super Kings', color: '#F7D117', text: '#1e1b4b' },
+  { id: 'MI', name: 'Mumbai Indians', color: '#004BA0', text: '#ffffff' },
+  { id: 'RCB', name: 'Royal Challengers Bengaluru', color: '#EC1C24', text: '#ffffff' },
+  { id: 'KKR', name: 'Kolkata Knight Riders', color: '#3A225D', text: '#ffffff' },
+  { id: 'RR', name: 'Rajasthan Royals', color: '#EA1B85', text: '#ffffff' },
+  { id: 'SRH', name: 'Sunrisers Hyderabad', color: '#F26522', text: '#ffffff' },
+  { id: 'DC', name: 'Delhi Capitals', color: '#1B3E8F', text: '#ffffff' },
+  { id: 'LSG', name: 'Lucknow Super Giants', color: '#00A9E0', text: '#0f172a' },
+  { id: 'GT', name: 'Gujarat Titans', color: '#0B2240', text: '#ffffff' },
+  { id: 'PBKS', name: 'Punjab Kings', color: '#D71920', text: '#ffffff' }
 ];
 
 // BOT Bidding Personalities & Strategies
@@ -129,6 +160,104 @@ const playSound = (type) => {
   }
 };
 
+const LivePurses = ({ selectedTeam, participants, roomState, allPlayers = [] }) => {
+  const [recentBidders, setRecentBidders] = useState([]);
+
+  useEffect(() => {
+    if (roomState.current_bidder) {
+      setRecentBidders(prev => {
+        if (prev[0] === roomState.current_bidder) return prev;
+        const next = [roomState.current_bidder, ...prev.filter(b => b !== roomState.current_bidder)];
+        return next.slice(0, 3);
+      });
+    } else if (roomState.status === 'pending' || roomState.status === 'sold') {
+      setRecentBidders([]);
+    }
+  }, [roomState.current_bidder, roomState.status]);
+
+  const myParticipant = participants.find(p => p.team_name === selectedTeam);
+  const myActiveBid = roomState.current_bidder === selectedTeam ? roomState.current_bid : 0;
+  const myPurse = myParticipant ? (myParticipant.budget - myActiveBid).toFixed(2) : '120.00';
+
+  const otherBidders = recentBidders.filter(b => b !== selectedTeam).slice(0, 2);
+
+  const renderTeamStats = (teamName) => {
+    const teamPlayers = allPlayers.filter(p => p.status === 'sold' && p.sold_to === teamName);
+    const bat = teamPlayers.filter(p => p.role === 'Batsman' || p.role === 'Wicket Keeper').length;
+    const bowl = teamPlayers.filter(p => p.role === 'Bowler').length;
+    const ar = teamPlayers.filter(p => p.role === 'All-Rounder').length;
+    const os = teamPlayers.filter(p => p.country !== 'India').length;
+    
+    return (
+      <div style={{ display: 'flex', gap: '10px', fontSize: '10px', fontWeight: 'bold', color: '#64748b', marginTop: '6px' }}>
+        <span title="Batsmen/Keepers">BAT: {bat}</span>
+        <span title="Bowlers">BWL: {bowl}</span>
+        <span title="All-Rounders">AR: {ar}</span>
+        <span title="Overseas" style={{ color: '#0ea5e9' }}>OS: {os}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%', justifyContent: 'center' }}>
+      {/* My Purse */}
+      <div className="glass-card flex-1 flex flex-col justify-center relative overflow-hidden" style={{ padding: '12px' }}>
+        <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-full blur-xl pointer-events-none" />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px', position: 'relative', zIndex: 10 }}>
+          <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            My Purse ({selectedTeam})
+          </span>
+          {myActiveBid > 0 && (
+            <span style={{ fontSize: '9px', color: '#047857', fontWeight: 'bold', backgroundColor: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', border: '1px solid #a7f3d0' }}>
+              -₹{myActiveBid} Cr
+            </span>
+          )}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', position: 'relative', zIndex: 10 }}>
+          <span className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a' }}>₹{myPurse}</span>
+          <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold' }}>Cr</span>
+        </div>
+        {renderTeamStats(selectedTeam)}
+      </div>
+
+      {/* Other Bidders */}
+      {otherBidders.map((opponentTeam, idx) => {
+        const participant = participants.find(p => p.team_name === opponentTeam);
+        const activeBid = roomState.current_bidder === opponentTeam ? roomState.current_bid : 0;
+        const purse = participant ? (participant.budget - activeBid).toFixed(2) : '0.00';
+        
+        return (
+          <div key={opponentTeam} className="glass-card flex-1 flex flex-col justify-center relative overflow-hidden" style={{ padding: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px', position: 'relative', zIndex: 10 }}>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Bidder ({opponentTeam})
+              </span>
+              {activeBid > 0 && (
+                <span style={{ fontSize: '9px', color: '#b45309', fontWeight: 'bold', backgroundColor: '#fffbeb', padding: '2px 6px', borderRadius: '4px', border: '1px solid #fde68a' }}>
+                  -₹{activeBid} Cr
+                </span>
+              )}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', position: 'relative', zIndex: 10 }}>
+              <span className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#334155' }}>₹{purse}</span>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold' }}>Cr</span>
+            </div>
+            {renderTeamStats(opponentTeam)}
+          </div>
+        );
+      })}
+
+      {otherBidders.length === 0 && (
+        <div className="glass-card flex-1 flex flex-col justify-center text-center" style={{ padding: '12px' }}>
+          <span style={{ color: '#94a3b8', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Waiting for Challenger...
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function App() {
   // App views: 'landing', 'lobby', 'auction', 'summary'
   const [view, setView] = useState('landing');
@@ -144,6 +273,7 @@ export default function App() {
   const [roomId, setRoomId] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [roomPlayers, setRoomPlayers] = useState([]);
+  const [expectedPlayers, setExpectedPlayers] = useState(2);
   const [roomState, setRoomState] = useState({
     status: 'lobby',
     current_player_id: null,
@@ -177,6 +307,13 @@ export default function App() {
   const bidsSubscriptionRef = useRef(null);
   const timerIntervalRef = useRef(null);
   const aiBidTimeoutRef = useRef(null);
+  const isProcessingRef = useRef(false);
+  const roomStateRef = useRef(roomState);
+
+  // Keep roomStateRef in sync
+  useEffect(() => {
+    roomStateRef.current = roomState;
+  }, [roomState]);
 
   // Check Supabase connection on load
   useEffect(() => {
@@ -235,7 +372,7 @@ export default function App() {
         setRoomState(updated);
         
         // Trigger sounds on updates
-        if (updated.current_bid > roomState.current_bid) {
+        if (updated.current_bid > roomStateRef.current.current_bid) {
           triggerSound('bid');
         }
       })
@@ -308,7 +445,8 @@ export default function App() {
       const diff = Math.max(0, Math.ceil((ends - now) / 1000));
       setTimeLeft(diff);
 
-      if (diff === 0) {
+      if (diff === 0 && !isProcessingRef.current) {
+        isProcessingRef.current = true;
         clearInterval(timerIntervalRef.current);
         if (isHost && gameMode === 'online') {
           handlePlayerSoldOrUnsoldOnline();
@@ -359,17 +497,14 @@ export default function App() {
     // Add single bid to top of comments
     const player = roomPlayers.find(p => p.player_id === bid.player_id);
     const pName = player ? player.name : "Player";
-    const commentsList = [
-      {
-        id: bid.id,
-        team: bid.team_name,
-        text: `Bid ${bid.bid_amount} Cr for ${pName}`,
-        time: new Date(bid.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-        type: 'bid'
-      },
-      ...comments
-    ];
-    setComments(commentsList);
+    const newComment = {
+      id: bid.id,
+      team: bid.team_name,
+      text: `Bid ${bid.bid_amount} Cr for ${pName}`,
+      time: new Date(bid.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      type: 'bid'
+    };
+    setComments(prev => [newComment, ...prev]);
   };
 
   // Host Action: Create a Room
@@ -460,9 +595,11 @@ export default function App() {
       .single();
 
     if (roomError || !roomData) {
-      alert("Room not found. Please check the code.");
+      alert("Invalid Room Code.");
       return;
     }
+
+
 
     // 2. Check if Team is already selected
     const { data: teamData } = await supabase
@@ -583,7 +720,7 @@ export default function App() {
       return;
     }
 
-    const newTimerEnds = new Date(new Date().getTime() + 10000).toISOString(); // Extend timer by 10s on bid
+    const newTimerEnds = new Date(new Date().getTime() + 15000).toISOString(); // Extend timer by 15s on bid
 
     // Optimistically log locally, but push transaction to DB
     const { error: bidErr } = await supabase
@@ -631,8 +768,14 @@ export default function App() {
         .eq('room_id', roomId)
         .eq('player_id', curPlayer.player_id);
 
-      // 2. Subtract budget from bidder
-      const buyer = participants.find(p => p.team_name === bidder);
+      // 2. Fetch latest budget and subtract
+      const { data: buyer } = await supabase
+        .from('participants')
+        .select('budget')
+        .eq('room_id', roomId)
+        .eq('team_name', bidder)
+        .single();
+        
       if (buyer) {
         const newBudget = Number((buyer.budget - price).toFixed(2));
         await supabase
@@ -657,12 +800,20 @@ export default function App() {
       triggerSound('unsold');
     }
 
-    // Fetch next player
-    const nextPlayer = roomPlayers.find(p => p.status === 'available' && p.player_id !== curPlayer.player_id);
+    // Fetch next player directly from DB to avoid stale state
+    const { data: updatedPlayers } = await supabase
+      .from('room_players')
+      .select('*')
+      .eq('room_id', roomId)
+      .eq('status', 'available')
+      .neq('player_id', curPlayer.player_id);
+
+    const nextPlayer = updatedPlayers?.length > 0 ? updatedPlayers[0] : null;
 
     if (nextPlayer) {
       // Transition to next player after a short 3s pause
       setTimeout(async () => {
+        isProcessingRef.current = false;
         const nextTimerEnds = new Date(new Date().getTime() + 15000).toISOString();
         await supabase
           .from('rooms')
@@ -677,6 +828,7 @@ export default function App() {
     } else {
       // Finish Auction
       setTimeout(async () => {
+        isProcessingRef.current = false;
         await supabase
           .from('rooms')
           .update({
@@ -721,7 +873,7 @@ export default function App() {
     }
 
     // 2. Update room bid & bidder
-    const newTimerEnds = new Date(new Date().getTime() + 10000).toISOString();
+    const newTimerEnds = new Date(new Date().getTime() + 15000).toISOString();
     const { error: roomErr } = await supabase
       .from('rooms')
       .update({
@@ -859,7 +1011,7 @@ export default function App() {
     // Shuffle offline players
     const shuffled = [...initialPlayers]
       .sort(() => Math.random() - 0.5)
-      .map(p => ({ ...p, status: 'available', sold_price: null, sold_to: null }));
+      .map(p => ({ ...p, base_price: p.basePrice, status: 'available', sold_price: null, sold_to: null }));
     
     setRoomPlayers(shuffled);
     setOfflinePlayers(shuffled);
@@ -912,14 +1064,14 @@ export default function App() {
     if (!activePlayer) return;
 
     // Update RoomState
-    const newTimerEnds = new Date(new Date().getTime() + 10000).getTime();
+    const newTimerEnds = new Date(new Date().getTime() + 15000).getTime();
     setRoomState(prev => ({
       ...prev,
       current_bid: bidAmount,
       current_bidder: bidderTeam,
       bid_timer_ends: newTimerEnds
     }));
-    setTimeLeft(10);
+    setTimeLeft(15);
     triggerSound('bid');
 
     // Add bid log comment
@@ -1009,6 +1161,7 @@ export default function App() {
     if (nextPlayer) {
       // Pause 3 seconds, then present next player
       setTimeout(() => {
+        isProcessingRef.current = false;
         const timerEnds = new Date(new Date().getTime() + 15000).getTime();
         setRoomState(prev => ({
           ...prev,
@@ -1033,6 +1186,7 @@ export default function App() {
       }, 3000);
     } else {
       setTimeout(() => {
+        isProcessingRef.current = false;
         setRoomState(prev => ({ ...prev, status: 'finished' }));
         setView('summary');
       }, 3000);
@@ -1126,22 +1280,22 @@ export default function App() {
   return (
     <div className="app-container">
       {/* Header Bar */}
-      <header className="flex justify-between items-center mb-6 glass-panel p-4 py-3 flex-wrap gap-4">
-        <div className="flex items-center gap-3">
-          <div className="text-amber-500 font-bold text-3xl ipl-glow-text" style={{ fontFamily: 'var(--font-display)' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', backgroundColor: '#ffffff', padding: '16px 24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="font-display" style={{ color: '#d97706', fontWeight: 'bold', fontSize: '24px', letterSpacing: '0.02em', textShadow: '0 0 10px rgba(245, 158, 11, 0.2)' }}>
             IPL MEGA AUCTION
           </div>
-          <span className="bg-amber-500/10 text-amber-500 border border-amber-500/20 text-xs px-2 py-0.5 rounded font-display uppercase tracking-wider">
+          <span className="font-display" style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', fontSize: '11px', padding: '4px 8px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 'bold' }}>
             Live Simulator
           </span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {/* Live indicator */}
           {view !== 'landing' && (
-            <div className="flex items-center gap-2 text-xs bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700">
-              <div className={gameMode === 'online' ? "live-pulse" : "w-2 h-2 rounded-full bg-orange-400"} />
-              <span className="text-slate-300 font-medium">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', backgroundColor: '#f8fafc', padding: '6px 12px', borderRadius: '9999px', border: '1px solid #e2e8f0' }}>
+              <div className={gameMode === 'online' ? "live-pulse" : ""} style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: gameMode === 'online' ? '#ef4444' : '#fb923c' }} />
+              <span style={{ color: '#475569', fontWeight: '600', letterSpacing: '0.05em' }}>
                 {gameMode === 'online' ? `ONLINE (ROOM: ${roomCode})` : 'LOCAL SANDBOX'}
               </span>
             </div>
@@ -1150,8 +1304,10 @@ export default function App() {
           {/* Sound Control */}
           <button 
             onClick={() => setIsMuted(!isMuted)} 
-            className="p-2 text-slate-400 hover:text-white bg-slate-800/60 rounded-full border border-slate-700 transition"
+            style={{ padding: '8px', color: '#64748b', backgroundColor: '#f8fafc', borderRadius: '50%', border: '1px solid #e2e8f0', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
             title={isMuted ? "Unmute sounds" : "Mute sounds"}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#f1f5f9'; e.currentTarget.style.color = '#0f172a'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#f8fafc'; e.currentTarget.style.color = '#64748b'; }}
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
@@ -1159,9 +1315,11 @@ export default function App() {
           {view !== 'landing' && (
             <button 
               onClick={handleLeaveRoom}
-              className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 px-3 py-1.5 rounded-lg transition"
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 'bold', color: '#ef4444', backgroundColor: '#fef2f2', border: '1px solid #fecaca', padding: '6px 16px', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#fee2e2'; e.currentTarget.style.borderColor = '#fca5a5'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#fef2f2'; e.currentTarget.style.borderColor = '#fecaca'; }}
             >
-              <LogOut size={14} /> Leave
+              <LogOut size={16} /> Leave
             </button>
           )}
         </div>
@@ -1250,10 +1408,23 @@ export default function App() {
                     />
                   </div>
 
+                  {gameMode === 'online' && (
+                    <div>
+                      <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Expected Real Players (Max 10)</label>
+                      <input 
+                        type="number" 
+                        min="1" max="10"
+                        value={expectedPlayers} 
+                        onChange={(e) => setExpectedPlayers(parseInt(e.target.value) || 2)} 
+                        className="input-field"
+                      />
+                    </div>
+                  )}
+
                   {/* Franchise choice */}
                   <div>
                     <label className="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider">Select Your Franchise</label>
-                    <div className="grid grid-cols-5 gap-1.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                       {FRANCHISES.map(f => (
                         <button
                           key={f.id}
@@ -1261,7 +1432,8 @@ export default function App() {
                           className={`py-2 rounded-lg font-bold border transition ${selectedTeam === f.id ? `border-amber-500 bg-amber-500/20 text-amber-400 scale-105 shadow-lg` : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-white'}`}
                           title={f.name}
                         >
-                          <span className="block text-lg">{f.logo}</span>
+                          <TeamLogo teamId={f.id} className="w-12 h-12 mx-auto mb-2" />
+                          <div className="hidden items-center justify-center w-12 h-12 mx-auto mb-2 bg-slate-800 rounded-full text-xs font-bold">{f.id}</div>
                           <span className="text-[10px] block">{f.id}</span>
                         </button>
                       ))}
@@ -1352,7 +1524,8 @@ export default function App() {
                   return (
                     <div key={p.id} className="flex justify-between items-center p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
                       <div className="flex items-center gap-3">
-                        <span className="text-xl">{teamInfo?.logo}</span>
+                        <TeamLogo teamId={teamInfo?.id} className="w-8 h-8" />
+                        <div className="hidden items-center justify-center w-8 h-8 bg-slate-800 rounded-full text-[10px] font-bold">{teamInfo?.id}</div>
                         <div>
                           <span className="font-semibold text-white text-sm">{p.user_name}</span>
                           {p.user_id === userId && (
@@ -1386,9 +1559,14 @@ export default function App() {
               {isHost ? (
                 <button 
                   onClick={gameMode === 'online' ? handleStartAuctionOnline : handleStartAuctionOffline}
-                  className="btn-primary"
+                  disabled={gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers}
+                  className={`btn-primary ${gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  START AUCTION <ArrowRight size={18} />
+                  {gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? (
+                    `WAITING FOR ${expectedPlayers - participants.filter(p => !p.isBot).length} MORE...`
+                  ) : (
+                    <>START AUCTION <ArrowRight size={18} /></>
+                  )}
                 </button>
               ) : (
                 <div className="flex items-center gap-2 text-slate-400 text-xs italic">
@@ -1404,8 +1582,8 @@ export default function App() {
         {(view === 'auction' || (view === 'lobby' && roomState.status === 'active')) && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6 items-start">
             
-            {/* COLUMN 1 & 2: Active Bid Area (Width span 2) */}
-            <div className="lg:col-span-2 space-y-6">
+            {/* Top row: Active Bid Area (Spans full width) */}
+            <div className="lg:col-span-3">
               
               {/* CURRENT PLAYER CARD */}
               {(() => {
@@ -1433,6 +1611,7 @@ export default function App() {
                 };
 
                 const myBidderRecord = participants.find(p => p.team_name === selectedTeam);
+                const oppBidderRecord = participants.find(p => p.team_name === roomState.current_bidder);
                 const isUnderfunded = myBidderRecord && myBidderRecord.budget < nextBidPrice;
                 const isHighestBidder = roomState.current_bidder === selectedTeam;
 
@@ -1446,210 +1625,144 @@ export default function App() {
                     <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
                     <div>
-                      {/* Timer Bar */}
-                      <div className="w-full bg-slate-900/60 rounded-full h-1.5 mb-6 overflow-hidden border border-slate-800">
-                        <div 
-                          className={`progress-timer ${timerColor}`}
-                          style={{ width: `${timerPercentage}%` }}
-                        />
-                      </div>
-
-                      {/* Header details */}
-                      <div className="flex justify-between items-start flex-wrap gap-2 mb-4">
-                        <div className="flex items-center gap-2">
-                          <span className={`badge ${getRoleBadgeClass(currentPlayer.role)}`}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 0' }}>
+                        <h2 className="font-display" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '24px', color: '#0f172a' }}>
+                          {currentPlayer.name}
+                        </h2>
+                        
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                          {/* Role Box */}
+                          <span style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                             {currentPlayer.role}
                           </span>
-                          <span className={`badge ${currentPlayer.country === 'India' ? 'badge-indian' : 'badge-overseas'}`}>
-                            {currentPlayer.country === 'India' ? '🇮🇳 Indian' : `✈️ ${currentPlayer.country}`}
+                          
+                          {/* Nationality Box */}
+                          <span style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                            {currentPlayer.country === 'India' ? '🇮🇳 INDIAN' : '✈️ OVERSEAS'}
                           </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Base Price</span>
-                          <span className="font-display font-bold text-amber-500 text-lg">₹{currentPlayer.base_price} Cr</span>
-                        </div>
-                      </div>
-
-                      {/* Player details */}
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center my-4">
-                        {/* Rating circle */}
-                        <div className="flex flex-col items-center justify-center md:border-r border-slate-800 py-2">
-                          <div className={`rating-circle ${currentPlayer.rating >= 92 ? 'rating-high' : 'rating-mid'}`}>
-                            {currentPlayer.rating}
+                          
+                          {/* Base Price Box */}
+                          <div style={{ display: 'flex', alignItems: 'stretch', borderRadius: '8px', overflow: 'hidden', border: '1px solid #f59e0b', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                            <span style={{ padding: '6px 16px', backgroundColor: '#f59e0b', color: 'white', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center' }}>
+                              BASE
+                            </span>
+                            <span style={{ padding: '6px 16px', backgroundColor: '#fffbeb', color: '#b45309', fontSize: '14px', fontWeight: 'bold', letterSpacing: '0.05em', display: 'flex', alignItems: 'center' }}>
+                              ₹{currentPlayer.base_price} CR
+                            </span>
                           </div>
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1.5">Rating</span>
-                        </div>
-
-                        {/* Name and desc */}
-                        <div className="md:col-span-3">
-                          <h2 className="text-4xl font-bold font-display text-white tracking-wide leading-tight">
-                            {currentPlayer.name}
-                          </h2>
-                          <p className="text-xs text-slate-400 mt-2 leading-relaxed italic max-w-lg">
-                            "{currentPlayer.description || 'Top tier IPL player ready to impact the season.'}"
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Primary Stats Grid */}
-                      <div className="grid grid-cols-2 gap-3 my-6">
-                        <div className="glass-card flex flex-col justify-center p-3">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Stat Pillar 1</span>
-                          <span className="text-xl font-bold text-white font-display mt-0.5">{currentPlayer.stats?.primary || 'N/A'}</span>
-                        </div>
-                        <div className="glass-card flex flex-col justify-center p-3">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Stat Pillar 2</span>
-                          <span className="text-xl font-bold text-white font-display mt-0.5">{currentPlayer.stats?.secondary || 'N/A'}</span>
                         </div>
                       </div>
                     </div>
-
-                    {/* LIVE BIDDING INFORMATION */}
-                    <div className="mt-4 pt-6 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                    {/* LIVE BIDDING INFORMATION & PURSE */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', alignItems: 'stretch' }}>
                       
-                      {/* Current highest bidder */}
-                      <div className="glass-card bg-slate-900/60 p-4 border border-slate-800 flex justify-between items-center">
-                        <div>
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Current Highest Bid</span>
+                      {/* 1. Current highest bidder */}
+                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Current Highest Bid</span>
                           {roomState.current_bid > 0 ? (
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="text-2xl font-bold text-emerald-500 font-display">
-                                ₹{roomState.current_bid} Cr
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px' }}>
+                              <span className="font-display" style={{ fontSize: '28px', fontWeight: 'bold', color: '#059669', lineHeight: '1' }}>
+                                ₹{roomState.current_bid} <span style={{fontSize:'16px', fontWeight:'700', color: '#047857'}}>Cr</span>
                               </span>
                               <span 
-                                className="text-[10px] font-bold px-2 py-0.5 rounded font-display"
-                                style={{ backgroundColor: currentBidderInfo?.color, color: currentBidderInfo?.text }}
+                                className="font-display"
+                                style={{ fontSize: '12px', fontWeight: 'bold', padding: '4px 10px', borderRadius: '6px', backgroundColor: currentBidderInfo?.color, color: currentBidderInfo?.text, letterSpacing: '0.05em' }}
                               >
                                 {roomState.current_bidder}
                               </span>
                             </div>
                           ) : (
-                            <span className="text-lg font-bold text-slate-500 font-display mt-1 block">
+                            <span className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#94a3b8', marginTop: '4px', display: 'block' }}>
                               No Bids Yet
                             </span>
                           )}
                         </div>
-
-                        {/* Animated hammer icon on bid */}
-                        <div className={`text-4xl ${gavelStrike ? 'hammer-animation' : ''}`} style={{ transformOrigin: 'bottom right' }}>
+                        <div className={`${gavelStrike ? 'hammer-animation' : ''}`} style={{ fontSize: '40px', transformOrigin: 'bottom right' }}>
                           🔨
                         </div>
                       </div>
 
-                      {/* BIDDING BUTTONS */}
-                      <div className="space-y-2">
+                      {/* 2. BIDDING BUTTON & TIMER */}
+                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '12px', justifyContent: 'center' }}>
                         {roomState.status === 'active' ? (
-                          <div className="grid grid-cols-1 gap-2">
+                          <>
                             <button
                               onClick={gameMode === 'online' ? handlePlaceBidOnline : handlePlaceBidOffline}
                               disabled={isUnderfunded || isHighestBidder}
-                              className={`w-full py-4.5 rounded-xl font-bold font-display uppercase tracking-wider text-lg transition flex flex-col items-center justify-center border-none cursor-pointer ${
+                              className={`w-full font-display uppercase tracking-wider transition border-none cursor-pointer ${
                                 isHighestBidder 
                                   ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 cursor-not-allowed' 
                                   : isUnderfunded 
                                     ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
                                     : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
                               }`}
+                              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, padding: '16px', borderRadius: '12px' }}
                             >
                               {isHighestBidder ? (
                                 <>
-                                  <span className="text-sm font-semibold">YOU HOLD HIGH BID</span>
-                                  <span className="text-xs font-normal lowercase text-emerald-400">waiting for challengers...</span>
+                                  <span style={{ fontSize: '14px', fontWeight: 'bold' }}>YOU HOLD HIGH BID</span>
+                                  <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#34d399', textTransform: 'lowercase' }}>waiting for challengers...</span>
                                 </>
                               ) : isUnderfunded ? (
                                 <>
-                                  <span className="text-sm font-semibold">INSUFFICIENT BUDGET</span>
-                                  <span className="text-xs font-normal lowercase text-slate-500">requires ₹{nextBidPrice} Cr</span>
+                                  <span style={{ fontSize: '14px', fontWeight: 'bold' }}>INSUFFICIENT BUDGET</span>
+                                  <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#64748b', textTransform: 'lowercase' }}>requires ₹{nextBidPrice} Cr</span>
                                 </>
                               ) : (
                                 <>
-                                  <span className="text-xl font-bold">PLACE BID (₹{nextBidPrice} Cr)</span>
-                                  <span className="text-[10px] font-normal tracking-normal lowercase text-slate-800">raise by +₹{(nextBidPrice - Math.max(roomState.current_bid, currentPlayer.base_price)).toFixed(2)} Cr</span>
+                                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>PLACE BID</span>
+                                  <span style={{ fontSize: '11px', fontWeight: 'normal', textTransform: 'lowercase', color: '#1e293b' }}>₹{nextBidPrice} Cr (+₹{(nextBidPrice - Math.max(roomState.current_bid, currentPlayer.base_price)).toFixed(2)} Cr)</span>
                                 </>
                               )}
                             </button>
+                            
+                            {/* Timer Bar Below Button */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px', padding: '0 4px' }}>
+                              <span className={`text-xs font-bold font-display w-8 text-right ${timerColor.replace('bg-', 'text-')}`}>
+                                {timeLeft}s
+                              </span>
+                              <div style={{ flex: 1, height: '8px', backgroundColor: '#0f172a', borderRadius: '9999px', overflow: 'hidden', border: '1px solid #1e293b' }}>
+                                <div 
+                                  className={`h-full transition-all duration-200 ease-linear ${timerColor}`}
+                                  style={{ width: `${timerPercentage}%` }}
+                                />
+                              </div>
+                            </div>
+                          </>
+                        ) : roomState.status === 'sold' ? (
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#ecfdf5', border: '1px solid #10b981', borderRadius: '12px', padding: '16px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#047857', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER SOLD</span>
+                            <span className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#064e3b' }}>₹{roomState.current_bid} Cr</span>
+                            <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#059669', marginTop: '4px' }}>to {roomState.current_bidder}</span>
                           </div>
                         ) : (
-                          <div className="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-center text-slate-500 font-display text-lg uppercase">
-                            ⚠️ AUCTION IS PAUSED
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fef2f2', border: '1px solid #ef4444', borderRadius: '12px', padding: '16px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#b91c1c', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER UNSOLD</span>
+                            <span style={{ fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>No bids received</span>
                           </div>
                         )}
                       </div>
+
+                      {/* 3. LIVE PURSE (RIGHT SIDE) */}
+                      <div style={{ flex: '1 1 30%', minWidth: '250px' }}>
+                        <LivePurses 
+                          selectedTeam={selectedTeam} 
+                          participants={participants} 
+                          roomState={roomState} 
+                          allPlayers={gameMode === 'online' ? roomPlayers : offlinePlayers} 
+                        />
+                      </div>
+
                     </div>
                   </div>
                 );
               })()}
 
-              {/* UPCOMING PLAYERS ACCORDION/LIST */}
-              <div className="glass-panel p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-bold font-display text-white">UPCOMING PLAYER LIST</h3>
-                  <span className="text-xs text-slate-400">
-                    {roomPlayers.filter(p => p.status === 'available').length} remaining
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-56 overflow-y-auto custom-scroll pr-2">
-                  {roomPlayers
-                    .filter(p => p.status === 'available' && p.player_id !== roomState.current_player_id && p.id !== roomState.current_player_id)
-                    .map(p => (
-                      <div key={p.id || p.player_id} className="p-3 bg-slate-900/40 border border-slate-800 rounded-xl flex justify-between items-center text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-white">{p.name}</span>
-                          <span className="text-[10px] text-slate-400">({p.role})</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-bold font-display">Rating {p.rating}</span>
-                          <span className="text-amber-500 font-bold font-display">Base: ₹{p.base_price} Cr</span>
-                        </div>
-                      </div>
-                    ))}
-                </div>
               </div>
 
-              {/* HOST CONTROLS (COLLAPSIBLE, HOST ONLY) */}
-              {isHost && (
-                <div className="glass-panel p-6 border border-rose-500/20 bg-rose-500/5">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-bold font-display text-rose-400 flex items-center gap-2">
-                      <ShieldAlert size={20} /> HOST CONTROLS (ADMIN)
-                    </h3>
-                    <span className="text-[10px] text-rose-500 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded font-display uppercase tracking-wider font-bold">
-                      Host Authorized
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-3">
-                    {roomState.status === 'active' ? (
-                      <button 
-                        onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
-                        className="btn-secondary flex-1 justify-center py-2.5 text-xs text-amber-500 border-amber-500/20 hover:bg-amber-500/5"
-                      >
-                        <Square size={14} /> Pause Timer
-                      </button>
-                    ) : (
-                      <button 
-                        onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
-                        className="btn-secondary flex-1 justify-center py-2.5 text-xs text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/5"
-                      >
-                        <Play size={14} /> Resume Timer
-                      </button>
-                    )}
-
-                    <button 
-                      onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')}
-                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-rose-400 border-rose-500/20 hover:bg-rose-500/5"
-                    >
-                      <SkipForward size={14} /> Force Sell/Unsold
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* COLUMN 3: Live Feed & Squad Scoreboard (Width span 1) */}
-            <div className="space-y-6">
-              
+            {/* Bottom Row - Left Column: Franchise Squad Board (Spans 2/3 width) */}
+            <div className="lg:col-span-2 space-y-6">
               {/* SQUAD BOARD / LEADERBOARD */}
               <div className="glass-panel p-6">
                 <h3 className="text-lg font-bold font-display text-white mb-4">FRANCHISE BOARD</h3>
@@ -1660,60 +1773,69 @@ export default function App() {
                     const isUserTeam = p.team_name === selectedTeam;
                     const squadCount = getTeamSquadCount(p.team_name);
                     const overseasCount = getOverseasCount(p.team_name);
-                    const avgRating = calculateSquadRating(p.team_name);
+                    
+                    const teamSquad = roomPlayers.filter(player => player.sold_to === p.team_name);
+                    const batCount = teamSquad.filter(player => player.role === 'Batsman').length;
+                    const bowlCount = teamSquad.filter(player => player.role === 'Bowler').length;
+                    const arCount = teamSquad.filter(player => player.role === 'All-Rounder').length;
+                    const wkCount = teamSquad.filter(player => player.role === 'Wicketkeeper').length;
 
                     return (
                       <div 
                         key={p.id} 
-                        className={`p-3 rounded-xl border flex flex-col justify-between transition ${
-                          isUserTeam 
-                            ? 'bg-amber-500/5 border-amber-500/30' 
-                            : 'bg-slate-900/40 border-slate-800'
-                        }`}
+                        style={{
+                          padding: '14px 16px',
+                          borderRadius: '12px',
+                          border: isUserTeam ? '2px solid #f59e0b' : '1px solid #e2e8f0',
+                          backgroundColor: '#ffffff',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '12px',
+                          boxShadow: isUserTeam ? '0 4px 6px -1px rgba(245, 158, 11, 0.1)' : '0 1px 2px rgba(0,0,0,0.05)',
+                          transition: 'all 0.2s ease-in-out'
+                        }}
                       >
-                        <div className="flex justify-between items-center mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{teamInfo?.logo}</span>
-                            <div>
-                              <span className="font-semibold text-xs text-white block">
+                        {/* Top row: Logo, Name, Badge */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                            <div style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', borderRadius: '10px', padding: '6px', border: '1px solid #f1f5f9' }}>
+                               <TeamLogo teamId={teamInfo?.id} style={{ width: '100%', height: '100%' }} />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                              <span style={{ fontWeight: '800', fontSize: '15px', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em' }}>
                                 {p.user_name}
+                                {isUserTeam && <span style={{ fontSize: '9px', backgroundColor: '#f59e0b', color: '#fff', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', letterSpacing: '0.05em' }}>YOU</span>}
                               </span>
-                              <span className="text-[10px] text-slate-400 leading-none">
-                                {getRoleBreakdown(p.team_name)}
-                              </span>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
+                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#e0f2fe', color: '#0369a1', borderRadius: '4px', letterSpacing: '0.05em' }}>{batCount} BAT</span>
+                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#f3e8ff', color: '#7e22ce', borderRadius: '4px', letterSpacing: '0.05em' }}>{wkCount} WK</span>
+                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#dcfce7', color: '#15803d', borderRadius: '4px', letterSpacing: '0.05em' }}>{arCount} AR</span>
+                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '4px', letterSpacing: '0.05em' }}>{bowlCount} BOWL</span>
+                              </div>
                             </div>
                           </div>
                           
-                          <div className="flex items-center gap-1.5">
-                            <span 
-                              className="text-[9px] font-bold px-2 py-0.5 rounded font-display"
-                              style={{ backgroundColor: teamInfo?.color, color: teamInfo?.text }}
-                            >
-                              {p.team_name}
-                            </span>
-                          </div>
+                          <span 
+                            style={{ fontSize: '11px', fontWeight: 'bold', padding: '4px 12px', borderRadius: '20px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}
+                          >
+                            {p.team_name}
+                          </span>
                         </div>
 
-                        {/* Stats summary */}
-                        <div className="grid grid-cols-4 gap-1 text-center pt-2 border-t border-slate-800/40">
-                          <div className="flex flex-col">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase">Budget</span>
-                            <span className="font-display font-bold text-xs text-white">₹{p.budget} Cr</span>
+                        {/* Bottom row: Stats */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #f1f5f9' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Budget</span>
+                            <span style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a' }}>₹{p.budget} <span style={{fontSize:'12px', fontWeight:'700', color: '#475569'}}>Cr</span></span>
                           </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase">Squad</span>
-                            <span className="font-display font-bold text-xs text-white">{squadCount}/25</span>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Squad</span>
+                            <span style={{ fontWeight: '800', fontSize: '15px', color: '#334155' }}>{squadCount}/25</span>
                           </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase">Overseas</span>
-                            <span className={`font-display font-bold text-xs ${overseasCount > 8 ? 'text-rose-400' : 'text-white'}`}>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Overseas</span>
+                            <span style={{ fontWeight: '800', fontSize: '15px', color: overseasCount > 8 ? '#ef4444' : '#334155' }}>
                               {overseasCount}/8
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[8px] text-slate-400 font-bold uppercase">Squad Rating</span>
-                            <span className="font-display font-bold text-xs text-amber-500">
-                              {avgRating > 0 ? `${avgRating}` : '-'}
                             </span>
                           </div>
                         </div>
@@ -1722,42 +1844,122 @@ export default function App() {
                   })}
                 </div>
               </div>
+            </div>
 
+            {/* Bottom Row - Right Column: Upcoming Queue, Controls, & Logs (Spans 1/3 width) */}
+            <div style={{ flex: '1 1 30%', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* UPCOMING PLAYERS ACCORDION/LIST */}
+              <div style={{ padding: '24px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em' }}>UPCOMING PLAYER LIST</h3>
+                  <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>
+                    {roomPlayers.filter(p => p.status === 'available').length} remaining
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
+                  {roomPlayers
+                    .filter(p => p.status === 'available' && p.player_id !== roomState.current_player_id && p.id !== roomState.current_player_id)
+                    .map(p => (
+                      <div key={p.id || p.player_id} style={{ padding: '12px', backgroundColor: '#f8fafc', border: '1px solid #f1f5f9', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                          <span style={{ fontWeight: '700', color: '#0f172a', fontSize: '14px' }}>{p.name}</span>
+                          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '500' }}>{p.role}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span className="font-display" style={{ fontSize: '13px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#fffbeb', padding: '4px 10px', borderRadius: '6px' }}>
+                            Base: ₹{p.base_price} Cr
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              
+              {/* GAME CONTROLS (FOR ALL HUMANS, SKIP IS HOST ONLY) */}
+              <div className="glass-panel p-6 border border-amber-500/20 bg-amber-500/5">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold font-display text-amber-500 flex items-center gap-2">
+                    <Settings size={20} /> GAME CONTROLS
+                  </h3>
+                  {isHost ? (
+                    <span className="text-[10px] text-rose-500 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded font-display uppercase tracking-wider font-bold">
+                      Host Admin
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded font-display uppercase tracking-wider font-bold">
+                      Participant Mode
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  {roomState.status === 'active' ? (
+                    <button 
+                      onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
+                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-amber-500 border-amber-500/20 hover:bg-amber-500/5"
+                    >
+                      <Square size={14} /> Pause Timer
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
+                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/5"
+                    >
+                      <Play size={14} /> Resume Timer
+                    </button>
+                  )}
+
+                  {isHost && (
+                    <button 
+                      onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')}
+                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-rose-400 border-rose-500/20 hover:bg-rose-500/5"
+                    >
+                      <SkipForward size={14} /> Force Sell/Unsold
+                    </button>
+                  )}
+                </div>
+              </div>
+              
               {/* LIVE LOGS / COMMMENTARY / CHAT */}
-              <div className="glass-panel p-6 flex flex-col justify-between min-h-[350px]">
+              <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '350px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
                 <div>
-                  <h3 className="text-lg font-bold font-display text-white mb-4">LIVE COMMENTARY & FEED</h3>
+                  <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em', marginBottom: '16px' }}>LIVE COMMENTARY & FEED</h3>
                   
-                  <div className="space-y-3 max-h-64 overflow-y-auto custom-scroll pr-1">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
                     {comments.length === 0 ? (
-                      <div className="text-center text-slate-500 py-12 text-sm italic font-display">
+                      <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px 0', fontSize: '14px', fontStyle: 'italic' }}>
                         Commentary box is quiet... Waiting for bidding war.
                       </div>
                     ) : (
                       comments.map(c => {
                         const teamInfo = FRANCHISES.find(f => f.id === c.team);
                         
-                        let textClass = 'text-slate-300';
-                        if (c.type === 'system') textClass = 'text-amber-400 font-bold';
+                        let textColor = '#334155';
+                        if (c.type === 'system') {
+                          textColor = '#d97706';
+                        }
 
                         return (
-                          <div key={c.id} className="text-xs bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/40">
-                            <div className="flex justify-between items-center mb-1">
-                              {c.team !== 'SYSTEM' && c.team !== 'SPECTATOR' ? (
-                                <span 
-                                  className="text-[8px] font-bold px-1.5 py-0.5 rounded font-display"
-                                  style={{ backgroundColor: teamInfo?.color, color: teamInfo?.text }}
-                                >
-                                  {c.team}
-                                </span>
-                              ) : (
-                                <span className="text-[8px] text-slate-500 font-bold font-display">
-                                  {c.team}
-                                </span>
-                              )}
-                              <span className="text-[9px] text-slate-500">{c.time}</span>
+                          <div key={c.id} style={{ fontSize: '13px', backgroundColor: '#f8fafc', padding: '12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {c.team !== 'SYSTEM' && c.team !== 'SPECTATOR' ? (
+                                  <span 
+                                    className="font-display"
+                                    style={{ fontSize: '10px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}
+                                  >
+                                    {c.team}
+                                  </span>
+                                ) : (
+                                  <span className="font-display" style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                                    {c.team}
+                                  </span>
+                                )}
+                                <span style={{ fontSize: '11px', color: '#94a3b8' }}>{c.time}</span>
+                              </div>
                             </div>
-                            <p className={textClass}>{c.text}</p>
+                            <p style={{ color: textColor, fontWeight: c.type === 'system' ? 'bold' : '500', lineHeight: '1.4' }}>{c.text}</p>
                           </div>
                         );
                       })
@@ -1766,45 +1968,42 @@ export default function App() {
                 </div>
 
                 {/* Input text */}
-                <div className="flex gap-2 mt-4 pt-4 border-t border-slate-800">
+                <div style={{ display: 'flex', gap: '8px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #f1f5f9' }}>
                   <input 
                     type="text" 
                     placeholder="Send message to room..." 
                     value={commentInput} 
                     onChange={(e) => setCommentInput(e.target.value)} 
                     onKeyDown={(e) => e.key === 'Enter' && handleSendComment()}
-                    className="input-field py-2 text-xs"
+                    style={{ flex: 1, padding: '10px 16px', fontSize: '13px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#0f172a', outline: 'none' }}
                   />
                   <button 
                     onClick={handleSendComment}
-                    className="btn-primary py-2 px-3.5 text-xs shadow-none shrink-0"
+                    style={{ padding: '10px 16px', borderRadius: '8px', border: 'none', backgroundColor: '#3b82f6', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                   >
-                    <Send size={14} />
+                    <Send size={16} />
                   </button>
                 </div>
               </div>
             </div>
+            
 
             {/* FULL SQUAD VIEW DRAWER (WIDESPAN FOOTER) */}
-            <div className="lg:col-span-3 glass-panel p-6">
-              <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
-                <h3 className="text-lg font-bold font-display text-white">ROSTER LISTING & SQUADS</h3>
+            <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', marginTop: '24px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+                <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em' }}>ROSTER LISTING & SQUADS</h3>
                 
                 {/* Roster filter */}
-                <div className="flex gap-2 overflow-x-auto max-w-full pb-1">
+                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
                   <button 
                     onClick={() => setShowRosterTeam('ALL')}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                      showRosterTeam === 'ALL' ? 'bg-amber-500 text-slate-950' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
-                    }`}
+                    style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === 'ALL' ? '#f59e0b' : '#e2e8f0', backgroundColor: showRosterTeam === 'ALL' ? '#f59e0b' : '#f8fafc', color: showRosterTeam === 'ALL' ? '#ffffff' : '#64748b', transition: 'all 0.2s' }}
                   >
                     All Sold
                   </button>
                   <button 
                     onClick={() => setShowRosterTeam(selectedTeam)}
-                    className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                      showRosterTeam === selectedTeam ? 'bg-amber-500 text-slate-950' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
-                    }`}
+                    style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === selectedTeam ? '#f59e0b' : '#e2e8f0', backgroundColor: showRosterTeam === selectedTeam ? '#f59e0b' : '#f8fafc', color: showRosterTeam === selectedTeam ? '#ffffff' : '#64748b', transition: 'all 0.2s' }}
                   >
                     My Squad
                   </button>
@@ -1812,9 +2011,7 @@ export default function App() {
                     <button
                       key={f.id}
                       onClick={() => setShowRosterTeam(f.id)}
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider transition ${
-                        showRosterTeam === f.id ? 'bg-slate-200 text-slate-950' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
-                      }`}
+                      style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === f.id ? '#cbd5e1' : '#e2e8f0', backgroundColor: showRosterTeam === f.id ? '#e2e8f0' : '#f8fafc', color: showRosterTeam === f.id ? '#0f172a' : '#64748b', transition: 'all 0.2s' }}
                     >
                       {f.id}
                     </button>
@@ -1831,49 +2028,47 @@ export default function App() {
 
                 if (filteredRosters.length === 0) {
                   return (
-                    <div className="text-center text-slate-500 py-12 text-sm italic font-display border border-dashed border-slate-800 rounded-xl">
+                    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px 0', fontSize: '14px', fontStyle: 'italic', border: '1px dashed #cbd5e1', borderRadius: '12px' }}>
                       No players purchased yet for this filter.
                     </div>
                   );
                 }
 
                 return (
-                  <div className="responsive-table-container">
-                    <table className="premium-table">
-                      <thead>
+                  <div style={{ overflowX: 'auto', width: '100%', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                      <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                         <tr>
-                          <th>Player Name</th>
-                          <th>Role</th>
-                          <th>Rating</th>
-                          <th>Country</th>
-                          <th>Sold To</th>
-                          <th>Price Paid</th>
+                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Player Name</th>
+                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Role</th>
+                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Country</th>
+                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Sold To</th>
+                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Price Paid</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {filteredRosters.map(p => {
+                        {filteredRosters.map((p, idx) => {
                           const buyerInfo = FRANCHISES.find(f => f.id === p.sold_to);
                           return (
-                            <tr key={p.id || p.player_id}>
-                              <td className="font-semibold text-white">{p.name}</td>
-                              <td>
+                            <tr key={p.id || p.player_id} style={{ borderBottom: idx === filteredRosters.length - 1 ? 'none' : '1px solid #f1f5f9' }}>
+                              <td style={{ padding: '12px 16px', fontWeight: '600', color: '#0f172a' }}>{p.name}</td>
+                              <td style={{ padding: '12px 16px' }}>
                                 <span className={`badge ${
                                   p.role === 'Batsman' ? 'badge-batsman' : p.role === 'Bowler' ? 'badge-bowler' : p.role === 'All-Rounder' ? 'badge-ar' : 'badge-wk'
                                 }`}>
                                   {p.role}
                                 </span>
                               </td>
-                              <td className="font-bold text-amber-500 font-display">{p.rating}</td>
-                              <td className="text-slate-400 text-xs">{p.country}</td>
-                              <td>
+                              <td style={{ padding: '12px 16px', color: '#64748b' }}>{p.country}</td>
+                              <td style={{ padding: '12px 16px' }}>
                                 <span 
-                                  className="text-[9px] font-bold px-2 py-0.5 rounded font-display"
-                                  style={{ backgroundColor: buyerInfo?.color, color: buyerInfo?.text }}
+                                  className="font-display"
+                                  style={{ fontSize: '10px', fontWeight: 'bold', padding: '4px 10px', borderRadius: '6px', backgroundColor: buyerInfo?.color, color: buyerInfo?.text, letterSpacing: '0.05em' }}
                                 >
                                   {p.sold_to}
                                 </span>
                               </td>
-                              <td className="font-bold font-display text-white">₹{p.sold_price} Cr</td>
+                              <td className="font-display" style={{ padding: '12px 16px', fontWeight: 'bold', color: '#0f172a', fontSize: '14px' }}>₹{p.sold_price} <span style={{fontSize:'11px', color:'#64748b'}}>Cr</span></td>
                             </tr>
                           );
                         })}
@@ -1930,7 +2125,8 @@ export default function App() {
                           <td className="font-display font-bold text-lg text-white">#{idx + 1}</td>
                           <td>
                             <div className="flex items-center gap-2">
-                              <span>{teamInfo?.logo}</span>
+                              <TeamLogo teamId={teamInfo?.id} className="w-8 h-8" />
+                              <div className="hidden items-center justify-center w-8 h-8 bg-slate-800 rounded-full text-[10px] font-bold">{teamInfo?.id}</div>
                               <div>
                                 <span className="font-semibold text-white block">{p.user_name}</span>
                                 <span 
@@ -2002,12 +2198,12 @@ export default function App() {
       </main>
 
       {/* Footer copyright */}
-      <footer className="text-center text-slate-600 text-xs py-6 border-t border-slate-900 mt-12 flex justify-between items-center flex-wrap gap-4">
-        <span>© {new Date().getFullYear()} IPL Mega Auction Simulator. All rights reserved.</span>
-        <div className="flex gap-4">
-          <a href="#" className="hover:text-slate-400">Rules</a>
-          <a href="#" className="hover:text-slate-400">Privacy Policy</a>
-          <a href="#" className="hover:text-slate-400">Terms of Use</a>
+      <footer style={{ textAlign: 'center', color: '#64748b', fontSize: '13px', padding: '32px 24px', borderTop: '1px solid #e2e8f0', marginTop: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', backgroundColor: '#f8fafc' }}>
+        <span style={{ fontWeight: '500' }}>© {new Date().getFullYear()} IPL Mega Auction Simulator. All rights reserved.</span>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <a href="#" style={{ color: '#64748b', textDecoration: 'none', fontWeight: '600', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#0f172a'} onMouseOut={(e) => e.currentTarget.style.color = '#64748b'}>Rules</a>
+          <a href="#" style={{ color: '#64748b', textDecoration: 'none', fontWeight: '600', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#0f172a'} onMouseOut={(e) => e.currentTarget.style.color = '#64748b'}>Privacy Policy</a>
+          <a href="#" style={{ color: '#64748b', textDecoration: 'none', fontWeight: '600', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#0f172a'} onMouseOut={(e) => e.currentTarget.style.color = '#64748b'}>Terms of Use</a>
         </div>
       </footer>
     </div>
