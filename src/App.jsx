@@ -1917,45 +1917,51 @@ export default function App() {
               </div>
               
               {/* GAME CONTROLS (FOR ALL HUMANS, SKIP IS HOST ONLY) */}
-              <div className="glass-panel p-6 border border-amber-500/20 bg-amber-500/5">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-bold font-display text-amber-500 flex items-center gap-2">
-                    <Settings size={20} /> GAME CONTROLS
+              <div style={{ backgroundColor: '#fffbeb', padding: '24px', borderRadius: '16px', border: '1px solid #fde68a', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h3 className="font-display" style={{ fontSize: '16px', fontWeight: 'bold', color: '#b45309', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+                    <Settings size={18} /> GAME CONTROLS
                   </h3>
                   {isHost ? (
-                    <span className="text-[10px] text-rose-500 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded font-display uppercase tracking-wider font-bold">
+                    <span className="font-display" style={{ fontSize: '10px', color: '#e11d48', backgroundColor: '#ffe4e6', border: '1px solid #fecdd3', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Host Admin
                     </span>
                   ) : (
-                    <span className="text-[10px] text-slate-400 bg-slate-800 border border-slate-700 px-2 py-0.5 rounded font-display uppercase tracking-wider font-bold">
+                    <span className="font-display" style={{ fontSize: '10px', color: '#64748b', backgroundColor: '#f1f5f9', border: '1px solid #e2e8f0', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Participant Mode
                     </span>
                   )}
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                   {roomState.status === 'active' ? (
                     <button 
                       onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
-                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-amber-500 border-amber-500/20 hover:bg-amber-500/5"
+                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#ffffff', border: '1px solid #fcd34d', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(217, 119, 6, 0.05)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef3c7'; e.currentTarget.style.borderColor = '#f59e0b'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fcd34d'; }}
                     >
-                      <Square size={14} /> Pause Timer
+                      <Square size={14} /> PAUSE TIMER
                     </button>
                   ) : (
                     <button 
                       onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
-                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/5"
+                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#059669', backgroundColor: '#ffffff', border: '1px solid #6ee7b7', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(5, 150, 105, 0.05)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ecfdf5'; e.currentTarget.style.borderColor = '#34d399'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#6ee7b7'; }}
                     >
-                      <Play size={14} /> Resume Timer
+                      <Play size={14} /> RESUME TIMER
                     </button>
                   )}
 
                   {isHost && (
                     <button 
                       onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')}
-                      className="btn-secondary flex-1 justify-center py-2.5 text-xs text-rose-400 border-rose-500/20 hover:bg-rose-500/5"
+                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#e11d48', backgroundColor: '#ffffff', border: '1px solid #fda4af', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(225, 29, 72, 0.05)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ffe4e6'; e.currentTarget.style.borderColor = '#fb7185'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fda4af'; }}
                     >
-                      <SkipForward size={14} /> Force Sell/Unsold
+                      <SkipForward size={14} /> FORCE SELL/UNSOLD
                     </button>
                   )}
                 </div>
