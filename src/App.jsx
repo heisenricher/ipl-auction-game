@@ -1507,50 +1507,51 @@ export default function App() {
 
         {/* 2. LOBBY SCREEN */}
         {view === 'lobby' && (
-          <div className="max-w-2xl mx-auto w-full glass-panel p-8 my-8 relative">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl" />
+          <div style={{ maxWidth: '42rem', margin: '32px auto', width: '100%', backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden' }}>
+            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
             
-            <div className="text-center mb-8">
-              <Users size={40} className="text-amber-500 mx-auto mb-2" />
-              <h2 className="text-3xl font-bold font-display text-white">AUCTION LOBBY</h2>
-              <p className="text-slate-400 text-sm">
-                Wait for managers to join and claims their franchises.
+            <div style={{ textAlign: 'center', marginBottom: '32px', position: 'relative', zIndex: 10 }}>
+              <Users size={48} style={{ color: '#d97706', margin: '0 auto 16px' }} />
+              <h2 className="font-display" style={{ fontSize: '36px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em', marginBottom: '8px' }}>AUCTION LOBBY</h2>
+              <p style={{ color: '#64748b', fontSize: '15px' }}>
+                Wait for managers to join and claim their franchises.
               </p>
               
-              <div className="mt-4 bg-slate-900 border border-slate-800 rounded-xl p-3 inline-block">
-                <span className="text-[10px] text-slate-400 block font-bold uppercase tracking-wider">ROOM CODE</span>
-                <span className="text-2xl font-bold text-amber-500 font-display tracking-widest">{roomCode}</span>
+              <div style={{ marginTop: '24px', backgroundColor: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '12px', padding: '16px', display: 'inline-block' }}>
+                <span style={{ fontSize: '11px', color: '#64748b', display: 'block', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>ROOM CODE</span>
+                <span className="font-display" style={{ fontSize: '32px', fontWeight: 'bold', color: '#d97706', letterSpacing: '0.2em' }}>{roomCode}</span>
               </div>
             </div>
 
-            <div className="mb-8">
-              <h3 className="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider">Joined Managers ({participants.length}/10)</h3>
+            <div style={{ marginBottom: '32px', position: 'relative', zIndex: 10 }}>
+              <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Joined Managers ({participants.length}/10)
+              </h3>
               
-              <div className="space-y-2.5">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {participants.map(p => {
                   const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
                   return (
-                    <div key={p.id} className="flex justify-between items-center p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
-                      <div className="flex items-center gap-3">
-                        <TeamLogo teamId={teamInfo?.id} className="w-8 h-8" />
-                        <div className="hidden items-center justify-center w-8 h-8 bg-slate-800 rounded-full text-[10px] font-bold">{teamInfo?.id}</div>
+                    <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', transition: 'all 0.2s' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <TeamLogo teamId={teamInfo?.id} className="w-10 h-10" />
                         <div>
-                          <span className="font-semibold text-white text-sm">{p.user_name}</span>
+                          <span style={{ fontWeight: 'bold', color: '#0f172a', fontSize: '15px' }}>{p.user_name}</span>
                           {p.user_id === userId && (
-                            <span className="ml-2 text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700">YOU</span>
+                            <span style={{ marginLeft: '8px', fontSize: '10px', backgroundColor: '#f1f5f9', color: '#475569', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #cbd5e1' }}>YOU</span>
                           )}
                           {p.isBot && (
-                            <span className="ml-2 text-[9px] bg-amber-500/10 text-amber-500 px-1.5 py-0.5 rounded border border-amber-500/20">BOT</span>
+                            <span style={{ marginLeft: '8px', fontSize: '10px', backgroundColor: '#fffbeb', color: '#b45309', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #fde68a' }}>BOT</span>
                           )}
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold font-display px-2.5 py-1 rounded" style={{ backgroundColor: teamInfo?.color, color: teamInfo?.text }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span className="font-display" style={{ fontSize: '13px', fontWeight: 'bold', padding: '4px 12px', borderRadius: '8px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}>
                           {p.team_name}
                         </span>
                         {p.user_id === roomState.host_id && (
-                          <span className="text-[9px] bg-amber-500 text-slate-950 font-bold px-1.5 py-0.5 rounded">HOST</span>
+                          <span style={{ fontSize: '10px', backgroundColor: '#d97706', color: '#ffffff', fontWeight: 'bold', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.05em' }}>HOST</span>
                         )}
                       </div>
                     </div>
@@ -1559,8 +1560,8 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex justify-between gap-4 pt-4 border-t border-slate-800">
-              <button onClick={handleLeaveRoom} className="btn-secondary">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', position: 'relative', zIndex: 10 }}>
+              <button onClick={handleLeaveRoom} className="btn-secondary" style={{ padding: '12px 24px' }}>
                 Cancel
               </button>
 
@@ -1569,6 +1570,7 @@ export default function App() {
                   onClick={gameMode === 'online' ? handleStartAuctionOnline : handleStartAuctionOffline}
                   disabled={gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers}
                   className={`btn-primary ${gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  style={{ padding: '12px 24px' }}
                 >
                   {gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? (
                     `WAITING FOR ${expectedPlayers - participants.filter(p => !p.isBot).length} MORE...`
@@ -1577,8 +1579,8 @@ export default function App() {
                   )}
                 </button>
               ) : (
-                <div className="flex items-center gap-2 text-slate-400 text-xs italic">
-                  <RefreshCw size={14} className="animate-spin text-amber-500" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#64748b', fontSize: '13px', fontStyle: 'italic', fontWeight: '500' }}>
+                  <RefreshCw size={16} className="animate-spin" style={{ color: '#d97706' }} />
                   Waiting for host to start...
                 </div>
               )}
