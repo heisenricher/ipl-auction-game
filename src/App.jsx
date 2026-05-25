@@ -275,6 +275,7 @@ export default function App() {
   const [roomPlayers, setRoomPlayers] = useState([]);
   const [expectedPlayers, setExpectedPlayers] = useState(2);
   const [numSets, setNumSets] = useState(8);
+  const [timerDuration, setTimerDuration] = useState(15);
   const [roomState, setRoomState] = useState({
     status: 'lobby',
     current_player_id: null,
@@ -687,7 +688,7 @@ export default function App() {
       return;
     }
 
-    const timerEnds = new Date(new Date().getTime() + 15000).toISOString(); // 15s bidding timer
+    const timerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString(); // 15s bidding timer
 
     const { error } = await supabase
       .from('rooms')
@@ -729,7 +730,7 @@ export default function App() {
       return;
     }
 
-    const newTimerEnds = new Date(new Date().getTime() + 15000).toISOString(); // Extend timer by 15s on bid
+    const newTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString(); // Extend timer by 15s on bid
 
     // Optimistically log locally, but push transaction to DB
     const { error: bidErr } = await supabase
@@ -823,7 +824,7 @@ export default function App() {
       // Transition to next player after a short 3s pause
       setTimeout(async () => {
         isProcessingRef.current = false;
-        const nextTimerEnds = new Date(new Date().getTime() + 15000).toISOString();
+        const nextTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString();
         await supabase
           .from('rooms')
           .update({
@@ -882,7 +883,7 @@ export default function App() {
     }
 
     // 2. Update room bid & bidder
-    const newTimerEnds = new Date(new Date().getTime() + 15000).toISOString();
+    const newTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString();
     const { error: roomErr } = await supabase
       .from('rooms')
       .update({
@@ -1047,7 +1048,7 @@ export default function App() {
     const nextPlayer = roomPlayers.find(p => p.status === 'available');
     if (!nextPlayer) return;
 
-    const timerEnds = new Date(new Date().getTime() + 15000).getTime();
+    const timerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).getTime();
     
     setRoomState({
       status: 'active',
@@ -1057,7 +1058,7 @@ export default function App() {
       bid_timer_ends: timerEnds,
       host_id: userId
     });
-    setTimeLeft(15);
+    setTimeLeft(timerDuration);
     setView('auction');
 
     // Add initial commentary
@@ -1078,14 +1079,14 @@ export default function App() {
     if (!activePlayer) return;
 
     // Update RoomState
-    const newTimerEnds = new Date(new Date().getTime() + 15000).getTime();
+    const newTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).getTime();
     setRoomState(prev => ({
       ...prev,
       current_bid: bidAmount,
       current_bidder: bidderTeam,
       bid_timer_ends: newTimerEnds
     }));
-    setTimeLeft(15);
+    setTimeLeft(timerDuration);
     triggerSound('bid');
 
     // Add bid log comment
@@ -1176,7 +1177,7 @@ export default function App() {
       // Pause 3 seconds, then present next player
       setTimeout(() => {
         isProcessingRef.current = false;
-        const timerEnds = new Date(new Date().getTime() + 15000).getTime();
+        const timerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).getTime();
         setRoomState(prev => ({
           ...prev,
           current_player_id: nextPlayer.id,
@@ -1184,7 +1185,7 @@ export default function App() {
           current_bidder: null,
           bid_timer_ends: timerEnds
         }));
-        setTimeLeft(15);
+        setTimeLeft(timerDuration);
         
         // Push commentary
         setComments(prev => [
@@ -1444,6 +1445,22 @@ export default function App() {
                     </div>
                   </div>
 
+                  {/* Bid Timer Duration */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bid Timer</label>
+                    <select 
+                      value={timerDuration}
+                      onChange={(e) => setTimerDuration(parseInt(e.target.value))}
+                      style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', cursor: 'pointer', appearance: 'none' }}
+                    >
+                      <option value={10}>10 Seconds (Fast)</option>
+                      <option value={15}>15 Seconds (Standard)</option>
+                      <option value={20}>20 Seconds</option>
+                      <option value={25}>25 Seconds</option>
+                      <option value={30}>30 Seconds (Slow)</option>
+                    </select>
+                  </div>
+
                   {gameMode === 'online' && (
                     <div>
                       <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Expected Real Players (Max 10)</label>
@@ -1689,7 +1706,7 @@ export default function App() {
                 const isHighestBidder = roomState.current_bidder === selectedTeam;
 
                 // Timer percentage
-                const timerPercentage = roomState.status === 'active' ? (timeLeft / 15) * 100 : 0;
+                const timerPercentage = roomState.status === 'active' ? (timeLeft / timerDuration) * 100 : 0;
                 const timerColor = timeLeft > 8 ? 'bg-emerald-500' : timeLeft > 4 ? 'bg-amber-500' : 'bg-rose-500';
 
                 return (

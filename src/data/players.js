@@ -1,30 +1,30 @@
 export const players = [
   {
     "id": 1,
-    "name": "Sunil Wade",
+    "name": "Virat Kohli",
     "role": "Batsman",
-    "country": "England",
-    "rating": 98,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 96,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 3079",
-      "secondary": "SR: 121.3"
+      "primary": "Runs: 693",
+      "secondary": "SR: 148.2"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 2,
-    "name": "Yuzvendra Reddy",
+    "name": "Rohit Sharma",
     "role": "Batsman",
     "country": "India",
-    "rating": 86,
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 3018",
-      "secondary": "SR: 128.7"
+      "primary": "Runs: 2327",
+      "secondary": "SR: 136.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -33,30 +33,30 @@ export const players = [
   },
   {
     "id": 3,
-    "name": "Suyash Sharma",
+    "name": "MS Dhoni",
     "role": "Batsman",
     "country": "India",
     "rating": 97,
-    "basePrice": 1.5,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 521",
-      "secondary": "SR: 122.7"
+      "primary": "Runs: 1554",
+      "secondary": "SR: 158.2"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 4,
-    "name": "Piyush Pant",
+    "name": "Travis Head",
     "role": "Batsman",
-    "country": "India",
-    "rating": 92,
+    "country": "Australia",
+    "rating": 90,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 2898",
-      "secondary": "SR: 132.8"
+      "primary": "Runs: 985",
+      "secondary": "SR: 158.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -65,14 +65,14 @@ export const players = [
   },
   {
     "id": 5,
-    "name": "Marco Ferguson",
+    "name": "Heinrich Klaasen",
     "role": "Batsman",
-    "country": "New Zealand",
-    "rating": 94,
+    "country": "South Africa",
+    "rating": 96,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2412",
-      "secondary": "SR: 138.2"
+      "primary": "Runs: 695",
+      "secondary": "SR: 134.6"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -81,30 +81,30 @@ export const players = [
   },
   {
     "id": 6,
-    "name": "Shreyas Rana",
+    "name": "Suryakumar Yadav",
     "role": "Batsman",
     "country": "India",
-    "rating": 87,
-    "basePrice": 1.5,
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1645",
-      "secondary": "SR: 126.8"
+      "primary": "Runs: 1118",
+      "secondary": "SR: 131.2"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 7,
-    "name": "Devon Maxwell",
+    "name": "Yashasvi Jaiswal",
     "role": "Batsman",
-    "country": "England",
-    "rating": 94,
+    "country": "India",
+    "rating": 92,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 956",
-      "secondary": "SR: 138.9"
+      "primary": "Runs: 2203",
+      "secondary": "SR: 154.9"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -113,14 +113,14 @@ export const players = [
   },
   {
     "id": 8,
-    "name": "Ishan Chahal",
+    "name": "Shubman Gill",
     "role": "Batsman",
     "country": "India",
-    "rating": 94,
+    "rating": 95,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2088",
-      "secondary": "SR: 131.3"
+      "primary": "Runs: 1301",
+      "secondary": "SR: 145.9"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -129,14 +129,14 @@ export const players = [
   },
   {
     "id": 9,
-    "name": "Umran Pandya",
+    "name": "Ruturaj Gaikwad",
     "role": "Batsman",
     "country": "India",
-    "rating": 92,
+    "rating": 94,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2357",
-      "secondary": "SR: 155.5"
+      "primary": "Runs: 783",
+      "secondary": "SR: 143.3"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -145,30 +145,14 @@ export const players = [
   },
   {
     "id": 10,
-    "name": "Rahul Wadhera",
+    "name": "Phil Salt",
     "role": "Batsman",
-    "country": "India",
-    "rating": 98,
-    "basePrice": 2,
-    "stats": {
-      "primary": "Runs: 2656",
-      "secondary": "SR: 120.8"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 1,
-    "set_name": "Set 1 - Marquee Batters"
-  },
-  {
-    "id": 11,
-    "name": "Yashasvi Sudharsan",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 94,
+    "country": "England",
+    "rating": 97,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 2445",
-      "secondary": "SR: 123.1"
+      "primary": "Runs: 764",
+      "secondary": "SR: 151.9"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -176,15 +160,31 @@ export const players = [
     "set_name": "Set 1 - Marquee Batters"
   },
   {
-    "id": 12,
-    "name": "Mukesh Chahar",
+    "id": 11,
+    "name": "Faf du Plessis",
     "role": "Batsman",
-    "country": "India",
-    "rating": 98,
+    "country": "South Africa",
+    "rating": 97,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Runs: 2886",
+      "secondary": "SR: 155.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 1,
+    "set_name": "Set 1 - Marquee Batters"
+  },
+  {
+    "id": 12,
+    "name": "Quinton de Kock",
+    "role": "Batsman",
+    "country": "South Africa",
+    "rating": 92,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 3300",
-      "secondary": "SR: 143.7"
+      "primary": "Runs: 895",
+      "secondary": "SR: 124.2"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -193,30 +193,30 @@ export const players = [
   },
   {
     "id": 13,
-    "name": "Ishan Singh",
+    "name": "KL Rahul",
     "role": "Batsman",
     "country": "India",
     "rating": 98,
-    "basePrice": 1.5,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 3028",
-      "secondary": "SR: 152.8"
+      "primary": "Runs: 1867",
+      "secondary": "SR: 130.4"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 14,
-    "name": "Jonny Warner",
+    "name": "Rishabh Pant",
     "role": "Batsman",
-    "country": "Australia",
-    "rating": 96,
+    "country": "India",
+    "rating": 95,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2144",
-      "secondary": "SR: 156.2"
+      "primary": "Runs: 3119",
+      "secondary": "SR: 151.1"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -225,14 +225,14 @@ export const players = [
   },
   {
     "id": 15,
-    "name": "Rahmanullah Buttler",
+    "name": "Sanju Samson",
     "role": "Batsman",
-    "country": "England",
-    "rating": 90,
+    "country": "India",
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1034",
-      "secondary": "SR: 125.7"
+      "primary": "Runs: 1482",
+      "secondary": "SR: 139.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -241,30 +241,30 @@ export const players = [
   },
   {
     "id": 16,
-    "name": "Shubman Sharma",
+    "name": "David Warner",
     "role": "Batsman",
-    "country": "India",
-    "rating": 92,
-    "basePrice": 1.5,
+    "country": "Australia",
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 3453",
-      "secondary": "SR: 129.1"
+      "primary": "Runs: 1016",
+      "secondary": "SR: 144.9"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 17,
-    "name": "Rahul Saini",
+    "name": "Kane Williamson",
     "role": "Batsman",
-    "country": "India",
-    "rating": 89,
+    "country": "New Zealand",
+    "rating": 93,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 590",
-      "secondary": "SR: 127.9"
+      "primary": "Runs: 1867",
+      "secondary": "SR: 131.3"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -273,14 +273,14 @@ export const players = [
   },
   {
     "id": 18,
-    "name": "Maheesh Jansen",
+    "name": "Shreyas Iyer",
     "role": "Batsman",
-    "country": "New Zealand",
-    "rating": 92,
+    "country": "India",
+    "rating": 93,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1385",
-      "secondary": "SR: 150.8"
+      "primary": "Runs: 2962",
+      "secondary": "SR: 153.3"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -289,14 +289,14 @@ export const players = [
   },
   {
     "id": 19,
-    "name": "Trent Narine",
+    "name": "Ishan Kishan",
     "role": "Batsman",
-    "country": "South Africa",
-    "rating": 91,
+    "country": "India",
+    "rating": 96,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2982",
-      "secondary": "SR: 139.4"
+      "primary": "Runs: 1743",
+      "secondary": "SR: 127.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -305,30 +305,30 @@ export const players = [
   },
   {
     "id": 20,
-    "name": "Jasprit Deshpande",
+    "name": "Nicholas Pooran",
     "role": "Batsman",
-    "country": "India",
-    "rating": 94,
-    "basePrice": 2,
+    "country": "West Indies",
+    "rating": 93,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 1207",
-      "secondary": "SR: 122.7"
+      "primary": "Runs: 1083",
+      "secondary": "SR: 139.7"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 21,
-    "name": "Sunil Buttler",
+    "name": "Glenn Maxwell",
     "role": "Batsman",
-    "country": "New Zealand",
-    "rating": 93,
+    "country": "Australia",
+    "rating": 95,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 565",
-      "secondary": "SR: 134.4"
+      "primary": "Runs: 3084",
+      "secondary": "SR: 135.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -337,14 +337,14 @@ export const players = [
   },
   {
     "id": 22,
-    "name": "Nehal Gaikwad",
+    "name": "Jos Buttler",
     "role": "Batsman",
-    "country": "India",
-    "rating": 97,
+    "country": "England",
+    "rating": 98,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2736",
-      "secondary": "SR: 148.3"
+      "primary": "Runs: 1949",
+      "secondary": "SR: 159.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -353,30 +353,14 @@ export const players = [
   },
   {
     "id": 23,
-    "name": "Matthew Rabada",
+    "name": "Jonny Bairstow",
     "role": "Batsman",
-    "country": "Afghanistan",
-    "rating": 88,
-    "basePrice": 1.5,
-    "stats": {
-      "primary": "Runs: 740",
-      "secondary": "SR: 138.7"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 1,
-    "set_name": "Set 1 - Marquee Batters"
-  },
-  {
-    "id": 24,
-    "name": "Aiden Markram",
-    "role": "Batsman",
-    "country": "Afghanistan",
-    "rating": 90,
+    "country": "England",
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2759",
-      "secondary": "SR: 141.5"
+      "primary": "Runs: 587",
+      "secondary": "SR: 135.1"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -384,15 +368,31 @@ export const players = [
     "set_name": "Set 1 - Marquee Batters"
   },
   {
-    "id": 25,
-    "name": "Navdeep Varma",
+    "id": 24,
+    "name": "Marcus Stoinis",
     "role": "Batsman",
-    "country": "India",
-    "rating": 92,
+    "country": "Australia",
+    "rating": 91,
+    "basePrice": 1.5,
+    "stats": {
+      "primary": "Runs: 2936",
+      "secondary": "SR: 148.1"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 1,
+    "set_name": "Set 1 - Marquee Batters"
+  },
+  {
+    "id": 25,
+    "name": "Cameron Green",
+    "role": "Batsman",
+    "country": "Australia",
+    "rating": 90,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2131",
-      "secondary": "SR: 147.8"
+      "primary": "Runs: 2423",
+      "secondary": "SR: 136.4"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -401,30 +401,30 @@ export const players = [
   },
   {
     "id": 26,
-    "name": "Mark Archer",
+    "name": "Liam Livingstone",
     "role": "Batsman",
-    "country": "Sri Lanka",
-    "rating": 91,
-    "basePrice": 1.5,
+    "country": "England",
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1650",
-      "secondary": "SR: 141.3"
+      "primary": "Runs: 2202",
+      "secondary": "SR: 124.3"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 27,
-    "name": "Quinton Warner",
+    "name": "Tim David",
     "role": "Batsman",
-    "country": "New Zealand",
-    "rating": 90,
+    "country": "Australia",
+    "rating": 98,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 1323",
-      "secondary": "SR: 135.6"
+      "primary": "Runs: 2160",
+      "secondary": "SR: 120.8"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -433,46 +433,46 @@ export const players = [
   },
   {
     "id": 28,
-    "name": "Arshdeep Agarwal",
+    "name": "Shimron Hetmyer",
     "role": "Batsman",
-    "country": "India",
-    "rating": 93,
-    "basePrice": 1.5,
+    "country": "West Indies",
+    "rating": 91,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 762",
-      "secondary": "SR: 159.1"
+      "primary": "Runs: 3254",
+      "secondary": "SR: 141.7"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 29,
-    "name": "Rinku Chahal",
+    "name": "Rovman Powell",
     "role": "Batsman",
-    "country": "India",
+    "country": "West Indies",
     "rating": 97,
-    "basePrice": 1.5,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2186",
-      "secondary": "SR: 133.4"
+      "primary": "Runs: 719",
+      "secondary": "SR: 137.5"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 1,
     "set_name": "Set 1 - Marquee Batters"
   },
   {
     "id": 30,
-    "name": "Arshdeep Padikkal",
+    "name": "Aiden Markram",
     "role": "Batsman",
-    "country": "India",
+    "country": "South Africa",
     "rating": 96,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 2172",
-      "secondary": "SR: 131.5"
+      "primary": "Runs: 1545",
+      "secondary": "SR: 153.6"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -481,46 +481,46 @@ export const players = [
   },
   {
     "id": 31,
-    "name": "Hardik Kishan",
+    "name": "Hardik Pandya",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 85,
-    "basePrice": 1.5,
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 27",
-      "secondary": "SR: 145.6"
+      "primary": "Wickets: 92",
+      "secondary": "SR: 137.3"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 32,
-    "name": "Shreyas Bumrah",
+    "name": "Ravindra Jadeja",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 85,
-    "basePrice": 1,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 111",
-      "secondary": "SR: 134.1"
+      "primary": "Wickets: 69",
+      "secondary": "SR: 139.9"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 33,
-    "name": "Prithvi Agarwal",
+    "name": "Andre Russell",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 83,
+    "country": "West Indies",
+    "rating": 95,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 62",
-      "secondary": "SR: 137.9"
+      "primary": "Wickets: 111",
+      "secondary": "SR: 159.8"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -529,30 +529,30 @@ export const players = [
   },
   {
     "id": 34,
-    "name": "Mayank Bumrah",
+    "name": "Sunil Narine",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 94,
-    "basePrice": 2,
+    "country": "West Indies",
+    "rating": 90,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 116",
-      "secondary": "SR: 136.0"
+      "primary": "Wickets: 75",
+      "secondary": "SR: 131.8"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 35,
-    "name": "Daryl Hasaranga",
+    "name": "Axar Patel",
     "role": "All-Rounder",
-    "country": "West Indies",
-    "rating": 84,
+    "country": "India",
+    "rating": 93,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 117",
-      "secondary": "SR: 131.1"
+      "primary": "Wickets: 94",
+      "secondary": "SR: 155.9"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -561,30 +561,14 @@ export const players = [
   },
   {
     "id": 36,
-    "name": "Kyle Starc",
+    "name": "Mitchell Marsh",
     "role": "All-Rounder",
-    "country": "South Africa",
-    "rating": 85,
-    "basePrice": 1,
-    "stats": {
-      "primary": "Wickets: 74",
-      "secondary": "SR: 149.6"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 2,
-    "set_name": "Set 2 - All-Rounders"
-  },
-  {
-    "id": 37,
-    "name": "Ravi Kumar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 80,
+    "country": "Australia",
+    "rating": 94,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 105",
-      "secondary": "SR: 155.7"
+      "primary": "Wickets: 37",
+      "secondary": "SR: 131.2"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -592,15 +576,31 @@ export const players = [
     "set_name": "Set 2 - All-Rounders"
   },
   {
-    "id": 38,
-    "name": "Rahmanullah Russell",
+    "id": 37,
+    "name": "Sam Curran",
     "role": "All-Rounder",
-    "country": "Australia",
-    "rating": 91,
+    "country": "England",
+    "rating": 92,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 86",
-      "secondary": "SR: 144.0"
+      "primary": "Wickets: 107",
+      "secondary": "SR: 158.5"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 2,
+    "set_name": "Set 2 - All-Rounders"
+  },
+  {
+    "id": 38,
+    "name": "Moeen Ali",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 94,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Wickets: 75",
+      "secondary": "SR: 143.1"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -609,30 +609,30 @@ export const players = [
   },
   {
     "id": 39,
-    "name": "Jasprit Deshpande",
+    "name": "Washington Sundar",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 80,
-    "basePrice": 1,
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 35",
-      "secondary": "SR: 143.1"
+      "primary": "Wickets: 93",
+      "secondary": "SR: 151.2"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 40,
-    "name": "Avesh Khan",
+    "name": "Krunal Pandya",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 87,
+    "rating": 88,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 28",
-      "secondary": "SR: 147.6"
+      "primary": "Wickets: 34",
+      "secondary": "SR: 148.3"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -641,142 +641,126 @@ export const players = [
   },
   {
     "id": 41,
-    "name": "Ishan Reddy",
+    "name": "Shivam Dube",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 118",
-      "secondary": "SR: 143.5"
+      "primary": "Wickets: 72",
+      "secondary": "SR: 149.3"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 42,
-    "name": "Rahul Kumar",
+    "name": "Nitish Kumar Reddy",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 86,
-    "basePrice": 1.5,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 34",
-      "secondary": "SR: 147.8"
+      "primary": "Wickets: 81",
+      "secondary": "SR: 150.5"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 43,
-    "name": "Devdutt Tripathi",
+    "name": "Shahbaz Ahmed",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 93,
-    "basePrice": 1.5,
+    "rating": 92,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 119",
-      "secondary": "SR: 138.1"
+      "primary": "Wickets: 97",
+      "secondary": "SR: 150.9"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 44,
-    "name": "Ishan Sudharsan",
+    "name": "Rahul Tewatia",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 89,
-    "basePrice": 1,
+    "rating": 95,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 28",
-      "secondary": "SR: 145.9"
+      "primary": "Wickets: 83",
+      "secondary": "SR: 146.1"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 45,
-    "name": "Shardul Agarwal",
+    "name": "Vijay Shankar",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 82,
-    "basePrice": 1.5,
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 113",
-      "secondary": "SR: 144.4"
+      "primary": "Wickets: 104",
+      "secondary": "SR: 159.2"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 46,
-    "name": "Aiden Ferguson",
+    "name": "Romario Shepherd",
     "role": "All-Rounder",
-    "country": "Australia",
-    "rating": 83,
-    "basePrice": 2,
+    "country": "West Indies",
+    "rating": 87,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 46",
-      "secondary": "SR: 141.2"
+      "primary": "Wickets: 70",
+      "secondary": "SR: 131.5"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 47,
-    "name": "Piyush Saini",
+    "name": "Mohammad Nabi",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 84,
-    "basePrice": 2,
+    "country": "Afghanistan",
+    "rating": 95,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 46",
-      "secondary": "SR: 141.0"
+      "primary": "Wickets: 26",
+      "secondary": "SR: 150.0"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 48,
-    "name": "Nicholas Starc",
+    "name": "Shakib Al Hasan",
     "role": "All-Rounder",
-    "country": "Australia",
-    "rating": 81,
-    "basePrice": 1,
-    "stats": {
-      "primary": "Wickets: 101",
-      "secondary": "SR: 141.6"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 2,
-    "set_name": "Set 2 - All-Rounders"
-  },
-  {
-    "id": 49,
-    "name": "Sam Theekshana",
-    "role": "All-Rounder",
-    "country": "New Zealand",
-    "rating": 91,
+    "country": "Bangladesh",
+    "rating": 94,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 32",
-      "secondary": "SR: 144.2"
+      "primary": "Wickets: 36",
+      "secondary": "SR: 156.7"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -784,63 +768,79 @@ export const players = [
     "set_name": "Set 2 - All-Rounders"
   },
   {
-    "id": 50,
-    "name": "Yashasvi Sudharsan",
+    "id": 49,
+    "name": "Jason Holder",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 87,
+    "country": "West Indies",
+    "rating": 93,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 110",
-      "secondary": "SR: 133.4"
+      "primary": "Wickets: 37",
+      "secondary": "SR: 152.4"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 2,
+    "set_name": "Set 2 - All-Rounders"
+  },
+  {
+    "id": 50,
+    "name": "Sikandar Raza",
+    "role": "All-Rounder",
+    "country": "Zimbabwe",
+    "rating": 86,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Wickets: 66",
+      "secondary": "SR: 134.0"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 51,
-    "name": "Naveen Markram",
+    "name": "Daryl Mitchell",
     "role": "All-Rounder",
-    "country": "Afghanistan",
-    "rating": 81,
-    "basePrice": 1,
+    "country": "New Zealand",
+    "rating": 95,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 27",
-      "secondary": "SR: 158.0"
+      "primary": "Wickets: 101",
+      "secondary": "SR: 153.2"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 52,
-    "name": "Rachin Stoinis",
+    "name": "Azmatullah Omarzai",
     "role": "All-Rounder",
-    "country": "South Africa",
-    "rating": 93,
-    "basePrice": 1.5,
+    "country": "Afghanistan",
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 81",
-      "secondary": "SR: 142.0"
+      "primary": "Wickets: 29",
+      "secondary": "SR: 133.8"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 53,
-    "name": "Abhishek Tripathi",
+    "name": "Rashid Khan",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 91,
+    "country": "Afghanistan",
+    "rating": 92,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 28",
-      "secondary": "SR: 141.5"
+      "primary": "Wickets: 88",
+      "secondary": "SR: 145.6"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -849,30 +849,14 @@ export const players = [
   },
   {
     "id": 54,
-    "name": "Trent Starc",
+    "name": "Wanindu Hasaranga",
     "role": "All-Rounder",
-    "country": "England",
-    "rating": 93,
-    "basePrice": 1,
-    "stats": {
-      "primary": "Wickets: 101",
-      "secondary": "SR: 138.6"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 2,
-    "set_name": "Set 2 - All-Rounders"
-  },
-  {
-    "id": 55,
-    "name": "Rashid Narine",
-    "role": "All-Rounder",
-    "country": "England",
-    "rating": 92,
+    "country": "Sri Lanka",
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 25",
-      "secondary": "SR: 131.8"
+      "primary": "Wickets: 45",
+      "secondary": "SR: 159.0"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -880,47 +864,63 @@ export const players = [
     "set_name": "Set 2 - All-Rounders"
   },
   {
-    "id": 56,
-    "name": "Tilak Pandya",
+    "id": 55,
+    "name": "Glenn Phillips",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 91,
-    "basePrice": 1,
+    "country": "New Zealand",
+    "rating": 90,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 76",
-      "secondary": "SR: 134.5"
+      "primary": "Wickets: 70",
+      "secondary": "SR: 149.8"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 2,
+    "set_name": "Set 2 - All-Rounders"
+  },
+  {
+    "id": 56,
+    "name": "Rachin Ravindra",
+    "role": "All-Rounder",
+    "country": "New Zealand",
+    "rating": 88,
+    "basePrice": 1.5,
+    "stats": {
+      "primary": "Wickets: 20",
+      "secondary": "SR: 147.0"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 57,
-    "name": "Ravi Wadhera",
+    "name": "Deepak Hooda",
     "role": "All-Rounder",
     "country": "India",
     "rating": 90,
-    "basePrice": 1,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 57",
-      "secondary": "SR: 139.2"
+      "primary": "Wickets: 42",
+      "secondary": "SR: 146.3"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 58,
-    "name": "David Maxwell",
+    "name": "Riyan Parag",
     "role": "All-Rounder",
-    "country": "Afghanistan",
-    "rating": 80,
+    "country": "India",
+    "rating": 86,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 62",
-      "secondary": "SR: 137.8"
+      "primary": "Wickets: 117",
+      "secondary": "SR: 143.2"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -929,14 +929,14 @@ export const players = [
   },
   {
     "id": 59,
-    "name": "Tilak Pant",
+    "name": "Will Jacks",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 91,
+    "country": "England",
+    "rating": 89,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 79",
-      "secondary": "SR: 139.7"
+      "primary": "Wickets: 21",
+      "secondary": "SR: 138.9"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -945,270 +945,270 @@ export const players = [
   },
   {
     "id": 60,
-    "name": "Sunil Green",
+    "name": "Abhishek Sharma",
     "role": "All-Rounder",
-    "country": "Australia",
-    "rating": 93,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 97",
-      "secondary": "SR: 145.0"
+      "primary": "Wickets: 93",
+      "secondary": "SR: 131.8"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 61,
-    "name": "Moeen Theekshana",
+    "name": "Ramandeep Singh",
     "role": "All-Rounder",
-    "country": "South Africa",
-    "rating": 84,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 32",
-      "secondary": "SR: 137.6"
+      "primary": "Wickets: 65",
+      "secondary": "SR: 155.3"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 62,
-    "name": "Amit Padikkal",
+    "name": "Harshal Patel",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 88,
-    "basePrice": 1.5,
+    "rating": 95,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 27",
-      "secondary": "SR: 153.4"
+      "primary": "Wickets: 47",
+      "secondary": "SR: 141.4"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 63,
-    "name": "Amit Kishan",
+    "name": "Nehal Wadhera",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 92,
-    "basePrice": 1,
+    "rating": 89,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 74",
-      "secondary": "SR: 139.7"
+      "primary": "Wickets: 52",
+      "secondary": "SR: 134.7"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 64,
-    "name": "Sai Shaw",
+    "name": "Abdul Samad",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 44",
-      "secondary": "SR: 154.4"
+      "primary": "Wickets: 52",
+      "secondary": "SR: 139.5"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 65,
-    "name": "Avesh Pandya",
+    "name": "Venkatesh Iyer",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 94,
-    "basePrice": 1,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 84",
-      "secondary": "SR: 157.2"
+      "primary": "Wickets: 85",
+      "secondary": "SR: 146.5"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 66,
-    "name": "Arshdeep Sundar",
+    "name": "R. Ashwin",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 90,
-    "basePrice": 1,
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 119",
-      "secondary": "SR: 139.4"
+      "primary": "Wickets: 26",
+      "secondary": "SR: 150.0"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 67,
-    "name": "Kyle Ravindra",
+    "name": "Shardul Thakur",
     "role": "All-Rounder",
-    "country": "Afghanistan",
-    "rating": 87,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 85,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 98",
-      "secondary": "SR: 130.6"
+      "primary": "Wickets: 48",
+      "secondary": "SR: 131.4"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 68,
-    "name": "Liam Russell",
+    "name": "Deepak Chahar",
     "role": "All-Rounder",
-    "country": "South Africa",
-    "rating": 81,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 113",
-      "secondary": "SR: 153.7"
+      "primary": "Wickets: 39",
+      "secondary": "SR: 158.6"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 69,
-    "name": "Sam Green",
+    "name": "K. Gowtham",
     "role": "All-Rounder",
-    "country": "South Africa",
-    "rating": 92,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 89,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 101",
-      "secondary": "SR: 152.6"
+      "primary": "Wickets: 76",
+      "secondary": "SR: 139.9"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 70,
-    "name": "Ravi Kishan",
+    "name": "Pawan Negi",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 81,
-    "basePrice": 1,
+    "rating": 85,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 76",
-      "secondary": "SR: 135.8"
+      "primary": "Wickets: 57",
+      "secondary": "SR: 133.0"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 2,
     "set_name": "Set 2 - All-Rounders"
   },
   {
     "id": 71,
-    "name": "Prabhsimran Bumrah",
+    "name": "Jitesh Sharma",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1359",
-      "secondary": "Dismissals: 65"
+      "primary": "Runs: 1195",
+      "secondary": "Dismissals: 77"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 72,
-    "name": "Sam Mayers",
+    "name": "Dhruv Jurel",
     "role": "Wicketkeeper",
-    "country": "Sri Lanka",
-    "rating": 90,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 91,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 622",
-      "secondary": "Dismissals: 40"
+      "primary": "Runs: 1552",
+      "secondary": "Dismissals: 79"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 73,
-    "name": "Rinku Agarwal",
+    "name": "Dinesh Karthik",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 93,
-    "basePrice": 1.5,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 767",
-      "secondary": "Dismissals: 48"
+      "primary": "Runs: 1013",
+      "secondary": "Dismissals: 75"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 74,
-    "name": "Ravindra Kumar",
+    "name": "Wriddhiman Saha",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 90,
-    "basePrice": 1,
+    "rating": 92,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2054",
-      "secondary": "Dismissals: 87"
+      "primary": "Runs: 1128",
+      "secondary": "Dismissals: 48"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 75,
-    "name": "Shreyas Tewatia",
+    "name": "Anuj Rawat",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 84,
-    "basePrice": 1.5,
+    "rating": 92,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1535",
-      "secondary": "Dismissals: 48"
+      "primary": "Runs: 720",
+      "secondary": "Dismissals: 64"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 76,
-    "name": "Dilshan Pathirana",
+    "name": "Prabhsimran Singh",
     "role": "Wicketkeeper",
-    "country": "Sri Lanka",
-    "rating": 80,
+    "country": "India",
+    "rating": 92,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 568",
-      "secondary": "Dismissals: 88"
+      "primary": "Runs: 1981",
+      "secondary": "Dismissals: 14"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1217,62 +1217,62 @@ export const players = [
   },
   {
     "id": 77,
-    "name": "Ravindra Iyer",
+    "name": "KS Bharat",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 84,
-    "basePrice": 1,
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1976",
-      "secondary": "Dismissals: 76"
+      "primary": "Runs: 2347",
+      "secondary": "Dismissals: 75"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 78,
-    "name": "Jasprit Bumrah",
+    "name": "Upendra Yadav",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 88,
-    "basePrice": 1,
+    "rating": 90,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 943",
-      "secondary": "Dismissals: 21"
+      "primary": "Runs: 2321",
+      "secondary": "Dismissals: 30"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 79,
-    "name": "Mitchell Livingstone",
+    "name": "Vishnu Vinod",
     "role": "Wicketkeeper",
-    "country": "South Africa",
-    "rating": 93,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 81,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 974",
-      "secondary": "Dismissals: 76"
+      "primary": "Runs: 2358",
+      "secondary": "Dismissals: 17"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 80,
-    "name": "Devon Salt",
+    "name": "Litton Das",
     "role": "Wicketkeeper",
-    "country": "Australia",
-    "rating": 82,
+    "country": "Bangladesh",
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1841",
-      "secondary": "Dismissals: 57"
+      "primary": "Runs: 1741",
+      "secondary": "Dismissals: 29"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1281,30 +1281,30 @@ export const players = [
   },
   {
     "id": 81,
-    "name": "Ruturaj Deshpande",
+    "name": "Rahmanullah Gurbaz",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 90,
-    "basePrice": 2,
+    "country": "Afghanistan",
+    "rating": 92,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 1379",
-      "secondary": "Dismissals: 36"
+      "primary": "Runs: 778",
+      "secondary": "Dismissals: 38"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 82,
-    "name": "Krunal Singh",
+    "name": "Tristan Stubbs",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 88,
+    "country": "South Africa",
+    "rating": 84,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1040",
-      "secondary": "Dismissals: 32"
+      "primary": "Runs: 2000",
+      "secondary": "Dismissals: 43"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1313,30 +1313,30 @@ export const players = [
   },
   {
     "id": 83,
-    "name": "Rahul Pandya",
+    "name": "Donovan Ferreira",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 1.5,
+    "country": "South Africa",
+    "rating": 81,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1542",
-      "secondary": "Dismissals: 32"
+      "primary": "Runs: 1271",
+      "secondary": "Dismissals: 20"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 84,
-    "name": "Sunil de Kock",
+    "name": "Matthew Wade",
     "role": "Wicketkeeper",
-    "country": "South Africa",
-    "rating": 80,
+    "country": "Australia",
+    "rating": 82,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 1957",
-      "secondary": "Dismissals: 29"
+      "primary": "Runs: 751",
+      "secondary": "Dismissals: 36"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1345,30 +1345,30 @@ export const players = [
   },
   {
     "id": 85,
-    "name": "Sam Livingstone",
+    "name": "Ben McDermott",
     "role": "Wicketkeeper",
-    "country": "Sri Lanka",
-    "rating": 94,
-    "basePrice": 1,
+    "country": "Australia",
+    "rating": 91,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 541",
-      "secondary": "Dismissals: 31"
+      "primary": "Runs: 581",
+      "secondary": "Dismissals: 14"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 86,
-    "name": "Prithvi Sudharsan",
+    "name": "Shai Hope",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 83,
+    "country": "West Indies",
+    "rating": 85,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 678",
-      "secondary": "Dismissals: 27"
+      "primary": "Runs: 2163",
+      "secondary": "Dismissals: 66"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1377,46 +1377,46 @@ export const players = [
   },
   {
     "id": 87,
-    "name": "Sai Sundar",
+    "name": "Kusal Mendis",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 89,
-    "basePrice": 1,
+    "country": "Sri Lanka",
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 847",
-      "secondary": "Dismissals: 64"
+      "primary": "Runs: 2116",
+      "secondary": "Dismissals: 68"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 88,
-    "name": "Ayush Pandya",
+    "name": "N. Jagadeesan",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 85,
-    "basePrice": 1,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1655",
-      "secondary": "Dismissals: 62"
+      "primary": "Runs: 699",
+      "secondary": "Dismissals: 43"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 89,
-    "name": "Washington Sharma",
+    "name": "Abishek Porel",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 83,
+    "rating": 91,
     "basePrice": 2,
     "stats": {
-      "primary": "Runs: 2397",
-      "secondary": "Dismissals: 59"
+      "primary": "Runs: 596",
+      "secondary": "Dismissals: 16"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1425,110 +1425,126 @@ export const players = [
   },
   {
     "id": 90,
-    "name": "Prabhsimran Chawla",
+    "name": "Ricky Bhui",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 93,
-    "basePrice": 1,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1761",
-      "secondary": "Dismissals: 77"
+      "primary": "Runs: 1277",
+      "secondary": "Dismissals: 15"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 91,
-    "name": "Ruturaj Gill",
+    "name": "Aryan Juyal",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 86,
-    "basePrice": 1.5,
+    "rating": 85,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 893",
-      "secondary": "Dismissals: 83"
+      "primary": "Runs: 1395",
+      "secondary": "Dismissals: 20"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 92,
-    "name": "Avesh Pant",
+    "name": "Robin Minz",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "rating": 89,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1989",
-      "secondary": "Dismissals: 32"
+      "primary": "Runs: 1272",
+      "secondary": "Dismissals: 88"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 93,
-    "name": "Shardul Pant",
+    "name": "Kumar Kushagra",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 83,
-    "basePrice": 1,
+    "rating": 85,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1439",
-      "secondary": "Dismissals: 23"
+      "primary": "Runs: 787",
+      "secondary": "Dismissals: 36"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 94,
-    "name": "Tushar Singh",
+    "name": "B.R. Sharath",
     "role": "Wicketkeeper",
     "country": "India",
-    "rating": 89,
-    "basePrice": 1,
+    "rating": 84,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1847",
-      "secondary": "Dismissals: 29"
+      "primary": "Runs: 1782",
+      "secondary": "Dismissals: 15"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 95,
-    "name": "Heinrich Stubbs",
+    "name": "Aravelly Avanish",
     "role": "Wicketkeeper",
-    "country": "Australia",
-    "rating": 80,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 90,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 712",
-      "secondary": "Dismissals: 31"
+      "primary": "Runs: 1970",
+      "secondary": "Dismissals: 84"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 96,
-    "name": "Rovman Archer",
+    "name": "Harvik Desai",
     "role": "Wicketkeeper",
-    "country": "Afghanistan",
-    "rating": 92,
+    "country": "India",
+    "rating": 88,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Runs: 502",
+      "secondary": "Dismissals: 82"
+    },
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 3,
+    "set_name": "Set 3 - Wicketkeepers"
+  },
+  {
+    "id": 97,
+    "name": "Tom Banton",
+    "role": "Wicketkeeper",
+    "country": "England",
+    "rating": 89,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 2157",
-      "secondary": "Dismissals: 62"
+      "primary": "Runs: 1200",
+      "secondary": "Dismissals: 22"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1536,31 +1552,15 @@ export const players = [
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
-    "id": 97,
-    "name": "Ishan Sundar",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 92,
-    "basePrice": 1,
-    "stats": {
-      "primary": "Runs: 980",
-      "secondary": "Dismissals: 59"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 3,
-    "set_name": "Set 3 - Wicketkeepers"
-  },
-  {
     "id": 98,
-    "name": "Adil Nortje",
+    "name": "Sam Billings",
     "role": "Wicketkeeper",
-    "country": "Afghanistan",
-    "rating": 81,
+    "country": "England",
+    "rating": 86,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Runs: 827",
-      "secondary": "Dismissals: 59"
+      "primary": "Runs: 1065",
+      "secondary": "Dismissals: 30"
     },
     "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1569,110 +1569,110 @@ export const players = [
   },
   {
     "id": 99,
-    "name": "Shahrukh Wadhera",
+    "name": "Alex Carey",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "country": "England",
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 887",
-      "secondary": "Dismissals: 21"
+      "primary": "Runs: 1742",
+      "secondary": "Dismissals: 22"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 100,
-    "name": "Washington Iyer",
+    "name": "Josh Inglis",
     "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 85,
-    "basePrice": 1,
+    "country": "Australia",
+    "rating": 83,
+    "basePrice": 2,
     "stats": {
-      "primary": "Runs: 1162",
-      "secondary": "Dismissals: 67"
+      "primary": "Runs: 1612",
+      "secondary": "Dismissals: 25"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 3,
     "set_name": "Set 3 - Wicketkeepers"
   },
   {
     "id": 101,
-    "name": "Ruturaj Thakur",
+    "name": "Jasprit Bumrah",
     "role": "Bowler",
     "country": "India",
-    "rating": 90,
-    "basePrice": 1,
+    "rating": 82,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 109",
-      "secondary": "Econ: 7.84"
+      "primary": "Wickets: 96",
+      "secondary": "Econ: 7.45"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 102,
-    "name": "Kagiso Gurbaz",
+    "name": "Mohammed Shami",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 89,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 82,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 40",
-      "secondary": "Econ: 8.41"
+      "primary": "Wickets: 73",
+      "secondary": "Econ: 7.81"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 103,
-    "name": "Mohammed Chawla",
+    "name": "Mohammed Siraj",
     "role": "Bowler",
     "country": "India",
-    "rating": 82,
-    "basePrice": 1,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 85",
-      "secondary": "Econ: 7.81"
+      "primary": "Wickets: 50",
+      "secondary": "Econ: 8.42"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 104,
-    "name": "Travis Nortje",
+    "name": "Arshdeep Singh",
     "role": "Bowler",
-    "country": "England",
-    "rating": 95,
-    "basePrice": 0.75,
+    "country": "India",
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 80",
-      "secondary": "Econ: 7.32"
+      "primary": "Wickets: 143",
+      "secondary": "Econ: 8.07"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 105,
-    "name": "David Nortje",
+    "name": "Mitchell Starc",
     "role": "Bowler",
     "country": "Australia",
-    "rating": 77,
+    "rating": 85,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 147",
-      "secondary": "Econ: 7.87"
+      "primary": "Wickets: 54",
+      "secondary": "Econ: 8.34"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1681,14 +1681,14 @@ export const players = [
   },
   {
     "id": 106,
-    "name": "Yuzvendra Khan",
+    "name": "Pat Cummins",
     "role": "Bowler",
-    "country": "India",
-    "rating": 82,
+    "country": "Australia",
+    "rating": 94,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 62",
-      "secondary": "Econ: 8.44"
+      "primary": "Wickets: 122",
+      "secondary": "Econ: 8.12"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1697,30 +1697,30 @@ export const players = [
   },
   {
     "id": 107,
-    "name": "Jos Warner",
+    "name": "Trent Boult",
     "role": "Bowler",
-    "country": "South Africa",
-    "rating": 94,
-    "basePrice": 1,
+    "country": "New Zealand",
+    "rating": 84,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 123",
-      "secondary": "Econ: 7.67"
+      "primary": "Wickets: 66",
+      "secondary": "Econ: 7.70"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 108,
-    "name": "Rahmanullah Mayers",
+    "name": "Kagiso Rabada",
     "role": "Bowler",
-    "country": "Australia",
+    "country": "South Africa",
     "rating": 88,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 115",
-      "secondary": "Econ: 7.99"
+      "primary": "Wickets: 128",
+      "secondary": "Econ: 6.69"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1729,14 +1729,14 @@ export const players = [
   },
   {
     "id": 109,
-    "name": "Tushar Sudharsan",
+    "name": "Anrich Nortje",
     "role": "Bowler",
-    "country": "India",
-    "rating": 91,
+    "country": "South Africa",
+    "rating": 80,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 138",
-      "secondary": "Econ: 6.77"
+      "primary": "Wickets: 67",
+      "secondary": "Econ: 8.45"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1745,30 +1745,14 @@ export const players = [
   },
   {
     "id": 110,
-    "name": "Rinku Singh",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 88,
-    "basePrice": 1.5,
-    "stats": {
-      "primary": "Wickets: 43",
-      "secondary": "Econ: 8.50"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 111,
-    "name": "Pat Ali",
+    "name": "Jofra Archer",
     "role": "Bowler",
     "country": "England",
-    "rating": 95,
+    "rating": 82,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 33",
-      "secondary": "Econ: 7.89"
+      "primary": "Wickets: 137",
+      "secondary": "Econ: 7.51"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1776,47 +1760,63 @@ export const players = [
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
-    "id": 112,
-    "name": "Axar Kishan",
+    "id": 111,
+    "name": "Mark Wood",
     "role": "Bowler",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 0.75,
+    "country": "England",
+    "rating": 95,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 73",
-      "secondary": "Econ: 8.41"
+      "primary": "Wickets: 87",
+      "secondary": "Econ: 7.47"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 112,
+    "name": "Matheesha Pathirana",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "rating": 85,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Wickets: 100",
+      "secondary": "Econ: 7.23"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 113,
-    "name": "Devon Head",
+    "name": "Lockie Ferguson",
     "role": "Bowler",
     "country": "New Zealand",
-    "rating": 77,
-    "basePrice": 0.75,
+    "rating": 94,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 39",
-      "secondary": "Econ: 7.88"
+      "primary": "Wickets: 54",
+      "secondary": "Econ: 7.72"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 114,
-    "name": "Adil Jansen",
+    "name": "Tushar Deshpande",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 83,
+    "country": "India",
+    "rating": 84,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 69",
-      "secondary": "Econ: 8.05"
+      "primary": "Wickets: 78",
+      "secondary": "Econ: 7.04"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1825,62 +1825,62 @@ export const players = [
   },
   {
     "id": 115,
-    "name": "Sanju Jaiswal",
+    "name": "Mukesh Kumar",
     "role": "Bowler",
     "country": "India",
-    "rating": 93,
-    "basePrice": 0.75,
+    "rating": 95,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 38",
-      "secondary": "Econ: 7.26"
+      "primary": "Wickets: 102",
+      "secondary": "Econ: 6.83"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 116,
-    "name": "Ravi Tewatia",
+    "name": "Avesh Khan",
     "role": "Bowler",
     "country": "India",
-    "rating": 94,
-    "basePrice": 1.5,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 67",
-      "secondary": "Econ: 6.75"
+      "primary": "Wickets: 102",
+      "secondary": "Econ: 6.83"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 117,
-    "name": "Avesh Wadhera",
+    "name": "Khaleel Ahmed",
     "role": "Bowler",
     "country": "India",
-    "rating": 75,
-    "basePrice": 0.75,
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 47",
-      "secondary": "Econ: 6.50"
+      "primary": "Wickets: 109",
+      "secondary": "Econ: 6.69"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 118,
-    "name": "Harshit Sudharsan",
+    "name": "Mohsin Khan",
     "role": "Bowler",
     "country": "India",
-    "rating": 83,
+    "rating": 94,
     "basePrice": 2,
     "stats": {
       "primary": "Wickets: 79",
-      "secondary": "Econ: 7.44"
+      "secondary": "Econ: 6.77"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1889,30 +1889,30 @@ export const players = [
   },
   {
     "id": 119,
-    "name": "Navdeep Reddy",
+    "name": "Mayank Yadav",
     "role": "Bowler",
     "country": "India",
-    "rating": 80,
-    "basePrice": 0.75,
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 99",
-      "secondary": "Econ: 7.65"
+      "primary": "Wickets: 54",
+      "secondary": "Econ: 6.94"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 120,
-    "name": "Piyush Bumrah",
+    "name": "Umran Malik",
     "role": "Bowler",
     "country": "India",
-    "rating": 85,
+    "rating": 81,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 124",
-      "secondary": "Econ: 8.39"
+      "primary": "Wickets: 143",
+      "secondary": "Econ: 6.95"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -1921,206 +1921,206 @@ export const players = [
   },
   {
     "id": 121,
-    "name": "Ravindra Gill",
+    "name": "Navdeep Saini",
     "role": "Bowler",
     "country": "India",
-    "rating": 79,
-    "basePrice": 1.5,
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 48",
-      "secondary": "Econ: 7.72"
+      "primary": "Wickets: 113",
+      "secondary": "Econ: 6.98"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 122,
-    "name": "Jasprit Pandya",
+    "name": "Umesh Yadav",
     "role": "Bowler",
     "country": "India",
-    "rating": 91,
-    "basePrice": 0.75,
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 68",
-      "secondary": "Econ: 7.47"
+      "primary": "Wickets: 42",
+      "secondary": "Econ: 7.42"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 123,
-    "name": "Jasprit Jadeja",
+    "name": "Ishant Sharma",
     "role": "Bowler",
     "country": "India",
-    "rating": 94,
-    "basePrice": 0.75,
+    "rating": 84,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 73",
-      "secondary": "Econ: 7.03"
+      "primary": "Wickets: 99",
+      "secondary": "Econ: 6.78"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 124,
-    "name": "Rachin Conway",
+    "name": "Sandeep Sharma",
     "role": "Bowler",
-    "country": "Sri Lanka",
-    "rating": 92,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 114",
-      "secondary": "Econ: 6.97"
+      "primary": "Wickets: 121",
+      "secondary": "Econ: 8.46"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 125,
-    "name": "Riyan Varma",
+    "name": "Bhuvneshwar Kumar",
     "role": "Bowler",
     "country": "India",
-    "rating": 82,
-    "basePrice": 1,
+    "rating": 89,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 92",
-      "secondary": "Econ: 6.70"
+      "primary": "Wickets: 126",
+      "secondary": "Econ: 7.18"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 126,
-    "name": "Phil Maxwell",
+    "name": "T. Natarajan",
     "role": "Bowler",
-    "country": "Australia",
-    "rating": 83,
-    "basePrice": 0.75,
+    "country": "India",
+    "rating": 89,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 116",
-      "secondary": "Econ: 6.73"
+      "primary": "Wickets: 63",
+      "secondary": "Econ: 7.53"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 127,
-    "name": "Ruturaj Kumar",
+    "name": "Prasidh Krishna",
     "role": "Bowler",
     "country": "India",
-    "rating": 94,
-    "basePrice": 1.5,
+    "rating": 83,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 82",
-      "secondary": "Econ: 7.12"
+      "primary": "Wickets: 130",
+      "secondary": "Econ: 7.93"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 128,
-    "name": "Jasprit Iyer",
+    "name": "Chetan Sakariya",
     "role": "Bowler",
     "country": "India",
-    "rating": 75,
-    "basePrice": 0.75,
+    "rating": 87,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 133",
-      "secondary": "Econ: 7.71"
+      "primary": "Wickets: 59",
+      "secondary": "Econ: 8.25"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 129,
-    "name": "Mohsin Tripathi",
+    "name": "Yash Thakur",
     "role": "Bowler",
     "country": "India",
-    "rating": 75,
-    "basePrice": 1.5,
+    "rating": 90,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 76",
-      "secondary": "Econ: 8.38"
+      "primary": "Wickets: 71",
+      "secondary": "Econ: 7.83"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 130,
-    "name": "Aiden Archer",
+    "name": "Akash Deep",
     "role": "Bowler",
-    "country": "South Africa",
-    "rating": 76,
-    "basePrice": 0.75,
+    "country": "India",
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 147",
-      "secondary": "Econ: 7.90"
+      "primary": "Wickets: 59",
+      "secondary": "Econ: 7.24"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 131,
-    "name": "Ayush Chawla",
+    "name": "Harshit Rana",
     "role": "Bowler",
     "country": "India",
-    "rating": 79,
-    "basePrice": 1.5,
+    "rating": 95,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 84",
-      "secondary": "Econ: 6.67"
+      "primary": "Wickets: 87",
+      "secondary": "Econ: 7.11"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 132,
-    "name": "Prithvi Khan",
+    "name": "Rasikh Salam",
     "role": "Bowler",
     "country": "India",
-    "rating": 83,
-    "basePrice": 0.75,
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 113",
-      "secondary": "Econ: 6.85"
+      "primary": "Wickets: 33",
+      "secondary": "Econ: 6.89"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 133,
-    "name": "Yuzvendra Bishnoi",
+    "name": "Vaibhav Arora",
     "role": "Bowler",
     "country": "India",
-    "rating": 75,
+    "rating": 84,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 88",
-      "secondary": "Econ: 6.73"
+      "primary": "Wickets: 119",
+      "secondary": "Econ: 7.57"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2129,14 +2129,14 @@ export const players = [
   },
   {
     "id": 134,
-    "name": "Rahul Patel",
+    "name": "Reece Topley",
     "role": "Bowler",
-    "country": "India",
-    "rating": 87,
+    "country": "England",
+    "rating": 95,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 99",
-      "secondary": "Econ: 7.78"
+      "primary": "Wickets: 65",
+      "secondary": "Econ: 7.79"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2145,46 +2145,46 @@ export const players = [
   },
   {
     "id": 135,
-    "name": "Ayush Jaiswal",
+    "name": "Josh Hazlewood",
     "role": "Bowler",
-    "country": "India",
-    "rating": 90,
-    "basePrice": 0.75,
+    "country": "Australia",
+    "rating": 95,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 147",
-      "secondary": "Econ: 7.71"
+      "primary": "Wickets: 149",
+      "secondary": "Econ: 7.93"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 136,
-    "name": "Liam Nortje",
+    "name": "Gerald Coetzee",
     "role": "Bowler",
-    "country": "New Zealand",
+    "country": "South Africa",
     "rating": 89,
-    "basePrice": 0.75,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 138",
-      "secondary": "Econ: 8.30"
+      "primary": "Wickets: 140",
+      "secondary": "Econ: 7.24"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 4,
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
     "id": 137,
-    "name": "Adil Ferguson",
+    "name": "Nandre Burger",
     "role": "Bowler",
-    "country": "West Indies",
-    "rating": 77,
+    "country": "South Africa",
+    "rating": 86,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 37",
-      "secondary": "Econ: 8.33"
+      "primary": "Wickets: 74",
+      "secondary": "Econ: 8.13"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2193,78 +2193,14 @@ export const players = [
   },
   {
     "id": 138,
-    "name": "Tristan de Kock",
+    "name": "Alzarri Joseph",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 83,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 42",
-      "secondary": "Econ: 6.77"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 139,
-    "name": "Dilshan Hasaranga",
-    "role": "Bowler",
-    "country": "England",
-    "rating": 79,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 135",
-      "secondary": "Econ: 7.29"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 140,
-    "name": "Rovman Narine",
-    "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 76,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 121",
-      "secondary": "Econ: 6.75"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 141,
-    "name": "Avesh Chahar",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 83,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 105",
-      "secondary": "Econ: 8.39"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 142,
-    "name": "Amit Shami",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 92,
+    "country": "West Indies",
+    "rating": 90,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 96",
-      "secondary": "Econ: 7.41"
+      "primary": "Wickets: 58",
+      "secondary": "Econ: 6.67"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2272,15 +2208,79 @@ export const players = [
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
-    "id": 143,
-    "name": "Josh Joseph",
+    "id": 139,
+    "name": "Naveen-ul-Haq",
     "role": "Bowler",
-    "country": "Australia",
-    "rating": 78,
+    "country": "Afghanistan",
+    "rating": 88,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 66",
+      "secondary": "Econ: 8.38"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 140,
+    "name": "Fazalhaq Farooqi",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "rating": 84,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 34",
+      "secondary": "Econ: 7.93"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 141,
+    "name": "Mustafizur Rahman",
+    "role": "Bowler",
+    "country": "Bangladesh",
+    "rating": 96,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 86",
+      "secondary": "Econ: 8.27"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 142,
+    "name": "Nuwan Thushara",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "rating": 93,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 59",
+      "secondary": "Econ: 7.10"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 143,
+    "name": "Dushmantha Chameera",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "rating": 82,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 117",
-      "secondary": "Econ: 7.43"
+      "primary": "Wickets: 107",
+      "secondary": "Econ: 6.56"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2289,46 +2289,14 @@ export const players = [
   },
   {
     "id": 144,
-    "name": "Sanju Singh",
+    "name": "Spencer Johnson",
     "role": "Bowler",
-    "country": "India",
-    "rating": 81,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 139",
-      "secondary": "Econ: 7.23"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 145,
-    "name": "Marco Ali",
-    "role": "Bowler",
-    "country": "South Africa",
+    "country": "Australia",
     "rating": 85,
-    "basePrice": 1,
-    "stats": {
-      "primary": "Wickets: 59",
-      "secondary": "Econ: 7.17"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 146,
-    "name": "Axar Kumar",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 84,
     "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 132",
-      "secondary": "Econ: 6.88"
+      "primary": "Wickets: 76",
+      "secondary": "Econ: 8.29"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2336,31 +2304,31 @@ export const players = [
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
-    "id": 147,
-    "name": "Lockie Curran",
+    "id": 145,
+    "name": "Riley Meredith",
+    "role": "Bowler",
+    "country": "Australia",
+    "rating": 80,
+    "basePrice": 2,
+    "stats": {
+      "primary": "Wickets: 97",
+      "secondary": "Econ: 6.99"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 146,
+    "name": "Matt Henry",
     "role": "Bowler",
     "country": "New Zealand",
-    "rating": 78,
-    "basePrice": 0.75,
-    "stats": {
-      "primary": "Wickets: 138",
-      "secondary": "Econ: 7.29"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 148,
-    "name": "Kane Starc",
-    "role": "Bowler",
-    "country": "West Indies",
-    "rating": 86,
+    "rating": 83,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 74",
-      "secondary": "Econ: 6.52"
+      "primary": "Wickets: 45",
+      "secondary": "Econ: 8.35"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2368,31 +2336,15 @@ export const players = [
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
-    "id": 149,
-    "name": "Abhishek Mishra",
+    "id": 147,
+    "name": "Marco Jansen",
     "role": "Bowler",
-    "country": "India",
-    "rating": 94,
-    "basePrice": 2,
-    "stats": {
-      "primary": "Wickets: 51",
-      "secondary": "Econ: 6.74"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 4,
-    "set_name": "Set 4 - Fast Bowlers"
-  },
-  {
-    "id": 150,
-    "name": "Shubman Varma",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 90,
+    "country": "South Africa",
+    "rating": 85,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 68",
-      "secondary": "Econ: 7.06"
+      "primary": "Wickets: 106",
+      "secondary": "Econ: 7.74"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2400,15 +2352,63 @@ export const players = [
     "set_name": "Set 4 - Fast Bowlers"
   },
   {
+    "id": 148,
+    "name": "Jason Behrendorff",
+    "role": "Bowler",
+    "country": "Overseas",
+    "rating": 88,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 61",
+      "secondary": "Econ: 6.77"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 149,
+    "name": "Dilshan Madushanka",
+    "role": "Bowler",
+    "country": "Sri Lanka",
+    "rating": 80,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 128",
+      "secondary": "Econ: 7.47"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
+    "id": 150,
+    "name": "Kyle Mayers",
+    "role": "Bowler",
+    "country": "West Indies",
+    "rating": 90,
+    "basePrice": 1.5,
+    "stats": {
+      "primary": "Wickets: 58",
+      "secondary": "Econ: 6.93"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 4,
+    "set_name": "Set 4 - Fast Bowlers"
+  },
+  {
     "id": 151,
-    "name": "Dhruv Tewatia",
+    "name": "Yuzvendra Chahal",
     "role": "Bowler",
     "country": "India",
-    "rating": 86,
+    "rating": 94,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 140",
-      "secondary": "Econ: 7.02"
+      "primary": "Wickets: 143",
+      "secondary": "Econ: 7.38"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2417,14 +2417,14 @@ export const players = [
   },
   {
     "id": 152,
-    "name": "Shardul Kumar",
+    "name": "Kuldeep Yadav",
     "role": "Bowler",
     "country": "India",
-    "rating": 90,
+    "rating": 80,
     "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 117",
-      "secondary": "Econ: 8.00"
+      "primary": "Wickets: 124",
+      "secondary": "Econ: 7.10"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2433,110 +2433,110 @@ export const players = [
   },
   {
     "id": 153,
-    "name": "Nitish Singh",
+    "name": "Ravi Bishnoi",
     "role": "Bowler",
     "country": "India",
-    "rating": 92,
-    "basePrice": 1.5,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 67",
-      "secondary": "Econ: 8.19"
+      "primary": "Wickets: 69",
+      "secondary": "Econ: 7.47"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 154,
-    "name": "Quinton Hasaranga",
+    "name": "Amit Mishra",
     "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 77,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 83,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 41",
-      "secondary": "Econ: 6.90"
+      "primary": "Wickets: 143",
+      "secondary": "Econ: 7.64"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 155,
-    "name": "Andre Rabada",
+    "name": "Piyush Chawla",
     "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 87,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 81",
-      "secondary": "Econ: 6.92"
+      "primary": "Wickets: 59",
+      "secondary": "Econ: 6.90"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 156,
-    "name": "Dhruv Malik",
+    "name": "Rahul Chahar",
     "role": "Bowler",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1.5,
+    "rating": 83,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 119",
-      "secondary": "Econ: 7.56"
+      "primary": "Wickets: 79",
+      "secondary": "Econ: 7.73"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 157,
-    "name": "Rishabh Deshpande",
+    "name": "Varun Chakaravarthy",
     "role": "Bowler",
     "country": "India",
-    "rating": 75,
-    "basePrice": 0.5,
+    "rating": 76,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 129",
-      "secondary": "Econ: 6.59"
+      "primary": "Wickets: 92",
+      "secondary": "Econ: 7.89"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 158,
-    "name": "Mark Russell",
+    "name": "Suyash Sharma",
     "role": "Bowler",
-    "country": "South Africa",
-    "rating": 84,
-    "basePrice": 0.5,
+    "country": "India",
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 147",
-      "secondary": "Econ: 6.62"
+      "primary": "Wickets: 100",
+      "secondary": "Econ: 7.51"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 159,
-    "name": "Rahul Sharma",
+    "name": "Maheesh Theekshana",
     "role": "Bowler",
-    "country": "India",
-    "rating": 77,
+    "country": "Sri Lanka",
+    "rating": 81,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 149",
-      "secondary": "Econ: 6.81"
+      "primary": "Wickets: 47",
+      "secondary": "Econ: 6.73"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -2545,1230 +2545,1150 @@ export const players = [
   },
   {
     "id": 160,
-    "name": "Suryakumar Yadav",
+    "name": "Noor Ahmad",
     "role": "Bowler",
-    "country": "India",
-    "rating": 86,
-    "basePrice": 1,
+    "country": "Afghanistan",
+    "rating": 79,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 128",
-      "secondary": "Econ: 8.05"
+      "primary": "Wickets: 91",
+      "secondary": "Econ: 6.82"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 161,
-    "name": "Washington Chahal",
+    "name": "Mujeeb Ur Rahman",
     "role": "Bowler",
-    "country": "India",
-    "rating": 85,
-    "basePrice": 0.5,
+    "country": "Afghanistan",
+    "rating": 90,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 100",
-      "secondary": "Econ: 6.79"
+      "primary": "Wickets: 110",
+      "secondary": "Econ: 8.07"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 162,
-    "name": "Devon Stoinis",
+    "name": "Akeal Hosein",
     "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 91,
-    "basePrice": 0.5,
+    "country": "West Indies",
+    "rating": 81,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 80",
-      "secondary": "Econ: 7.57"
+      "primary": "Wickets: 32",
+      "secondary": "Econ: 7.62"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 163,
-    "name": "Rajat Sharma",
+    "name": "Tabraiz Shamsi",
     "role": "Bowler",
-    "country": "India",
-    "rating": 84,
-    "basePrice": 0.5,
+    "country": "South Africa",
+    "rating": 86,
+    "basePrice": 1.5,
     "stats": {
-      "primary": "Wickets: 87",
-      "secondary": "Econ: 7.81"
+      "primary": "Wickets: 108",
+      "secondary": "Econ: 7.34"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 164,
-    "name": "Liam Ali",
+    "name": "Adam Zampa",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 80,
-    "basePrice": 1,
+    "country": "Australia",
+    "rating": 90,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 99",
-      "secondary": "Econ: 7.16"
+      "primary": "Wickets: 108",
+      "secondary": "Econ: 8.30"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 165,
-    "name": "Rachin Warner",
+    "name": "Adil Rashid",
     "role": "Bowler",
-    "country": "Sri Lanka",
-    "rating": 92,
-    "basePrice": 1.5,
+    "country": "England",
+    "rating": 84,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 137",
-      "secondary": "Econ: 7.38"
+      "primary": "Wickets: 75",
+      "secondary": "Econ: 8.09"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 166,
-    "name": "Devdutt Mishra",
+    "name": "Keshav Maharaj",
     "role": "Bowler",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 0.5,
+    "country": "South Africa",
+    "rating": 83,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 106",
-      "secondary": "Econ: 6.89"
+      "primary": "Wickets: 93",
+      "secondary": "Econ: 8.49"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 167,
-    "name": "Suryakumar Sharma",
+    "name": "Gudakesh Motie",
     "role": "Bowler",
-    "country": "India",
-    "rating": 90,
-    "basePrice": 1.5,
+    "country": "West Indies",
+    "rating": 82,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 137",
-      "secondary": "Econ: 7.92"
+      "primary": "Wickets: 136",
+      "secondary": "Econ: 7.49"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 168,
-    "name": "Tristan Khan",
+    "name": "Waqar Salamkheil",
     "role": "Bowler",
-    "country": "Sri Lanka",
-    "rating": 75,
-    "basePrice": 1.5,
+    "country": "Afghanistan",
+    "rating": 78,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 76",
-      "secondary": "Econ: 8.08"
+      "primary": "Wickets: 143",
+      "secondary": "Econ: 7.13"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 169,
-    "name": "Axar Sharma",
+    "name": "Karn Sharma",
     "role": "Bowler",
     "country": "India",
-    "rating": 78,
-    "basePrice": 0.5,
+    "rating": 93,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 57",
-      "secondary": "Econ: 7.75"
+      "primary": "Wickets: 86",
+      "secondary": "Econ: 8.19"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 170,
-    "name": "Devdutt Varma",
+    "name": "Shreyas Gopal",
     "role": "Bowler",
     "country": "India",
-    "rating": 85,
-    "basePrice": 1,
+    "rating": 84,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 127",
-      "secondary": "Econ: 7.81"
+      "primary": "Wickets: 129",
+      "secondary": "Econ: 7.49"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 171,
-    "name": "Kuldeep Chawla",
+    "name": "Murugan Ashwin",
     "role": "Bowler",
     "country": "India",
-    "rating": 83,
-    "basePrice": 0.5,
+    "rating": 85,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 116",
-      "secondary": "Econ: 6.53"
+      "primary": "Wickets: 115",
+      "secondary": "Econ: 6.56"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 172,
-    "name": "Tushar Padikkal",
+    "name": "Mayank Markande",
     "role": "Bowler",
     "country": "India",
-    "rating": 92,
-    "basePrice": 1,
+    "rating": 88,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 54",
-      "secondary": "Econ: 8.26"
+      "primary": "Wickets: 141",
+      "secondary": "Econ: 6.59"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 173,
-    "name": "Adil Farooqi",
+    "name": "Prashant Solanki",
     "role": "Bowler",
-    "country": "West Indies",
-    "rating": 82,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 80,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 40",
-      "secondary": "Econ: 8.04"
+      "primary": "Wickets: 68",
+      "secondary": "Econ: 6.92"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 174,
-    "name": "Moeen Farooqi",
+    "name": "M. Siddharth",
     "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 87,
-    "basePrice": 1,
+    "country": "India",
+    "rating": 75,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 31",
-      "secondary": "Econ: 7.66"
+      "primary": "Wickets: 96",
+      "secondary": "Econ: 7.89"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 175,
-    "name": "Trent Rabada",
+    "name": "Raghav Goyal",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 84,
-    "basePrice": 1.5,
+    "country": "India",
+    "rating": 91,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 73",
-      "secondary": "Econ: 8.08"
+      "primary": "Wickets: 114",
+      "secondary": "Econ: 8.00"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 176,
-    "name": "Rahul Patel",
+    "name": "Himanshu Sharma",
     "role": "Bowler",
     "country": "India",
-    "rating": 91,
-    "basePrice": 0.5,
+    "rating": 86,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 90",
-      "secondary": "Econ: 7.75"
+      "primary": "Wickets: 63",
+      "secondary": "Econ: 8.12"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 177,
-    "name": "Marcus Curran",
+    "name": "Izharulhuq Naveed",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 82,
-    "basePrice": 1.5,
+    "country": "Afghanistan",
+    "rating": 87,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 89",
-      "secondary": "Econ: 7.49"
+      "primary": "Wickets: 46",
+      "secondary": "Econ: 8.04"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 178,
-    "name": "Devdutt Sharma",
+    "name": "Allah Ghazanfar",
     "role": "Bowler",
-    "country": "India",
-    "rating": 77,
-    "basePrice": 1,
+    "country": "Afghanistan",
+    "rating": 83,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 115",
-      "secondary": "Econ: 6.74"
+      "primary": "Wickets: 38",
+      "secondary": "Econ: 7.60"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 179,
-    "name": "Tilak Pandya",
+    "name": "Jhathavedh Subramanyan",
     "role": "Bowler",
     "country": "India",
-    "rating": 91,
-    "basePrice": 1,
+    "rating": 94,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 133",
-      "secondary": "Econ: 8.40"
+      "primary": "Wickets: 38",
+      "secondary": "Econ: 7.20"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 180,
-    "name": "Jasprit Singh",
+    "name": "Shivil Sharma",
     "role": "Bowler",
     "country": "India",
     "rating": 87,
-    "basePrice": 0.5,
+    "basePrice": 2,
     "stats": {
-      "primary": "Wickets: 116",
-      "secondary": "Econ: 7.35"
+      "primary": "Wickets: 35",
+      "secondary": "Econ: 8.42"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 5,
     "set_name": "Set 5 - Spinners"
   },
   {
     "id": 181,
-    "name": "Krunal Sharma",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 76,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 106",
-      "secondary": "SR: 148.8"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 182,
-    "name": "Ravi Jaiswal",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 73,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 105",
-      "secondary": "SR: 148.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 183,
-    "name": "Rahul Tewatia",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 80,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 21",
-      "secondary": "SR: 136.4"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 184,
-    "name": "Suyash Tripathi",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 77,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 91",
-      "secondary": "SR: 141.8"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 185,
-    "name": "Devdutt Sharma",
+    "name": "Ashutosh Sharma",
     "role": "Batsman",
     "country": "India",
     "rating": 72,
-    "basePrice": 0.3,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 931",
-      "secondary": "SR: 153.2"
+      "primary": "Runs: 839",
+      "secondary": "SR: 154.4"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 186,
-    "name": "Dhruv Varma",
+    "id": 182,
+    "name": "Shashank Singh",
     "role": "Batsman",
     "country": "India",
     "rating": 75,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 2547",
-      "secondary": "SR: 131.4"
+      "primary": "Runs: 1017",
+      "secondary": "SR: 121.2"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 183,
+    "name": "Sameer Rizvi",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 66,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 941",
+      "secondary": "SR: 132.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 184,
+    "name": "Angkrish Raghuvanshi",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 71,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 880",
+      "secondary": "SR: 131.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 185,
+    "name": "Naman Dhir",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 78,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 716",
+      "secondary": "SR: 136.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 186,
+    "name": "Ayush Badoni",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 66,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3318",
+      "secondary": "SR: 142.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 187,
-    "name": "Deepak Kumar",
+    "name": "Prerak Mankad",
     "role": "Batsman",
     "country": "India",
-    "rating": 72,
+    "rating": 76,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 507",
-      "secondary": "SR: 149.5"
+      "primary": "Runs: 3344",
+      "secondary": "SR: 151.6"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 188,
-    "name": "Shubman Chawla",
-    "role": "All-Rounder",
+    "name": "R. Sai Kishore",
+    "role": "Batsman",
     "country": "India",
-    "rating": 67,
-    "basePrice": 0.3,
+    "rating": 77,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 82",
-      "secondary": "SR: 157.4"
+      "primary": "Runs: 3176",
+      "secondary": "SR: 142.4"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 189,
-    "name": "Jasprit Jadeja",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 83",
-      "secondary": "SR: 136.0"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 190,
-    "name": "Ruturaj Deshpande",
+    "name": "Kartik Tyagi",
     "role": "Batsman",
     "country": "India",
     "rating": 69,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 809",
-      "secondary": "SR: 156.9"
+      "primary": "Runs: 3444",
+      "secondary": "SR: 158.1"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 190,
+    "name": "Kamlesh Nagarkoti",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 71,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2818",
+      "secondary": "SR: 137.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 191,
-    "name": "Shahrukh Padikkal",
+    "name": "Rajvardhan Hangargekar",
     "role": "Batsman",
     "country": "India",
-    "rating": 74,
-    "basePrice": 0.3,
+    "rating": 66,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 2138",
-      "secondary": "SR: 125.9"
+      "primary": "Runs: 3433",
+      "secondary": "SR: 127.6"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 192,
-    "name": "Rinku Mishra",
-    "role": "All-Rounder",
+    "name": "Shivam Mavi",
+    "role": "Batsman",
     "country": "India",
-    "rating": 70,
-    "basePrice": 0.2,
+    "rating": 65,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 53",
-      "secondary": "SR: 147.7"
+      "primary": "Runs: 1703",
+      "secondary": "SR: 155.1"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 193,
-    "name": "Avesh Sundar",
+    "name": "Yash Dayal",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 70,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3285",
+      "secondary": "SR: 128.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 194,
+    "name": "Sushant Mishra",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 78,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2200",
+      "secondary": "SR: 121.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 195,
+    "name": "Vidwath Kaverappa",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 80,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2813",
+      "secondary": "SR: 138.4"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 196,
+    "name": "Vijaykumar Vyshak",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 77,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 939",
+      "secondary": "SR: 156.7"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 197,
+    "name": "Darshan Nalkande",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 78,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2716",
+      "secondary": "SR: 127.0"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 198,
+    "name": "Pradeep Sangwan",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 74,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1684",
+      "secondary": "SR: 135.9"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 199,
+    "name": "Arshad Khan",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 70,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2388",
+      "secondary": "SR: 123.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 200,
+    "name": "Yudhvir Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 68,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1682",
+      "secondary": "SR: 136.4"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 201,
+    "name": "Simarjeet Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 75,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1304",
+      "secondary": "SR: 127.3"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 202,
+    "name": "Kuldeep Sen",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 75,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1262",
+      "secondary": "SR: 157.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 203,
+    "name": "K.M. Asif",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 65,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3080",
+      "secondary": "SR: 150.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 204,
+    "name": "Akash Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 67,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3090",
+      "secondary": "SR: 128.8"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 205,
+    "name": "Gurnoor Brar",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 67,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1884",
+      "secondary": "SR: 128.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 206,
+    "name": "Harpreet Brar",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 75,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2136",
+      "secondary": "SR: 130.3"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 207,
+    "name": "Mahipal Lomror",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 76,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1609",
+      "secondary": "SR: 144.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 208,
+    "name": "R. Sanjay Yadav",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 65,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1414",
+      "secondary": "SR: 146.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 209,
+    "name": "Anukul Roy",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 78,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3448",
+      "secondary": "SR: 128.9"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 210,
+    "name": "Nishant Sindhu",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 76,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 845",
+      "secondary": "SR: 126.7"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 211,
+    "name": "Sanvir Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 71,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2295",
+      "secondary": "SR: 135.1"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 212,
+    "name": "Anshul Kamboj",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 76,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1056",
+      "secondary": "SR: 154.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 213,
+    "name": "Raj Angad Bawa",
     "role": "Batsman",
     "country": "India",
     "rating": 79,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 1704",
-      "secondary": "SR: 149.3"
+      "primary": "Runs: 2506",
+      "secondary": "SR: 136.1"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 194,
-    "name": "Piyush Jaiswal",
-    "role": "All-Rounder",
+    "id": 214,
+    "name": "Rajat Patidar",
+    "role": "Batsman",
     "country": "India",
-    "rating": 72,
+    "rating": 80,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 94",
-      "secondary": "SR: 136.2"
+      "primary": "Runs: 2924",
+      "secondary": "SR: 135.6"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 195,
-    "name": "Tushar Saini",
-    "role": "All-Rounder",
+    "id": 215,
+    "name": "Devdutt Padikkal",
+    "role": "Batsman",
     "country": "India",
-    "rating": 77,
+    "rating": 75,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 33",
-      "secondary": "SR: 135.4"
+      "primary": "Runs: 2699",
+      "secondary": "SR: 148.2"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 196,
-    "name": "Yashasvi Chawla",
+    "id": 216,
+    "name": "Sai Sudharsan",
     "role": "Batsman",
     "country": "India",
     "rating": 71,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 3156",
-      "secondary": "SR: 153.1"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 197,
-    "name": "Prabhsimran Singh",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 48",
-      "secondary": "SR: 140.9"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 198,
-    "name": "Kuldeep Kumar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 72,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 24",
-      "secondary": "SR: 147.4"
+      "primary": "Runs: 1863",
+      "secondary": "SR: 132.2"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 199,
-    "name": "Abhishek Kumar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 70,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 81",
-      "secondary": "SR: 135.3"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 200,
-    "name": "Riyan Tewatia",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 82",
-      "secondary": "SR: 151.4"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 201,
-    "name": "Kuldeep Shaw",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 72,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 1046",
-      "secondary": "SR: 124.4"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 202,
-    "name": "Washington Padikkal",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 76,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 35",
-      "secondary": "SR: 132.5"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 203,
-    "name": "Umran Khan",
+    "id": 217,
+    "name": "Atharva Taide",
     "role": "Batsman",
     "country": "India",
     "rating": 73,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 1500",
+      "primary": "Runs: 3209",
+      "secondary": "SR: 156.0"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 218,
+    "name": "Yash Dhull",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 73,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 805",
+      "secondary": "SR: 141.0"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 219,
+    "name": "Manish Pandey",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 75,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3373",
+      "secondary": "SR: 120.3"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 220,
+    "name": "Karun Nair",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 69,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2360",
+      "secondary": "SR: 142.9"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 221,
+    "name": "Mandeep Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 78,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 510",
+      "secondary": "SR: 152.9"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 222,
+    "name": "Sarfaraz Khan",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 80,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 865",
+      "secondary": "SR: 138.4"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 223,
+    "name": "Anmolpreet Singh",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 80,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1262",
+      "secondary": "SR: 125.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 224,
+    "name": "Mayank Agarwal",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 70,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 588",
+      "secondary": "SR: 148.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 225,
+    "name": "Rohan Kadam",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 71,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 3456",
+      "secondary": "SR: 144.6"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 226,
+    "name": "C. Hari Nishaanth",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 66,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2444",
+      "secondary": "SR: 133.2"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 227,
+    "name": "Shahrukh Khan",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 71,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 575",
+      "secondary": "SR: 138.9"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 228,
+    "name": "Manoj Bhandage",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 66,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 1407",
+      "secondary": "SR: 150.5"
+    },
+    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
+  },
+  {
+    "id": 229,
+    "name": "Sachin Baby",
+    "role": "Batsman",
+    "country": "India",
+    "rating": 77,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Runs: 2948",
       "secondary": "SR: 155.5"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 204,
-    "name": "Arshdeep Pant",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 73,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 43",
-      "secondary": "SR: 148.7"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 205,
-    "name": "Deepak Singh",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 926",
-      "secondary": "SR: 157.5"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 206,
-    "name": "Tushar Gaikwad",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 29",
-      "secondary": "SR: 140.8"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 207,
-    "name": "Nitish Gaikwad",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 74,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 3103",
-      "secondary": "SR: 137.5"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 208,
-    "name": "Sanju Patidar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 79,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 52",
-      "secondary": "SR: 149.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 209,
-    "name": "Yashasvi Pandya",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 79,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 586",
-      "secondary": "SR: 134.9"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 210,
-    "name": "Prabhsimran Samson",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 68,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 37",
-      "secondary": "SR: 138.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 211,
-    "name": "Ruturaj Chawla",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 72,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 111",
-      "secondary": "SR: 149.4"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 212,
-    "name": "Tilak Patel",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 73,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 114",
-      "secondary": "SR: 151.7"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 213,
-    "name": "Tilak Jurel",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 71,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 84",
-      "secondary": "SR: 142.5"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 214,
-    "name": "Mayank Samson",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 3187",
-      "secondary": "SR: 135.2"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 215,
-    "name": "Tilak Gaikwad",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 80,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 1357",
-      "secondary": "SR: 135.4"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 216,
-    "name": "Rahul Bumrah",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 75,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 51",
-      "secondary": "SR: 157.5"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 217,
-    "name": "Amit Tewatia",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 68,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 55",
-      "secondary": "SR: 158.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 218,
-    "name": "Rahul Sharma",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 71,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 2975",
-      "secondary": "SR: 133.3"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 219,
-    "name": "Shreyas Malik",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 77,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 1736",
-      "secondary": "SR: 130.6"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 220,
-    "name": "Shubman Jadeja",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 67,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 95",
-      "secondary": "SR: 135.9"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 221,
-    "name": "Ishan Thakur",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 68,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 50",
-      "secondary": "SR: 132.8"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 222,
-    "name": "Hardik Pandya",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 79,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 107",
-      "secondary": "SR: 159.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 223,
-    "name": "Krunal Chahar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 79,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 89",
-      "secondary": "SR: 149.2"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 224,
-    "name": "Mayank Iyer",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 74,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 2805",
-      "secondary": "SR: 131.5"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 225,
-    "name": "Ravi Padikkal",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 78,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 1380",
-      "secondary": "SR: 146.3"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 226,
-    "name": "Rajat Khan",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 76,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 2598",
-      "secondary": "SR: 147.8"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 227,
-    "name": "Dhruv Shami",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 3495",
-      "secondary": "SR: 156.8"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 228,
-    "name": "Avesh Iyer",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 1926",
-      "secondary": "SR: 141.4"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 229,
-    "name": "Ravi Pandya",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 2494",
-      "secondary": "SR: 129.2"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
     "id": 230,
-    "name": "Shardul Tripathi",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 72,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 86",
-      "secondary": "SR: 132.3"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 6,
-    "set_name": "Set 6 - Uncapped Batters & ARs"
-  },
-  {
-    "id": 231,
-    "name": "Suyash Iyer",
+    "name": "Jalaj Saxena",
     "role": "Batsman",
     "country": "India",
-    "rating": 74,
+    "rating": 75,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 3475",
-      "secondary": "SR: 124.2"
+      "primary": "Runs: 3133",
+      "secondary": "SR: 131.0"
     },
     "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 7,
-    "set_name": "Set 7 - Accelerated Mix 1"
+    "set_index": 6,
+    "set_name": "Set 6 - Uncapped Mix"
   },
   {
-    "id": 232,
-    "name": "Sam Livingstone",
-    "role": "Wicketkeeper",
-    "country": "West Indies",
-    "rating": 83,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 2023",
-      "secondary": "Dismissals: 66"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 7,
-    "set_name": "Set 7 - Accelerated Mix 1"
-  },
-  {
-    "id": 233,
-    "name": "Ravi Mishra",
+    "id": 231,
+    "name": "Prithvi Shaw",
     "role": "All-Rounder",
     "country": "India",
-    "rating": 76,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 20",
-      "secondary": "SR: 131.9"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 7,
-    "set_name": "Set 7 - Accelerated Mix 1"
-  },
-  {
-    "id": 234,
-    "name": "Nehal Sharma",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 73,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 414",
-      "secondary": "Dismissals: 79"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 7,
-    "set_name": "Set 7 - Accelerated Mix 1"
-  },
-  {
-    "id": 235,
-    "name": "Marco Buttler",
-    "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 78,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 87",
-      "secondary": "Econ: 8.01"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 7,
-    "set_name": "Set 7 - Accelerated Mix 1"
-  },
-  {
-    "id": 236,
-    "name": "Matthew ul-Haq",
-    "role": "All-Rounder",
-    "country": "Sri Lanka",
-    "rating": 65,
+    "rating": 72,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 58",
-      "secondary": "SR: 147.5"
+      "primary": "Wickets: 114",
+      "secondary": "SR: 133.5"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -3776,303 +3696,383 @@ export const players = [
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
-    "id": 237,
-    "name": "Ravindra Sharma",
-    "role": "Bowler",
+    "id": 232,
+    "name": "Ajinkya Rahane",
+    "role": "All-Rounder",
     "country": "India",
-    "rating": 70,
+    "rating": 73,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 70",
+      "secondary": "SR: 152.8"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 7,
+    "set_name": "Set 7 - Accelerated Mix 1"
+  },
+  {
+    "id": 233,
+    "name": "Rilee Rossouw",
+    "role": "All-Rounder",
+    "country": "South Africa",
+    "rating": 85,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 130",
-      "secondary": "Econ: 6.90"
+      "primary": "Wickets: 96",
+      "secondary": "SR: 145.1"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 7,
+    "set_name": "Set 7 - Accelerated Mix 1"
+  },
+  {
+    "id": 234,
+    "name": "Steve Smith",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "rating": 84,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 51",
+      "secondary": "SR: 157.4"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 7,
+    "set_name": "Set 7 - Accelerated Mix 1"
+  },
+  {
+    "id": 235,
+    "name": "Joe Root",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 73,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 101",
+      "secondary": "SR: 156.4"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 7,
+    "set_name": "Set 7 - Accelerated Mix 1"
+  },
+  {
+    "id": 236,
+    "name": "Harry Brook",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 80,
+    "basePrice": 0.75,
+    "stats": {
+      "primary": "Wickets: 30",
+      "secondary": "SR: 160.0"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 7,
+    "set_name": "Set 7 - Accelerated Mix 1"
+  },
+  {
+    "id": 237,
+    "name": "Devon Conway",
+    "role": "All-Rounder",
+    "country": "New Zealand",
+    "rating": 75,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Wickets: 91",
+      "secondary": "SR: 136.8"
+    },
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 238,
-    "name": "Liam Jansen",
-    "role": "Batsman",
-    "country": "England",
-    "rating": 61,
-    "basePrice": 0.2,
+    "name": "Finn Allen",
+    "role": "All-Rounder",
+    "country": "New Zealand",
+    "rating": 81,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 3035",
-      "secondary": "SR: 157.1"
+      "primary": "Wickets: 46",
+      "secondary": "SR: 152.3"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 239,
-    "name": "Rovman Pooran",
-    "role": "Bowler",
-    "country": "Afghanistan",
-    "rating": 72,
-    "basePrice": 0.5,
+    "name": "Martin Guptill",
+    "role": "All-Rounder",
+    "country": "New Zealand",
+    "rating": 70,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Wickets: 120",
-      "secondary": "Econ: 6.59"
+      "primary": "Wickets: 81",
+      "secondary": "SR: 149.5"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 240,
-    "name": "Prabhsimran Sharma",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 69,
+    "name": "Colin Munro",
+    "role": "All-Rounder",
+    "country": "New Zealand",
+    "rating": 71,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 38",
-      "secondary": "Econ: 8.45"
+      "primary": "Wickets: 118",
+      "secondary": "SR: 141.7"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 241,
-    "name": "Jitesh Pant",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.2,
+    "name": "Evin Lewis",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 80,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 1400",
-      "secondary": "SR: 131.8"
+      "primary": "Wickets: 90",
+      "secondary": "SR: 145.2"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 242,
-    "name": "Piyush Chahal",
+    "name": "Johnson Charles",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 73,
-    "basePrice": 0.2,
+    "country": "West Indies",
+    "rating": 82,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Wickets: 23",
-      "secondary": "SR: 151.6"
+      "primary": "Wickets: 109",
+      "secondary": "SR: 151.7"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 243,
-    "name": "Navdeep Chahar",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 62,
+    "name": "Lendl Simmons",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 78,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 3076",
-      "secondary": "SR: 138.5"
+      "primary": "Wickets: 91",
+      "secondary": "SR: 136.8"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 244,
-    "name": "Nicholas Cummins",
-    "role": "Bowler",
-    "country": "South Africa",
-    "rating": 84,
+    "name": "Dawid Malan",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 82,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 145",
-      "secondary": "Econ: 7.83"
+      "primary": "Wickets: 22",
+      "secondary": "SR: 153.6"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 245,
-    "name": "Aiden Russell",
-    "role": "Wicketkeeper",
+    "name": "Jason Roy",
+    "role": "All-Rounder",
     "country": "England",
-    "rating": 67,
-    "basePrice": 1,
+    "rating": 78,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 1576",
-      "secondary": "Dismissals: 13"
+      "primary": "Wickets: 86",
+      "secondary": "SR: 146.0"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 246,
-    "name": "Navdeep Saini",
+    "name": "Alex Hales",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.3,
+    "country": "England",
+    "rating": 83,
+    "basePrice": 1,
     "stats": {
       "primary": "Wickets: 69",
-      "secondary": "SR: 133.2"
+      "secondary": "SR: 142.1"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 247,
-    "name": "Jos Nortje",
-    "role": "Batsman",
-    "country": "Afghanistan",
-    "rating": 79,
-    "basePrice": 0.5,
+    "name": "Paul Stirling",
+    "role": "All-Rounder",
+    "country": "Ireland",
+    "rating": 85,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 1142",
-      "secondary": "SR: 144.4"
+      "primary": "Wickets: 52",
+      "secondary": "SR: 157.0"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 248,
-    "name": "Amit Reddy",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 64,
-    "basePrice": 0.2,
+    "name": "Chris Lynn",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "rating": 80,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 814",
-      "secondary": "Dismissals: 65"
+      "primary": "Wickets: 56",
+      "secondary": "SR: 136.5"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 249,
-    "name": "Jasprit Kumar",
+    "name": "D'Arcy Short",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 66,
-    "basePrice": 0.3,
+    "country": "Australia",
+    "rating": 76,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Wickets: 22",
-      "secondary": "SR: 155.6"
+      "primary": "Wickets: 97",
+      "secondary": "SR: 156.0"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 250,
-    "name": "Mark Green",
+    "name": "Ben Cutting",
     "role": "All-Rounder",
-    "country": "Afghanistan",
-    "rating": 79,
-    "basePrice": 0.2,
+    "country": "Australia",
+    "rating": 76,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 85",
-      "secondary": "SR: 156.2"
+      "primary": "Wickets: 50",
+      "secondary": "SR: 159.3"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 251,
-    "name": "Mitchell Wood",
-    "role": "Wicketkeeper",
-    "country": "New Zealand",
+    "name": "Moises Henriques",
+    "role": "All-Rounder",
+    "country": "Australia",
     "rating": 73,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 1268",
-      "secondary": "Dismissals: 65"
+      "primary": "Wickets: 57",
+      "secondary": "SR: 140.3"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 252,
-    "name": "Jitesh Mishra",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 74,
+    "name": "Daniel Sams",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "rating": 77,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 2399",
-      "secondary": "SR: 132.4"
+      "primary": "Wickets: 21",
+      "secondary": "SR: 147.7"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 253,
-    "name": "Riyan Agarwal",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 75,
-    "basePrice": 0.2,
+    "name": "Sean Abbott",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "rating": 72,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 2908",
-      "secondary": "SR: 140.5"
+      "primary": "Wickets: 78",
+      "secondary": "SR: 134.9"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 254,
-    "name": "Devon Warner",
-    "role": "Batsman",
-    "country": "West Indies",
-    "rating": 81,
+    "name": "Ashton Agar",
+    "role": "All-Rounder",
+    "country": "Australia",
+    "rating": 74,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 3199",
-      "secondary": "SR: 152.7"
+      "primary": "Wickets: 61",
+      "secondary": "SR: 136.1"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 255,
-    "name": "Mark Hasaranga",
+    "name": "Chris Jordan",
     "role": "All-Rounder",
     "country": "England",
-    "rating": 81,
+    "rating": 73,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 119",
-      "secondary": "SR: 143.5"
+      "primary": "Wickets: 106",
+      "secondary": "SR: 158.8"
     },
     "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -4081,286 +4081,286 @@ export const players = [
   },
   {
     "id": 256,
-    "name": "Mohsin Bumrah",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 68,
+    "name": "Tymal Mills",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 80,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 82",
-      "secondary": "Econ: 6.88"
+      "primary": "Wickets: 37",
+      "secondary": "SR: 158.8"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 257,
-    "name": "Prabhsimran Wadhera",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 69,
-    "basePrice": 0.2,
+    "name": "David Willey",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 73,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 1952",
-      "secondary": "Dismissals: 32"
+      "primary": "Wickets: 29",
+      "secondary": "SR: 148.7"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 258,
-    "name": "Ravindra Jaiswal",
+    "name": "Craig Overton",
     "role": "All-Rounder",
-    "country": "India",
-    "rating": 74,
-    "basePrice": 0.2,
+    "country": "England",
+    "rating": 72,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 96",
-      "secondary": "SR: 148.1"
+      "primary": "Wickets: 65",
+      "secondary": "SR: 158.9"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 259,
-    "name": "Rahul Shami",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 78,
+    "name": "Jamie Overton",
+    "role": "All-Rounder",
+    "country": "England",
+    "rating": 81,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 2459",
-      "secondary": "SR: 138.5"
+      "primary": "Wickets: 25",
+      "secondary": "SR: 151.1"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 260,
-    "name": "Rashid Nortje",
-    "role": "Bowler",
-    "country": "Australia",
-    "rating": 64,
-    "basePrice": 0.2,
+    "name": "Odean Smith",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 82,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 49",
-      "secondary": "Econ: 7.40"
+      "primary": "Wickets: 103",
+      "secondary": "SR: 148.8"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 261,
-    "name": "Liam Maxwell",
-    "role": "Bowler",
-    "country": "South Africa",
-    "rating": 72,
+    "name": "Sherfane Rutherford",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 71,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 32",
-      "secondary": "Econ: 6.61"
+      "primary": "Wickets: 47",
+      "secondary": "SR: 152.5"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 262,
-    "name": "Heinrich Boult",
-    "role": "Bowler",
-    "country": "Australia",
-    "rating": 67,
-    "basePrice": 1,
+    "name": "Fabian Allen",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 80,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Wickets: 30",
-      "secondary": "Econ: 8.19"
+      "primary": "Wickets: 81",
+      "secondary": "SR: 153.2"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 263,
-    "name": "Daryl Starc",
-    "role": "Wicketkeeper",
-    "country": "Australia",
-    "rating": 73,
-    "basePrice": 1,
+    "name": "Keemo Paul",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 70,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 2016",
-      "secondary": "Dismissals: 56"
+      "primary": "Wickets: 89",
+      "secondary": "SR: 157.2"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 264,
-    "name": "Kyle Stubbs",
-    "role": "Wicketkeeper",
-    "country": "Sri Lanka",
-    "rating": 74,
-    "basePrice": 0.2,
+    "name": "Dominic Drakes",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 73,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 1458",
-      "secondary": "Dismissals: 26"
+      "primary": "Wickets: 39",
+      "secondary": "SR: 155.9"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 265,
-    "name": "Ruturaj Sharma",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 79,
-    "basePrice": 0.2,
+    "name": "Akeem Jordan",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 71,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Wickets: 148",
-      "secondary": "Econ: 6.56"
+      "primary": "Wickets: 74",
+      "secondary": "SR: 130.9"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 266,
-    "name": "Rahul Parag",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 77,
-    "basePrice": 1,
+    "name": "Matthew Forde",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 79,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 1136",
-      "secondary": "Dismissals: 51"
+      "primary": "Wickets: 84",
+      "secondary": "SR: 143.6"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 267,
-    "name": "Maheesh Jansen",
+    "name": "Shamar Joseph",
     "role": "All-Rounder",
-    "country": "Afghanistan",
-    "rating": 85,
-    "basePrice": 0.3,
+    "country": "West Indies",
+    "rating": 73,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 43",
-      "secondary": "SR: 159.8"
+      "primary": "Wickets: 85",
+      "secondary": "SR: 136.0"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 268,
-    "name": "Kuldeep Chahar",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 83,
-    "basePrice": 0.5,
+    "name": "Obed McCoy",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 71,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 1687",
-      "secondary": "Dismissals: 67"
+      "primary": "Wickets: 82",
+      "secondary": "SR: 130.8"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 269,
-    "name": "Shreyas Wadhera",
-    "role": "Wicketkeeper",
-    "country": "India",
+    "name": "Oshane Thomas",
+    "role": "All-Rounder",
+    "country": "West Indies",
     "rating": 81,
-    "basePrice": 0.5,
+    "basePrice": 0.75,
     "stats": {
-      "primary": "Runs: 1826",
-      "secondary": "Dismissals: 88"
+      "primary": "Wickets: 20",
+      "secondary": "SR: 153.8"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.75 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 270,
-    "name": "Riyan Chawla",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 82,
+    "name": "Sheldon Cottrell",
+    "role": "All-Rounder",
+    "country": "West Indies",
+    "rating": 73,
     "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 31",
-      "secondary": "Econ: 8.12"
+      "primary": "Wickets: 70",
+      "secondary": "SR: 153.1"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 7,
     "set_name": "Set 7 - Accelerated Mix 1"
   },
   {
     "id": 271,
-    "name": "Andre Ali",
-    "role": "Wicketkeeper",
-    "country": "Afghanistan",
-    "rating": 60,
-    "basePrice": 0.3,
+    "name": "Rassie van der Dussen",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 69,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Runs: 1778",
-      "secondary": "Dismissals: 29"
+      "primary": "Wickets: 31",
+      "secondary": "Econ: 6.55"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 272,
-    "name": "Adil Rashid",
-    "role": "Wicketkeeper",
-    "country": "Afghanistan",
-    "rating": 62,
-    "basePrice": 0.2,
+    "name": "Temba Bavuma",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 71,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 885",
-      "secondary": "Dismissals: 18"
+      "primary": "Wickets: 104",
+      "secondary": "Econ: 7.81"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 273,
-    "name": "Prithvi Khan",
+    "name": "Reeza Hendricks",
     "role": "Bowler",
-    "country": "India",
-    "rating": 66,
+    "country": "South Africa",
+    "rating": 68,
     "basePrice": 0.2,
     "stats": {
-      "primary": "Wickets: 30",
-      "secondary": "Econ: 6.99"
+      "primary": "Wickets: 80",
+      "secondary": "Econ: 7.58"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -4369,286 +4369,110 @@ export const players = [
   },
   {
     "id": 274,
-    "name": "Mark Ali",
+    "name": "Dewald Brevis",
     "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 67,
-    "basePrice": 0.5,
+    "country": "South Africa",
+    "rating": 79,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Wickets: 75",
-      "secondary": "Econ: 7.51"
+      "primary": "Wickets: 132",
+      "secondary": "Econ: 7.69"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 275,
-    "name": "Ruturaj Malik",
+    "name": "Ryan Rickelton",
     "role": "Bowler",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.3,
+    "country": "South Africa",
+    "rating": 74,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 92",
-      "secondary": "Econ: 6.82"
+      "primary": "Wickets: 113",
+      "secondary": "Econ: 8.01"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 276,
-    "name": "Devdutt Pant",
+    "name": "Wayne Parnell",
     "role": "Bowler",
-    "country": "India",
-    "rating": 67,
-    "basePrice": 0.5,
+    "country": "South Africa",
+    "rating": 76,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Wickets: 114",
-      "secondary": "Econ: 6.83"
+      "primary": "Wickets: 37",
+      "secondary": "Econ: 6.99"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 277,
-    "name": "Nehal Singh",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 60,
-    "basePrice": 0.3,
+    "name": "Lungi Ngidi",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 67,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Runs: 1405",
-      "secondary": "Dismissals: 52"
+      "primary": "Wickets: 131",
+      "secondary": "Econ: 6.56"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 278,
-    "name": "Mohsin Malik",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.3,
+    "name": "Lizaad Williams",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 77,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 47",
-      "secondary": "SR: 144.5"
+      "primary": "Wickets: 41",
+      "secondary": "Econ: 6.93"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 279,
-    "name": "Tushar Sundar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 60,
+    "name": "Corbin Bosch",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 70,
     "basePrice": 0.2,
     "stats": {
-      "primary": "Wickets: 82",
-      "secondary": "SR: 140.7"
+      "primary": "Wickets: 46",
+      "secondary": "Econ: 6.88"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 280,
-    "name": "Rajat Thakur",
+    "name": "Duan Jansen",
     "role": "Bowler",
-    "country": "India",
-    "rating": 63,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 37",
-      "secondary": "Econ: 6.73"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 281,
-    "name": "Cameron Wade",
-    "role": "Bowler",
-    "country": "New Zealand",
-    "rating": 69,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Wickets: 108",
-      "secondary": "Econ: 8.04"
-    },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 282,
-    "name": "Piyush Patidar",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 75,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 117",
-      "secondary": "SR: 152.0"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 283,
-    "name": "Arshdeep Sundar",
-    "role": "Batsman",
-    "country": "India",
-    "rating": 74,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 1538",
-      "secondary": "SR: 138.4"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 284,
-    "name": "Wanindu Archer",
-    "role": "Batsman",
     "country": "South Africa",
-    "rating": 63,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 1821",
-      "secondary": "SR: 132.2"
-    },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 285,
-    "name": "Harshit Gill",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 67,
+    "rating": 69,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 107",
-      "secondary": "SR: 147.1"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 286,
-    "name": "Ruturaj Pant",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 70,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Wickets: 30",
-      "secondary": "SR: 131.7"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 287,
-    "name": "Shubman Wadhera",
-    "role": "All-Rounder",
-    "country": "India",
-    "rating": 67,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 25",
-      "secondary": "SR: 137.1"
-    },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 288,
-    "name": "Phil Ali",
-    "role": "Wicketkeeper",
-    "country": "England",
-    "rating": 71,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Runs: 2038",
-      "secondary": "Dismissals: 27"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 289,
-    "name": "Abhishek Deshpande",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 65,
-    "basePrice": 0.2,
-    "stats": {
-      "primary": "Runs: 1769",
-      "secondary": "Dismissals: 84"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 290,
-    "name": "Quinton Wade",
-    "role": "Wicketkeeper",
-    "country": "Afghanistan",
-    "rating": 63,
-    "basePrice": 0.3,
-    "stats": {
-      "primary": "Runs: 570",
-      "secondary": "Dismissals: 76"
-    },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
-    "set_index": 8,
-    "set_name": "Set 8 - Accelerated Mix 2"
-  },
-  {
-    "id": 291,
-    "name": "Harshit Chahar",
-    "role": "Bowler",
-    "country": "India",
-    "rating": 68,
-    "basePrice": 0.5,
-    "stats": {
-      "primary": "Wickets: 31",
-      "secondary": "Econ: 7.35"
+      "primary": "Wickets: 38",
+      "secondary": "Econ: 7.61"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -4656,47 +4480,223 @@ export const players = [
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
-    "id": 292,
-    "name": "Andre Head",
-    "role": "Batsman",
-    "country": "Australia",
-    "rating": 64,
+    "id": 281,
+    "name": "Sisanda Magala",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 73,
+    "basePrice": 0.2,
+    "stats": {
+      "primary": "Wickets: 88",
+      "secondary": "Econ: 6.54"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 282,
+    "name": "Dwaine Pretorius",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 80,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 2035",
-      "secondary": "SR: 143.9"
+      "primary": "Wickets: 109",
+      "secondary": "Econ: 7.18"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 283,
+    "name": "Wiaan Mulder",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 77,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Wickets: 83",
+      "secondary": "Econ: 7.52"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 284,
+    "name": "Andile Phehlukwayo",
+    "role": "Bowler",
+    "country": "South Africa",
+    "rating": 66,
+    "basePrice": 0.5,
+    "stats": {
+      "primary": "Wickets: 110",
+      "secondary": "Econ: 8.02"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 285,
+    "name": "Kesrick Williams",
+    "role": "Bowler",
+    "country": "West Indies",
+    "rating": 79,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 68",
+      "secondary": "Econ: 7.56"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 286,
+    "name": "Fidel Edwards",
+    "role": "Bowler",
+    "country": "West Indies",
+    "rating": 67,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 95",
+      "secondary": "Econ: 8.35"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 287,
+    "name": "Jayden Seales",
+    "role": "Bowler",
+    "country": "West Indies",
+    "rating": 66,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 127",
+      "secondary": "Econ: 8.45"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 288,
+    "name": "Colin de Grandhomme",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 80,
+    "basePrice": 0.2,
+    "stats": {
+      "primary": "Wickets: 94",
+      "secondary": "Econ: 8.02"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 289,
+    "name": "James Neesham",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 69,
+    "basePrice": 0.2,
+    "stats": {
+      "primary": "Wickets: 30",
+      "secondary": "Econ: 7.42"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 290,
+    "name": "Mitchell Santner",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 77,
+    "basePrice": 0.2,
+    "stats": {
+      "primary": "Wickets: 112",
+      "secondary": "Econ: 7.79"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 291,
+    "name": "Ish Sodhi",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 65,
+    "basePrice": 1,
+    "stats": {
+      "primary": "Wickets: 81",
+      "secondary": "Econ: 6.88"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
+    "set_index": 8,
+    "set_name": "Set 8 - Accelerated Mix 2"
+  },
+  {
+    "id": 292,
+    "name": "Tim Southee",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 76,
+    "basePrice": 0.2,
+    "stats": {
+      "primary": "Wickets: 116",
+      "secondary": "Econ: 7.05"
+    },
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 293,
-    "name": "Shardul Samson",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 75,
-    "basePrice": 0.2,
+    "name": "Neil Wagner",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 80,
+    "basePrice": 0.5,
     "stats": {
-      "primary": "Runs: 737",
-      "secondary": "Dismissals: 46"
+      "primary": "Wickets: 103",
+      "secondary": "Econ: 7.43"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 294,
-    "name": "Rahul Khan",
+    "name": "Kyle Jamieson",
     "role": "Bowler",
-    "country": "India",
-    "rating": 73,
+    "country": "New Zealand",
+    "rating": 67,
     "basePrice": 0.5,
     "stats": {
-      "primary": "Wickets: 40",
-      "secondary": "Econ: 7.10"
+      "primary": "Wickets: 147",
+      "secondary": "Econ: 7.49"
     },
     "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
@@ -4705,96 +4705,96 @@ export const players = [
   },
   {
     "id": 295,
-    "name": "Devon Nortje",
-    "role": "Wicketkeeper",
-    "country": "West Indies",
-    "rating": 74,
-    "basePrice": 0.5,
+    "name": "Ben Sears",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 77,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 1567",
-      "secondary": "Dismissals: 78"
+      "primary": "Wickets: 121",
+      "secondary": "Econ: 7.02"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 296,
-    "name": "Jos Mitchell",
-    "role": "Batsman",
-    "country": "South Africa",
-    "rating": 67,
-    "basePrice": 0.2,
+    "name": "William O'Rourke",
+    "role": "Bowler",
+    "country": "New Zealand",
+    "rating": 69,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 879",
-      "secondary": "SR: 151.1"
+      "primary": "Wickets: 135",
+      "secondary": "Econ: 6.95"
     },
-    "description": "Solid Batsman option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 297,
-    "name": "Kyle Head",
+    "name": "Qais Ahmad",
     "role": "Bowler",
     "country": "Afghanistan",
-    "rating": 65,
-    "basePrice": 0.3,
+    "rating": 67,
+    "basePrice": 1,
     "stats": {
-      "primary": "Wickets: 134",
-      "secondary": "Econ: 7.14"
+      "primary": "Wickets: 136",
+      "secondary": "Econ: 7.69"
     },
-    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 298,
-    "name": "Adil Starc",
-    "role": "Wicketkeeper",
-    "country": "Sri Lanka",
-    "rating": 67,
-    "basePrice": 0.3,
+    "name": "Zahir Khan",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "rating": 80,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Runs: 436",
-      "secondary": "Dismissals: 60"
+      "primary": "Wickets: 47",
+      "secondary": "Econ: 8.14"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.3 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 299,
-    "name": "Heinrich Hasaranga",
-    "role": "All-Rounder",
-    "country": "New Zealand",
-    "rating": 68,
-    "basePrice": 0.5,
+    "name": "Gulbadin Naib",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "rating": 80,
+    "basePrice": 0.2,
     "stats": {
-      "primary": "Wickets: 67",
-      "secondary": "SR: 149.3"
+      "primary": "Wickets: 101",
+      "secondary": "Econ: 6.89"
     },
-    "description": "Solid All-Rounder option for teams looking to bolster their squad. Base Price: ₹0.5 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
   },
   {
     "id": 300,
-    "name": "Umran Sharma",
-    "role": "Wicketkeeper",
-    "country": "India",
-    "rating": 63,
-    "basePrice": 0.2,
+    "name": "Mohammad Nabi",
+    "role": "Bowler",
+    "country": "Afghanistan",
+    "rating": 71,
+    "basePrice": 1,
     "stats": {
-      "primary": "Runs: 2025",
-      "secondary": "Dismissals: 12"
+      "primary": "Wickets: 57",
+      "secondary": "Econ: 8.18"
     },
-    "description": "Solid Wicketkeeper option for teams looking to bolster their squad. Base Price: ₹0.2 Cr.",
+    "description": "Solid Bowler option for teams looking to bolster their squad. Base Price: ₹1 Cr.",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/No_image_available.svg",
     "set_index": 8,
     "set_name": "Set 8 - Accelerated Mix 2"
