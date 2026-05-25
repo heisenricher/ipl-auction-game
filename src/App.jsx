@@ -7,97 +7,15 @@ import {
 import { supabase } from './supabaseClient';
 import { players as initialPlayers } from './data/players';
 import confetti from 'canvas-confetti';
+import TeamLogo from './components/TeamLogo';
+import { FRANCHISES, BOT_STRATEGIES } from './utils/constants';
+import { getBotValuation } from './utils/botLogic';
+import LivePurses from './components/LivePurses';
 
-// Team Logo Component
-const TeamLogo = ({ teamId, className = "", style = {} }) => {
-  if (!teamId) return null;
-  
-  // Try to extract width/height from className if style doesn't have it
-  const isW12 = className.includes('w-12');
-  const isW6 = className.includes('w-6');
-  const defaultSize = isW12 ? '48px' : isW6 ? '24px' : '40px';
-  
-  const mergedStyle = {
-    width: defaultSize,
-    height: defaultSize,
-    objectFit: 'contain',
-    ...style
-  };
 
-  return (
-    <img 
-      src={`/logos/${teamId.toLowerCase()}.svg`} 
-      alt={`${teamId} Logo`} 
-      className={className}
-      style={mergedStyle}
-      onError={(e) => {
-        // Fallback to text if image fails to load
-        e.target.style.display = 'none';
-        if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
-      }}
-    />
-  );
-};
 
-// IPL Franchise List
-const FRANCHISES = [
-  { id: 'CSK', name: 'Chennai Super Kings', color: '#F7D117', text: '#1e1b4b' },
-  { id: 'MI', name: 'Mumbai Indians', color: '#004BA0', text: '#ffffff' },
-  { id: 'RCB', name: 'Royal Challengers Bengaluru', color: '#EC1C24', text: '#ffffff' },
-  { id: 'KKR', name: 'Kolkata Knight Riders', color: '#3A225D', text: '#ffffff' },
-  { id: 'RR', name: 'Rajasthan Royals', color: '#EA1B85', text: '#ffffff' },
-  { id: 'SRH', name: 'Sunrisers Hyderabad', color: '#F26522', text: '#ffffff' },
-  { id: 'DC', name: 'Delhi Capitals', color: '#1B3E8F', text: '#ffffff' },
-  { id: 'LSG', name: 'Lucknow Super Giants', color: '#00A9E0', text: '#0f172a' },
-  { id: 'GT', name: 'Gujarat Titans', color: '#0B2240', text: '#ffffff' },
-  { id: 'PBKS', name: 'Punjab Kings', color: '#D71920', text: '#ffffff' }
-];
 
-// BOT Bidding Personalities & Strategies
-const BOT_STRATEGIES = {
-  RCB: { type: 'AGGRESSIVE', maxBidMultiplier: 1.15, minRating: 88, name: 'Aggressive Superstar Hunter' },
-  MI: { type: 'AGGRESSIVE', maxBidMultiplier: 1.15, minRating: 88, name: 'Aggressive Superstar Hunter' },
-  CSK: { type: 'VALUE', maxBidMultiplier: 0.95, minRating: 82, name: 'Balanced Value Seeker' },
-  GT: { type: 'VALUE', maxBidMultiplier: 0.95, minRating: 82, name: 'Balanced Value Seeker' },
-  PBKS: { type: 'BARGAIN', maxBidMultiplier: 0.70, minRating: 70, name: 'Bargain Hunter' },
-  LSG: { type: 'BARGAIN', maxBidMultiplier: 0.70, minRating: 70, name: 'Bargain Hunter' },
-  KKR: { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78, name: 'Standard Balanced Agent' },
-  RR: { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78, name: 'Standard Balanced Agent' },
-  SRH: { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78, name: 'Standard Balanced Agent' },
-  DC: { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78, name: 'Standard Balanced Agent' }
-};
 
-// Bot Valuation Logic based on strategies
-const getBotValuation = (player, teamName, roomPlayers, participants) => {
-  const strategy = BOT_STRATEGIES[teamName] || { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78 };
-  const ratingFactor = Math.max(0, (player.rating - 75)) * 0.75;
-  let baseValuation = player.base_price + ratingFactor;
-
-  if (strategy.type === 'AGGRESSIVE' && player.rating >= 92) baseValuation *= 1.15;
-  else if (strategy.type === 'BARGAIN') baseValuation *= 0.70;
-  else if (strategy.type === 'VALUE' && player.role === 'All-Rounder') baseValuation *= 1.05;
-  else baseValuation *= strategy.maxBidMultiplier;
-
-  // SQUAD AWARENESS & DESPERATION
-  if (roomPlayers && participants) {
-    const squad = roomPlayers.filter(p => p.sold_to === teamName);
-    const roleCount = squad.filter(p => p.role === player.role).length;
-    const teamBudget = participants.find(p => p.team_name === teamName)?.budget || 0;
-
-    if (squad.length < 15 && teamBudget > 60) baseValuation *= 1.25; // Desperation
-    
-    if (player.role === 'Wicketkeeper' && roleCount === 0) baseValuation *= 1.6;
-    if (player.role === 'Wicketkeeper' && roleCount >= 2) baseValuation *= 0.1;
-    if (player.role === 'Batsman' && roleCount >= 6) baseValuation *= 0.3;
-    if (player.role === 'Bowler' && roleCount >= 6) baseValuation *= 0.3;
-
-    // Unpredictability factor (+/- 15%)
-    const rng = (Math.random() * 0.3) + 0.85;
-    baseValuation *= rng;
-  }
-  
-  return Number(baseValuation.toFixed(2));
-};
 
 // Helper to generate a random 6-character room code
 
@@ -170,103 +88,7 @@ const playSound = (type) => {
   }
 };
 
-const LivePurses = ({ selectedTeam, participants, roomState, allPlayers = [] }) => {
-  const [recentBidders, setRecentBidders] = useState([]);
 
-  useEffect(() => {
-    if (roomState.current_bidder) {
-      setRecentBidders(prev => {
-        if (prev[0] === roomState.current_bidder) return prev;
-        const next = [roomState.current_bidder, ...prev.filter(b => b !== roomState.current_bidder)];
-        return next.slice(0, 3);
-      });
-    } else if (roomState.status === 'pending' || roomState.status === 'sold') {
-      setRecentBidders([]);
-    }
-  }, [roomState.current_bidder, roomState.status]);
-
-  const myParticipant = participants.find(p => p.team_name === selectedTeam);
-  const myActiveBid = roomState.current_bidder === selectedTeam ? roomState.current_bid : 0;
-  const myPurse = myParticipant ? (myParticipant.budget - myActiveBid).toFixed(2) : '120.00';
-
-  const otherBidders = recentBidders.filter(b => b !== selectedTeam).slice(0, 2);
-
-  const renderTeamStats = (teamName) => {
-    const teamPlayers = allPlayers.filter(p => p.status === 'sold' && p.sold_to === teamName);
-    const bat = teamPlayers.filter(p => p.role === 'Batsman' || p.role === 'Wicket Keeper').length;
-    const bowl = teamPlayers.filter(p => p.role === 'Bowler').length;
-    const ar = teamPlayers.filter(p => p.role === 'All-Rounder').length;
-    const os = teamPlayers.filter(p => p.country !== 'India').length;
-    
-    return (
-      <div style={{ display: 'flex', gap: '10px', fontSize: '10px', fontWeight: 'bold', color: '#64748b', marginTop: '6px' }}>
-        <span title="Batsmen/Keepers">BAT: {bat}</span>
-        <span title="Bowlers">BWL: {bowl}</span>
-        <span title="All-Rounders">AR: {ar}</span>
-        <span title="Overseas" style={{ color: '#0ea5e9' }}>OS: {os}</span>
-      </div>
-    );
-  };
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: '100%', justifyContent: 'center' }}>
-      {/* My Purse */}
-      <div className="glass-card flex-1 flex flex-col justify-center relative overflow-hidden" style={{ padding: '12px' }}>
-        <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-full blur-xl pointer-events-none" />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px', position: 'relative', zIndex: 10 }}>
-          <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            My Purse ({selectedTeam})
-          </span>
-          {myActiveBid > 0 && (
-            <span style={{ fontSize: '9px', color: '#047857', fontWeight: 'bold', backgroundColor: '#ecfdf5', padding: '2px 6px', borderRadius: '4px', border: '1px solid #a7f3d0' }}>
-              -₹{myActiveBid} Cr
-            </span>
-          )}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', position: 'relative', zIndex: 10 }}>
-          <span className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a' }}>₹{myPurse}</span>
-          <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold' }}>Cr</span>
-        </div>
-        {renderTeamStats(selectedTeam)}
-      </div>
-
-      {/* Other Bidders */}
-      {otherBidders.map((opponentTeam, idx) => {
-        const participant = participants.find(p => p.team_name === opponentTeam);
-        const activeBid = roomState.current_bidder === opponentTeam ? roomState.current_bid : 0;
-        const purse = participant ? (participant.budget - activeBid).toFixed(2) : '0.00';
-        
-        return (
-          <div key={opponentTeam} className="glass-card flex-1 flex flex-col justify-center relative overflow-hidden" style={{ padding: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px', position: 'relative', zIndex: 10 }}>
-              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Bidder ({opponentTeam})
-              </span>
-              {activeBid > 0 && (
-                <span style={{ fontSize: '9px', color: '#b45309', fontWeight: 'bold', backgroundColor: '#fffbeb', padding: '2px 6px', borderRadius: '4px', border: '1px solid #fde68a' }}>
-                  -₹{activeBid} Cr
-                </span>
-              )}
-            </div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', position: 'relative', zIndex: 10 }}>
-              <span className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#334155' }}>₹{purse}</span>
-              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold' }}>Cr</span>
-            </div>
-            {renderTeamStats(opponentTeam)}
-          </div>
-        );
-      })}
-
-      {otherBidders.length === 0 && (
-        <div className="glass-card flex-1 flex flex-col justify-center text-center" style={{ padding: '12px' }}>
-          <span style={{ color: '#94a3b8', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            Waiting for Challenger...
-          </span>
-        </div>
-      )}
-    </div>
-  );
-};
 
 export default function App() {
   // App views: 'landing', 'lobby', 'auction', 'summary'
