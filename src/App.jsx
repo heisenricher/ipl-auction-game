@@ -1295,9 +1295,9 @@ export default function App() {
   return (
     <div className="app-container">
       {/* Header Bar */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', backgroundColor: '#ffffff', padding: '16px 24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', flexWrap: 'wrap', gap: '16px' }}>
+      <header className="glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', padding: '16px 24px', position: 'sticky', top: '16px', zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div className="font-display" style={{ color: '#d97706', fontWeight: 'bold', fontSize: '24px', letterSpacing: '0.02em', textShadow: '0 0 10px rgba(245, 158, 11, 0.2)' }}>
+          <div className="font-display ipl-glow-text" style={{ fontWeight: '800', fontSize: '28px', letterSpacing: '0.02em' }}>
             IPL MEGA AUCTION
           </div>
           <span className="font-display" style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', fontSize: '11px', padding: '4px 8px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 'bold' }}>

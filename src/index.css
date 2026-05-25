@@ -3,7 +3,7 @@
 @layer base {
   :root {
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-display: 'Rajdhani', var(--font-sans);
+    --font-display: 'Outfit', var(--font-sans);
 
     /* Light Mode Palette */
     --color-bg: #f8fafc; /* Slate 50 */
@@ -76,11 +76,11 @@ h1, h2, h3, h4, .font-display {
 
 /* Glassmorphism Containers */
 .glass-panel {
-  background: var(--color-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-premium);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.02);
   border-radius: var(--border-radius-lg);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -504,3 +504,11 @@ h1, h2, h3, h4, .font-display {
   animation: fadeIn 0.2s ease-out forwards;
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
