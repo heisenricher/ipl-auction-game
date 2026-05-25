@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Trophy, Users, User, ArrowRight, Play, Square, SkipForward, RotateCcw, 
+  Trophy, Users, User, ArrowRight, Play, Square, Pause, SkipForward, RotateCcw, 
   Volume2, VolumeX, ShieldAlert, Award, Globe, DollarSign, ListFilter, Settings,
   CheckCircle, Plus, Send, AlertTriangle, RefreshCw, LogOut
 } from 'lucide-react';
@@ -1856,9 +1856,15 @@ export default function App() {
                             {/* Injected Admin Game Controls */}
                             {isHost && (
                               <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
-                                  <Play size={12} /> Resume Time
-                                </button>
+                                {roomState.status === 'active' ? (
+                                  <button onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#d97706', borderColor: '#fcd34d' }}>
+                                    <Pause size={12} /> Pause Time
+                                  </button>
+                                ) : (
+                                  <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
+                                    <Play size={12} /> Resume Time
+                                  </button>
+                                )}
                                 <button onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
                                   <SkipForward size={12} /> Force Result
                                 </button>
