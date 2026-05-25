@@ -33,6 +33,57 @@ const AuctionRoom = ({
   handleRtmDecision,
   getPreviousTeam
 }) => {
+  const handleExportCSV = () => {
+    const playersList = gameMode === 'online' ? roomPlayers : offlinePlayers;
+    if (!playersList || playersList.length === 0) return;
+
+    const headers = [
+      'Player ID',
+      'Name',
+      'Role',
+      'Country',
+      'Rating',
+      'Status',
+      'Sold To',
+      'Sold Price (Cr)',
+      'Base Price (Cr)',
+      'Set Name'
+    ];
+
+    const rows = playersList.map(p => {
+      const bp = p.basePrice || p.base_price || 0.50;
+      const sp = p.status === 'sold' ? (p.sold_price || bp) : 0;
+      const statusLabel = p.status === 'sold' ? 'SOLD' : (p.status === 'unsold' ? 'UNSOLD' : (p.status === 'current' ? 'CURRENT' : 'AVAILABLE'));
+      
+      return [
+        p.id || p.player_id,
+        `"${p.name.replace(/"/g, '""')}"`,
+        p.role,
+        p.country,
+        p.rating,
+        statusLabel,
+        p.sold_to || 'N/A',
+        sp,
+        bp,
+        `"${(p.set_name || 'Set').replace(/"/g, '""')}"`
+      ];
+    });
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(r => r.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `IPL_Auction_Live_Update_${new Date().toISOString().substring(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6 items-start">
             
@@ -294,7 +345,7 @@ const AuctionRoom = ({
                                       ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
                                       : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
                               }`}
-                              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, padding: '16px', borderRadius: '12px' }}
+                              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '76px', padding: '16px', borderRadius: '12px' }}
                             >
                               {roomState.status === 'paused' ? (
                                 <>
@@ -415,7 +466,30 @@ const AuctionRoom = ({
             <div className="lg:col-span-2 space-y-6">
               {/* SQUAD BOARD / LEADERBOARD */}
               <div className="glass-panel p-6">
-                <h3 className="text-lg font-bold font-display text-white mb-4">FRANCHISE BOARD</h3>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <h3 className="text-lg font-bold font-display text-white" style={{ margin: 0 }}>FRANCHISE BOARD</h3>
+                  <button 
+                    onClick={handleExportCSV}
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: '800',
+                      padding: '6px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #d97706',
+                      backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                      color: '#fbbf24',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#d97706'; e.currentTarget.style.color = '#ffffff'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.1)'; e.currentTarget.style.color = '#fbbf24'; }}
+                  >
+                    📥 Export Live CSV
+                  </button>
+                </div>
                 
                 <div className="space-y-3">
                   {participants.map((p, index) => {

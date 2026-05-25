@@ -14,6 +14,56 @@ const SummaryPage = ({
   handleProceedToSeason,
   handleProceedToTrade
 }) => {
+  const handleExportCSV = () => {
+    if (!roomPlayers || roomPlayers.length === 0) return;
+
+    const headers = [
+      'Player ID',
+      'Name',
+      'Role',
+      'Country',
+      'Rating',
+      'Status',
+      'Sold To',
+      'Sold Price (Cr)',
+      'Base Price (Cr)',
+      'Set Name'
+    ];
+
+    const rows = roomPlayers.map(p => {
+      const bp = p.basePrice || p.base_price || 0.50;
+      const sp = p.sold_price || 0;
+      const statusLabel = p.status ? p.status.toUpperCase() : (p.sold_to ? 'SOLD' : 'AVAILABLE');
+
+      return [
+        p.id || p.player_id,
+        `"${p.name.replace(/"/g, '""')}"`,
+        p.role,
+        p.country,
+        p.rating,
+        statusLabel,
+        p.sold_to || 'N/A',
+        sp,
+        bp,
+        `"${(p.set_name || 'Set').replace(/"/g, '""')}"`
+      ];
+    });
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(r => r.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `IPL_Auction_Rosters_${new Date().toISOString().substring(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="max-w-4xl mx-auto w-full glass-panel p-8 my-8 relative view-enter-active">
       <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -239,6 +289,13 @@ const SummaryPage = ({
           style={{ padding: '12px 32px', fontSize: '16px', backgroundColor: '#ecfdf5', borderColor: '#10b981', color: '#047857' }}
         >
           DOWNLOAD PDF 📄
+        </button>
+        <button 
+          onClick={handleExportCSV}
+          className="btn-secondary font-display font-bold"
+          style={{ padding: '12px 32px', fontSize: '16px', backgroundColor: '#fffbeb', borderColor: '#d97706', color: '#b45309', cursor: 'pointer' }}
+        >
+          EXPORT CSV 📊
         </button>
         <button 
           onClick={handleLeaveRoom}
