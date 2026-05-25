@@ -68,22 +68,32 @@ const BOT_STRATEGIES = {
 };
 
 // Bot Valuation Logic based on strategies
-const getBotValuation = (player, teamName) => {
+const getBotValuation = (player, teamName, roomPlayers, participants) => {
   const strategy = BOT_STRATEGIES[teamName] || { type: 'BALANCED', maxBidMultiplier: 0.85, minRating: 78 };
-  
-  // Rating-based valuation: rating 75 is base price.
-  // Rating 95 gets a high bonus
   const ratingFactor = Math.max(0, (player.rating - 75)) * 0.75;
   let baseValuation = player.base_price + ratingFactor;
-  
-  if (strategy.type === 'AGGRESSIVE' && player.rating >= 92) {
-    baseValuation *= 1.15; // Aggressive bots pay premium for superstars
-  } else if (strategy.type === 'BARGAIN') {
-    baseValuation *= 0.70; // Bargain hunters drop out early to save cash
-  } else if (strategy.type === 'VALUE' && player.role === 'All-Rounder') {
-    baseValuation *= 1.05; // Value seekers prioritize all-rounders
-  } else {
-    baseValuation *= strategy.maxBidMultiplier;
+
+  if (strategy.type === 'AGGRESSIVE' && player.rating >= 92) baseValuation *= 1.15;
+  else if (strategy.type === 'BARGAIN') baseValuation *= 0.70;
+  else if (strategy.type === 'VALUE' && player.role === 'All-Rounder') baseValuation *= 1.05;
+  else baseValuation *= strategy.maxBidMultiplier;
+
+  // SQUAD AWARENESS & DESPERATION
+  if (roomPlayers && participants) {
+    const squad = roomPlayers.filter(p => p.sold_to === teamName);
+    const roleCount = squad.filter(p => p.role === player.role).length;
+    const teamBudget = participants.find(p => p.team_name === teamName)?.budget || 0;
+
+    if (squad.length < 15 && teamBudget > 60) baseValuation *= 1.25; // Desperation
+    
+    if (player.role === 'Wicketkeeper' && roleCount === 0) baseValuation *= 1.6;
+    if (player.role === 'Wicketkeeper' && roleCount >= 2) baseValuation *= 0.1;
+    if (player.role === 'Batsman' && roleCount >= 6) baseValuation *= 0.3;
+    if (player.role === 'Bowler' && roleCount >= 6) baseValuation *= 0.3;
+
+    // Unpredictability factor (+/- 15%)
+    const rng = (Math.random() * 0.3) + 0.85;
+    baseValuation *= rng;
   }
   
   return Number(baseValuation.toFixed(2));
@@ -274,7 +284,8 @@ export default function App() {
   const [participants, setParticipants] = useState([]);
   const [roomPlayers, setRoomPlayers] = useState([]);
   const [expectedPlayers, setExpectedPlayers] = useState(2);
-  const [numSets, setNumSets] = useState(8);
+  const [selectedSets, setSelectedSets] = useState([1,2,3,4,5,6,7,8]);
+  const [showModal, setShowModal] = useState(null);
   const [timerDuration, setTimerDuration] = useState(15);
   const [roomState, setRoomState] = useState({
     status: 'lobby',
@@ -552,9 +563,9 @@ export default function App() {
     }
 
     // 3. Populate players into room_players (filtered by sets and shuffled within sets)
-    const filteredPlayers = initialPlayers.filter(p => p.set_index <= numSets);
+    const filteredPlayers = initialPlayers.filter(p => selectedSets.includes(p.set_index));
     const shuffled = [];
-    for (let s = 1; s <= numSets; s++) {
+    for (const s of selectedSets) {
       const setPlayers = filteredPlayers.filter(p => p.set_index === s).sort(() => Math.random() - 0.5);
       shuffled.push(...setPlayers);
     }
@@ -924,7 +935,7 @@ export default function App() {
 
     // Filter bots that are interested and can afford the bid
     const interestedBots = bots.filter(b => {
-      const valuation = getBotValuation(currentPlayer, b.team_name);
+      const valuation = getBotValuation(currentPlayer, b.team_name, roomPlayers, participants);
       
       // Roster checks
       const squad = roomPlayers.filter(pl => pl.sold_to === b.team_name);
@@ -1019,9 +1030,9 @@ export default function App() {
     setParticipants(allParticipants);
 
     // Filter by sets and shuffle within each set
-    const filteredPlayers = initialPlayers.filter(p => p.set_index <= numSets);
+    const filteredPlayers = initialPlayers.filter(p => selectedSets.includes(p.set_index));
     const shuffled = [];
-    for (let s = 1; s <= numSets; s++) {
+    for (const s of selectedSets) {
       const setPlayers = filteredPlayers.filter(p => p.set_index === s).sort(() => Math.random() - 0.5);
       shuffled.push(...setPlayers);
     }
@@ -1095,7 +1106,7 @@ export default function App() {
       {
         id: bidId,
         team: bidderTeam,
-        text: `Bid ${bidAmount} Cr for ${activePlayer.name}`,
+        text: bidAmount >= 15 ? `A massive statement! ${bidderTeam} breaks the bank with ${bidAmount} Cr!` : bidAmount === activePlayer.base_price ? `${bidderTeam} opens the bidding war at ${bidAmount} Cr!` : `${bidderTeam} raises the stakes to ${bidAmount} Cr.`,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
         type: 'bid'
       },
@@ -1812,7 +1823,7 @@ export default function App() {
                               )}
                             </button>
                             
-                            {/* Timer Bar Below Button */}
+                                                        {/* Timer Bar Below Button */}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px', padding: '0 4px' }}>
                               <span className={`text-xs font-bold font-display w-8 text-right ${timerColor.replace('bg-', 'text-')}`}>
                                 {timeLeft}s
@@ -1824,6 +1835,18 @@ export default function App() {
                                 />
                               </div>
                             </div>
+                            
+                            {/* Injected Admin Game Controls */}
+                            {isHost && (
+                              <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                                <button onClick={handleResumeTimer} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
+                                  <Play size={12} /> Resume Time
+                                </button>
+                                <button onClick={handlePlayerSoldOrUnsoldOffline} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
+                                  <SkipForward size={12} /> Force Result
+                                </button>
+                              </div>
+                            )}
                           </>
                         ) : roomState.status === 'sold' ? (
                           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#ecfdf5', border: '1px solid #10b981', borderRadius: '12px', padding: '16px' }}>
