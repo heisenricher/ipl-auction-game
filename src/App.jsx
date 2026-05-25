@@ -1856,15 +1856,12 @@ export default function App() {
                             {/* Injected Admin Game Controls */}
                             {isHost && (
                               <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                                {roomState.status === 'active' ? (
-                                  <button onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#d97706', borderColor: '#fcd34d' }}>
-                                    <Pause size={12} /> Pause Time
-                                  </button>
-                                ) : (
-                                  <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
-                                    <Play size={12} /> Resume Time
-                                  </button>
-                                )}
+                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#d97706', borderColor: '#fcd34d' }}>
+                                  <Pause size={12} /> Pause Time
+                                </button>
+                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
+                                  <Play size={12} /> Resume Time
+                                </button>
                                 <button onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
                                   <SkipForward size={12} /> Force Result
                                 </button>
@@ -2035,25 +2032,22 @@ export default function App() {
                 </div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  {roomState.status === 'active' ? (
-                    <button 
-                      onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
-                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#ffffff', border: '1px solid #fcd34d', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(217, 119, 6, 0.05)' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef3c7'; e.currentTarget.style.borderColor = '#f59e0b'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fcd34d'; }}
-                    >
-                      <Square size={14} /> PAUSE TIMER
-                    </button>
-                  ) : (
-                    <button 
-                      onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
-                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#059669', backgroundColor: '#ffffff', border: '1px solid #6ee7b7', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(5, 150, 105, 0.05)' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ecfdf5'; e.currentTarget.style.borderColor = '#34d399'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#6ee7b7'; }}
-                    >
-                      <Play size={14} /> RESUME TIMER
-                    </button>
-                  )}
+                  <button 
+                    onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
+                    style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#ffffff', border: '1px solid #fcd34d', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(217, 119, 6, 0.05)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef3c7'; e.currentTarget.style.borderColor = '#f59e0b'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fcd34d'; }}
+                  >
+                    <Square size={14} /> PAUSE TIMER
+                  </button>
+                  <button 
+                    onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
+                    style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#059669', backgroundColor: '#ffffff', border: '1px solid #6ee7b7', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(5, 150, 105, 0.05)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ecfdf5'; e.currentTarget.style.borderColor = '#34d399'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#6ee7b7'; }}
+                  >
+                    <Play size={14} /> RESUME TIMER
+                  </button>
 
                   {isHost && (
                     <button 
