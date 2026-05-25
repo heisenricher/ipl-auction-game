@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, Calendar, Play, ChevronRight, Award, Swords, Home, Star } from 'lucide-react';
+import { Trophy, Calendar, Play, ChevronRight, Award, Swords, Home, Star, X, MessageSquare, BarChart3 } from 'lucide-react';
 import TeamLogo from '../components/TeamLogo';
 import { FRANCHISES } from '../utils/constants';
 import { generateSchedule, simulateMatch, calculateTeamStrength } from '../utils/simulationEngine';
@@ -56,6 +56,8 @@ const SeasonDashboard = ({
   const [teamCaptains, setTeamCaptains] = useState({});
   const [playerMorale, setPlayerMorale] = useState({});
   const [teamPlayingXIs, setTeamPlayingXIs] = useState({});
+  const [selectedMatch, setSelectedMatch] = useState(null); // for scorecard modal
+  const [scorecardTab, setScorecardTab] = useState('scorecard'); // 'scorecard' | 'commentary'
 
   useEffect(() => {
     if (participants.length > 0) {
@@ -511,7 +513,13 @@ const SeasonDashboard = ({
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {schedule.filter(m => m.played).reverse().map(match => (
-                <div key={match.id} style={{ backgroundColor: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '13px' }}>
+                <div 
+                  key={match.id} 
+                  onClick={() => { setSelectedMatch(match); setScorecardTab('scorecard'); }}
+                  style={{ backgroundColor: '#f8fafc', padding: '12px', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '13px', cursor: 'pointer', transition: 'all 0.2s' }}
+                  onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#f0fdf4'; e.currentTarget.style.borderColor = '#86efac'; e.currentTarget.style.transform = 'scale(1.02)'; }}
+                  onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#f8fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.transform = 'scale(1)'; }}
+                >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', color: '#64748b', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}>
                     <span>Match {match.id}</span>
                     <span style={{ color: '#059669' }}>{match.result.margin}</span>
@@ -521,9 +529,12 @@ const SeasonDashboard = ({
                     <span style={{ fontSize: '10px', color: '#cbd5e1' }}>vs</span>
                     <span style={{ color: match.result.winner === match.teamB ? '#0f172a' : '#94a3b8' }}>{match.teamB}</span>
                   </div>
-                  <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px dashed #cbd5e1', fontSize: '11px', color: '#475569' }}>
-                    <span style={{ fontWeight: 'bold', color: '#d97706' }}>{match.result.winner}</span> won
-                    {match.result.motm && <span> (MOTM: {match.result.motm})</span>}
+                  <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px dashed #cbd5e1', fontSize: '11px', color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <span style={{ fontWeight: 'bold', color: '#d97706' }}>{match.result.winner}</span> won
+                      {match.result.motm && <span> (MOTM: {match.result.motm})</span>}
+                    </div>
+                    <span style={{ fontSize: '9px', color: '#94a3b8', fontWeight: '700' }}>TAP FOR SCORECARD →</span>
                   </div>
                 </div>
               ))}
@@ -537,6 +548,203 @@ const SeasonDashboard = ({
 
         </div>
       </div>
+
+      {/* ─── SCORECARD MODAL ─── */}
+      {selectedMatch && selectedMatch.result.innings1 && (
+        <div 
+          className="animate-fadeIn"
+          style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+          onClick={() => setSelectedMatch(null)}
+        >
+          {/* Backdrop */}
+          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }} />
+
+          {/* Modal */}
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="animate-fadeInUp"
+            style={{ position: 'relative', width: '100%', maxWidth: '800px', maxHeight: '85vh', backgroundColor: '#ffffff', borderRadius: '24px', border: '1px solid #e2e8f0', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+          >
+            {/* Header */}
+            <div style={{ padding: '24px 28px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+              <div>
+                <div style={{ fontSize: '10px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Match {selectedMatch.id} Scorecard</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div className="font-display" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <TeamLogo teamId={selectedMatch.teamA} className="w-8 h-8" />
+                    <span style={{ fontSize: '20px', fontWeight: '800', color: selectedMatch.result.winner === selectedMatch.teamA ? '#0f172a' : '#94a3b8' }}>{selectedMatch.teamA}</span>
+                  </div>
+                  <span style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: '600' }}>vs</span>
+                  <div className="font-display" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <TeamLogo teamId={selectedMatch.teamB} className="w-8 h-8" />
+                    <span style={{ fontSize: '20px', fontWeight: '800', color: selectedMatch.result.winner === selectedMatch.teamB ? '#0f172a' : '#94a3b8' }}>{selectedMatch.teamB}</span>
+                  </div>
+                </div>
+                <div style={{ fontSize: '11px', color: '#64748b', marginTop: '6px', fontWeight: '600' }}>
+                  {selectedMatch.result.toss && `Toss: ${selectedMatch.result.toss.winner} elected to ${selectedMatch.result.toss.elected}`}
+                  {' • '}
+                  <span style={{ color: '#d97706', fontWeight: '700' }}>{selectedMatch.result.winner} won by {selectedMatch.result.margin}</span>
+                  {selectedMatch.result.motm && <span> • MOTM: <strong>{selectedMatch.result.motm}</strong></span>}
+                </div>
+              </div>
+              <button onClick={() => setSelectedMatch(null)} style={{ width: '36px', height: '36px', borderRadius: '10px', border: '1px solid #e2e8f0', backgroundColor: '#f8fafc', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background-color 0.2s' }}>
+                <X size={18} style={{ color: '#64748b' }} />
+              </button>
+            </div>
+
+            {/* Tabs */}
+            <div style={{ display: 'flex', gap: '4px', padding: '12px 28px 0', borderBottom: '1px solid #f1f5f9', flexShrink: 0 }}>
+              {[{ id: 'scorecard', label: 'Scorecard', icon: BarChart3 }, { id: 'commentary', label: 'Commentary', icon: MessageSquare }].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setScorecardTab(tab.id)}
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderBottom: scorecardTab === tab.id ? '2px solid #f59e0b' : '2px solid transparent',
+                    color: scorecardTab === tab.id ? '#0f172a' : '#94a3b8',
+                    backgroundColor: 'transparent',
+                    transition: 'all 0.2s',
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    fontFamily: "'Outfit', sans-serif",
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  <tab.icon size={14} /> {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Scrollable Content */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '24px 28px' }} className="custom-scroll">
+              {scorecardTab === 'scorecard' ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                  {[selectedMatch.result.innings1, selectedMatch.result.innings2].map((inn, innIdx) => (
+                    <div key={innIdx}>
+                      {/* Innings Header */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '12px', borderBottom: '2px solid #f1f5f9' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <TeamLogo teamId={inn.team} className="w-7 h-7" />
+                          <span className="font-display" style={{ fontSize: '16px', fontWeight: '800', color: '#0f172a' }}>{inn.team}</span>
+                          <span style={{ fontSize: '10px', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase' }}>{innIdx === 0 ? '1st Innings' : '2nd Innings'}</span>
+                        </div>
+                        <div className="font-display" style={{ fontSize: '22px', fontWeight: '900', color: '#0f172a' }}>
+                          {inn.score}
+                          <span style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', marginLeft: '6px' }}>({inn.overs} ov, RR: {inn.runRate})</span>
+                        </div>
+                      </div>
+
+                      {/* Batting Table */}
+                      <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                              <th style={{ textAlign: 'left', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px', textTransform: 'uppercase' }}>Batter</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>R</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>B</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>4s</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>6s</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>SR</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {inn.batStats && inn.batStats.filter(b => b.balls > 0).map((b, i) => (
+                              <tr key={i} style={{ borderBottom: '1px solid #f8fafc', backgroundColor: b.runs >= 50 ? '#fffbeb' : 'transparent' }}>
+                                <td style={{ padding: '8px', fontWeight: '600', color: '#0f172a' }}>
+                                  {b.name}
+                                  {b.runs >= 50 && <span style={{ marginLeft: '4px', fontSize: '9px', backgroundColor: '#f59e0b', color: '#fff', padding: '1px 4px', borderRadius: '3px', fontWeight: '800' }}>{b.runs >= 100 ? '💯' : '🔥'}</span>}
+                                  {b.out && <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '500', marginTop: '2px' }}>{b.howOut}</div>}
+                                  {!b.out && <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: '600', marginLeft: '4px' }}>not out</span>}
+                                </td>
+                                <td style={{ textAlign: 'center', padding: '8px', fontWeight: '800', color: '#0f172a' }}>{b.runs}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: '#64748b' }}>{b.balls}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: '#0ea5e9', fontWeight: '600' }}>{b.fours}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: '#8b5cf6', fontWeight: '600' }}>{b.sixes}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: b.balls > 0 && (b.runs / b.balls * 100) >= 150 ? '#dc2626' : '#475569', fontWeight: '600' }}>
+                                  {b.balls > 0 ? (b.runs / b.balls * 100).toFixed(1) : '0.0'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Bowling Table */}
+                      <div style={{ overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                              <th style={{ textAlign: 'left', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px', textTransform: 'uppercase' }}>Bowler</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>O</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>R</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>W</th>
+                              <th style={{ textAlign: 'center', padding: '6px 8px', color: '#64748b', fontWeight: '700', fontSize: '10px' }}>Econ</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {inn.bowlStats && inn.bowlStats.filter(b => b.balls > 0).map((b, i) => (
+                              <tr key={i} style={{ borderBottom: '1px solid #f8fafc', backgroundColor: b.wickets >= 3 ? '#f0fdf4' : 'transparent' }}>
+                                <td style={{ padding: '8px', fontWeight: '600', color: '#0f172a' }}>
+                                  {b.name}
+                                  {b.wickets >= 3 && <span style={{ marginLeft: '4px', fontSize: '9px', backgroundColor: '#16a34a', color: '#fff', padding: '1px 4px', borderRadius: '3px', fontWeight: '800' }}>🎯</span>}
+                                </td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: '#64748b' }}>{b.oversDisplay || b.overs}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: '#64748b' }}>{b.runs}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', fontWeight: '800', color: b.wickets >= 3 ? '#16a34a' : '#0f172a' }}>{b.wickets}</td>
+                                <td style={{ textAlign: 'center', padding: '8px', color: b.overs > 0 && (b.runs / Math.max(1, b.balls / 6)) > 10 ? '#dc2626' : '#475569', fontWeight: '600' }}>
+                                  {b.balls > 0 ? (b.runs / (b.balls / 6)).toFixed(1) : '0.0'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* COMMENTARY TAB */
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {[selectedMatch.result.innings1, selectedMatch.result.innings2].map((inn, innIdx) => (
+                    <div key={innIdx}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', paddingBottom: '12px', borderBottom: '2px solid #f1f5f9' }}>
+                        <TeamLogo teamId={inn.team} className="w-6 h-6" />
+                        <span className="font-display" style={{ fontSize: '14px', fontWeight: '800', color: '#0f172a' }}>{inn.team} {inn.score}</span>
+                        <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '700' }}>{innIdx === 0 ? '1st Innings' : '2nd Innings (Chasing)'}</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {inn.commentary && inn.commentary.map((ov, ovIdx) => (
+                          <div key={ovIdx} style={{ padding: '12px 16px', borderRadius: '12px', backgroundColor: ov.events.length > 0 ? '#fffbeb' : '#f8fafc', border: `1px solid ${ov.events.length > 0 ? '#fde68a' : '#f1f5f9'}`, transition: 'all 0.2s' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: ov.events.length > 0 ? '8px' : 0 }}>
+                              <span style={{ fontSize: '12px', fontWeight: '700', color: '#0f172a' }}>{ov.summary}</span>
+                              <span style={{ fontSize: '10px', fontWeight: '600', color: '#94a3b8', flexShrink: 0, marginLeft: '8px' }}>RR: {ov.runRate}</span>
+                            </div>
+                            {ov.events.length > 0 && (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingTop: '8px', borderTop: '1px dashed #e2e8f0' }}>
+                                {ov.events.map((evt, ei) => (
+                                  <div key={ei} style={{ fontSize: '11px', color: evt.includes('WICKET') ? '#dc2626' : (evt.includes('SIX') ? '#7c3aed' : (evt.includes('FOUR') ? '#0ea5e9' : '#475569')), fontWeight: evt.includes('WICKET') ? '700' : '500', paddingLeft: '12px', borderLeft: `2px solid ${evt.includes('WICKET') ? '#dc2626' : (evt.includes('SIX') ? '#8b5cf6' : (evt.includes('FOUR') ? '#0ea5e9' : '#e2e8f0'))}` }}>
+                                    {evt}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

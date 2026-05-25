@@ -179,10 +179,40 @@ const AuctionRoom = ({
                 return (
                   <div 
                     key={currentPlayer.id || currentPlayer.player_id}
-                    className={`glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow animate-flipInY ${currentPlayer.rating >= 90 ? 'marquee-luxury-card' : ''}`}
+                    className={`glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] animate-flipInY ${currentPlayer.rating >= 90 ? 'marquee-luxury-card' : ''}`}
+                    style={{
+                      borderColor: currentBidderInfo?.color || '#e2e8f0',
+                      borderWidth: roomState.current_bidder ? '2px' : '1px',
+                      borderStyle: 'solid',
+                      boxShadow: roomState.current_bidder
+                        ? `0 0 40px -10px ${currentBidderInfo?.color || '#f59e0b'}50, 0 0 80px -20px ${currentBidderInfo?.color || '#f59e0b'}25, inset 0 0 60px -30px ${currentBidderInfo?.color || '#f59e0b'}08`
+                        : '0 4px 6px -1px rgba(0,0,0,0.05)',
+                      transition: 'border-color 0.6s ease, box-shadow 0.6s ease',
+                    }}
                   >
-                    {/* Background accent ring */}
-                    <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+                    {/* Dynamic ambient color orb — shifts with active bidder */}
+                    <div 
+                      className="absolute pointer-events-none"
+                      style={{
+                        top: '-60px', right: '-60px',
+                        width: '280px', height: '280px',
+                        borderRadius: '50%',
+                        background: `radial-gradient(circle, ${currentBidderInfo?.color || '#f59e0b'}18 0%, transparent 70%)`,
+                        filter: 'blur(40px)',
+                        transition: 'background 0.8s ease',
+                      }} 
+                    />
+                    <div 
+                      className="absolute pointer-events-none"
+                      style={{
+                        bottom: '-40px', left: '-40px',
+                        width: '200px', height: '200px',
+                        borderRadius: '50%',
+                        background: `radial-gradient(circle, ${currentBidderInfo?.color || '#f59e0b'}10 0%, transparent 70%)`,
+                        filter: 'blur(30px)',
+                        transition: 'background 0.8s ease',
+                      }} 
+                    />
 
                     <div>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 0' }}>

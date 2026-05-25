@@ -1589,25 +1589,86 @@ export default function App() {
   };
 
   // Execute an agreed Trade
-  const executeTrade = (playerAId, playerBId) => {
+  const executeTrade = async (playerAId, playerBId, cashAdjustment = 0) => {
     const updatedPlayers = [...roomPlayers];
     const aIdx = updatedPlayers.findIndex(p => p.id === playerAId);
     const bIdx = updatedPlayers.findIndex(p => p.id === playerBId);
     
     if (aIdx === -1 || bIdx === -1) return;
 
+    // Get the two teams trading
+    const teamA = updatedPlayers[aIdx].sold_to;
+    const teamB = updatedPlayers[bIdx].sold_to;
+    const priceA = updatedPlayers[aIdx].sold_price || 0;
+    const priceB = updatedPlayers[bIdx].sold_price || 0;
+
     // Swap sold_to and sold_price
-    const tempTeam = updatedPlayers[aIdx].sold_to;
-    const tempPrice = updatedPlayers[aIdx].sold_price;
+    updatedPlayers[aIdx].sold_to = teamB;
+    updatedPlayers[aIdx].sold_price = priceB;
 
-    updatedPlayers[aIdx].sold_to = updatedPlayers[bIdx].sold_to;
-    updatedPlayers[aIdx].sold_price = updatedPlayers[bIdx].sold_price;
-
-    updatedPlayers[bIdx].sold_to = tempTeam;
-    updatedPlayers[bIdx].sold_price = tempPrice;
+    updatedPlayers[bIdx].sold_to = teamA;
+    updatedPlayers[bIdx].sold_price = priceA;
 
     setRoomPlayers(updatedPlayers);
     setOfflinePlayers(updatedPlayers);
+
+    // If there is a cash adjustment, update budgets
+    let updatedParts = [...participants];
+    if (cashAdjustment !== 0) {
+      updatedParts = participants.map(p => {
+        if (p.team_name === teamA) {
+          return { ...p, budget: Number((p.budget - cashAdjustment).toFixed(2)) };
+        }
+        if (p.team_name === teamB) {
+          return { ...p, budget: Number((p.budget + cashAdjustment).toFixed(2)) };
+        }
+        return p;
+      });
+      setParticipants(updatedParts);
+      setOfflineParticipants(updatedParts);
+    }
+
+    // Sync online database if roomId is active
+    if (roomId) {
+      try {
+        // 1. Update players in room_players table
+        await supabase
+          .from('room_players')
+          .update({ sold_to: teamB, sold_price: priceB })
+          .eq('room_id', roomId)
+          .eq('id', playerAId);
+
+        await supabase
+          .from('room_players')
+          .update({ sold_to: teamA, sold_price: priceA })
+          .eq('room_id', roomId)
+          .eq('id', playerBId);
+
+        // 2. Update budgets in participants table
+        if (cashAdjustment !== 0) {
+          const partA = updatedParts.find(p => p.team_name === teamA);
+          const partB = updatedParts.find(p => p.team_name === teamB);
+
+          if (partA) {
+            await supabase
+              .from('participants')
+              .update({ budget: partA.budget })
+              .eq('room_id', roomId)
+              .eq('team_name', teamA);
+          }
+
+          if (partB) {
+            await supabase
+              .from('participants')
+              .update({ budget: partB.budget })
+              .eq('room_id', roomId)
+              .eq('team_name', teamB);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to sync trade to Supabase:", err);
+      }
+    }
   };
 
   // Local Chat / Message Ticker input
