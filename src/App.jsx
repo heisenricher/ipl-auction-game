@@ -1880,6 +1880,7 @@ export default function App() {
             allPlayers={roomPlayers}
             userId={userId}
             handleLeaveRoom={handleLeaveRoom}
+            handleProceedToTrade={handleProceedToTrade}
           />
         )}
       </main>
