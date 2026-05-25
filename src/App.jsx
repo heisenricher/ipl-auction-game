@@ -1452,13 +1452,22 @@ export default function App() {
                             }
                           }}
                           style={{
-                            padding: '8px', textAlign: 'center', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', transition: 'all 0.2s',
+                            padding: '6px', textAlign: 'center', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s',
                             backgroundColor: selectedSets.includes(s) ? '#d97706' : '#f1f5f9',
                             color: selectedSets.includes(s) ? '#ffffff' : '#475569',
                             border: selectedSets.includes(s) ? '1px solid #b45309' : '1px solid #cbd5e1'
                           }}
                         >
-                          Set {s}
+                          <div style={{ fontSize: '13px', fontWeight: 'bold', marginBottom: '2px' }}>Set {s}</div>
+                          <div style={{ fontSize: '10px', fontWeight: 'normal', opacity: 0.9 }}>
+                            {s === 1 ? 'Batters' :
+                             s === 2 ? 'All-Rounders' :
+                             s === 3 ? 'Wicketkeepers' :
+                             s === 4 ? 'Fast Bowlers' :
+                             s === 5 ? 'Spinners' :
+                             s === 6 ? 'Uncapped' :
+                             s === 7 ? 'Accelerated' : 'Accelerated'}
+                          </div>
                         </div>
                       ))}
                     </div>
