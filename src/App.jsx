@@ -1437,22 +1437,30 @@ export default function App() {
                   </div>
 
                   {/* Sets Selection */}
+                  {/* Sets Selection Grid */}
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sets to Auction</label>
-                      <span style={{ fontSize: '10px', color: '#d97706', backgroundColor: '#fffbeb', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>{numSets === 8 ? 'ALL SETS' : `UP TO SET ${numSets}`}</span>
-                    </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max="8" 
-                      value={numSets} 
-                      onChange={(e) => setNumSets(parseInt(e.target.value))}
-                      style={{ width: '100%', accentColor: '#d97706', cursor: 'pointer' }}
-                    />
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#94a3b8', marginTop: '4px', fontWeight: 'bold' }}>
-                      <span>1 (Batters Only)</span>
-                      <span>8 (Full Pool)</span>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sets to Auction (Multi-Select)</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                      {[1,2,3,4,5,6,7,8].map(s => (
+                        <div 
+                          key={s}
+                          onClick={() => {
+                            if (selectedSets.includes(s) && selectedSets.length > 1) {
+                              setSelectedSets(selectedSets.filter(x => x !== s));
+                            } else if (!selectedSets.includes(s)) {
+                              setSelectedSets([...selectedSets, s].sort());
+                            }
+                          }}
+                          style={{
+                            padding: '8px', textAlign: 'center', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer', transition: 'all 0.2s',
+                            backgroundColor: selectedSets.includes(s) ? '#d97706' : '#f1f5f9',
+                            color: selectedSets.includes(s) ? '#ffffff' : '#475569',
+                            border: selectedSets.includes(s) ? '1px solid #b45309' : '1px solid #cbd5e1'
+                          }}
+                        >
+                          Set {s}
+                        </div>
+                      ))}
                     </div>
                   </div>
 
