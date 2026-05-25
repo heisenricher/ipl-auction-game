@@ -1856,10 +1856,10 @@ export default function App() {
                             {/* Injected Admin Game Controls */}
                             {isHost && (
                               <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                                <button onClick={handleResumeTimer} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
+                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
                                   <Play size={12} /> Resume Time
                                 </button>
-                                <button onClick={handlePlayerSoldOrUnsoldOffline} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
+                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
                                   <SkipForward size={12} /> Force Result
                                 </button>
                               </div>
