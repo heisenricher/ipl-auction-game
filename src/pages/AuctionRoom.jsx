@@ -66,26 +66,26 @@ const AuctionRoom = ({
                 const isHighestBidder = roomState.current_bidder === selectedTeam;
 
                 // Timer percentage
-                const timerPercentage = roomState.status === 'active' ? (timeLeft / timerDuration) * 100 : 0;
-                const timerColor = 'bg-slate-900';
+                const isActiveOrPaused = roomState.status === 'active' || roomState.status === 'paused';
+                const timerPercentage = isActiveOrPaused ? (timeLeft / timerDuration) * 100 : 0;
 
                 return (
-                  <div className="glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow">
+                  <div className={`glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow ${currentPlayer.rating >= 90 ? 'marquee-luxury-card' : ''}`}>
                     {/* Background accent ring */}
                     <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
                     <div>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 0' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
-                          <span style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+                          <span style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }} className="animate-fadeIn">
                             {currentPlayer.set_name || `SET ${currentPlayer.set_index}`}
                           </span>
-                          <h2 className="font-display" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', color: '#0f172a', margin: 0, lineHeight: 1 }}>
+                          <h2 className="font-display text-reveal" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', color: '#0f172a', margin: 0, lineHeight: 1 }}>
                             {currentPlayer.name}
                           </h2>
                         </div>
                         
-                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px' }} className="animate-fadeInUp">
                           {/* Role Box */}
                           <span style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
                             {currentPlayer.role}
@@ -112,16 +112,16 @@ const AuctionRoom = ({
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', alignItems: 'stretch' }}>
                       
                       {/* 1. Current highest bidder */}
-                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }} className="animate-fadeIn">
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                           <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Current Highest Bid</span>
                           {roomState.current_bid > 0 ? (
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px' }}>
-                              <span className="font-display" style={{ fontSize: '28px', fontWeight: 'bold', color: '#059669', lineHeight: '1' }}>
+                              <span className="font-display bid-amount-pop" style={{ fontSize: '28px', fontWeight: 'bold', color: '#059669', lineHeight: '1' }}>
                                 ₹{roomState.current_bid} <span style={{fontSize:'16px', fontWeight:'700', color: '#047857'}}>Cr</span>
                               </span>
                               <span 
-                                className="font-display"
+                                className="font-display badge-franchise-pill"
                                 style={{ fontSize: '12px', fontWeight: 'bold', padding: '4px 10px', borderRadius: '6px', backgroundColor: currentBidderInfo?.color, color: currentBidderInfo?.text, letterSpacing: '0.05em' }}
                               >
                                 {roomState.current_bidder}
@@ -140,21 +140,28 @@ const AuctionRoom = ({
 
                       {/* 2. BIDDING BUTTON & TIMER */}
                       <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '12px', justifyContent: 'center' }}>
-                        {roomState.status === 'active' ? (
+                        {isActiveOrPaused ? (
                           <>
                             <button
                               onClick={gameMode === 'online' ? handlePlaceBidOnline : handlePlaceBidOffline}
-                              disabled={isUnderfunded || isHighestBidder}
-                              className={`w-full font-display uppercase tracking-wider transition border-none cursor-pointer ${
-                                isHighestBidder 
-                                  ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 cursor-not-allowed' 
-                                  : isUnderfunded 
-                                    ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
+                              disabled={roomState.status === 'paused' || isUnderfunded || isHighestBidder}
+                              className={`w-full font-display uppercase tracking-wider transition border-none cursor-pointer premium-btn-bounce ${
+                                roomState.status === 'paused'
+                                  ? 'bg-amber-100 text-amber-600 border border-amber-200 cursor-not-allowed'
+                                  : isHighestBidder 
+                                    ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 cursor-not-allowed' 
+                                    : isUnderfunded 
+                                      ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
+                                      : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
                               }`}
                               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, padding: '16px', borderRadius: '12px' }}
                             >
-                              {isHighestBidder ? (
+                              {roomState.status === 'paused' ? (
+                                <>
+                                  <span style={{ fontSize: '16px', fontWeight: 'bold' }}>AUCTION PAUSED</span>
+                                  <span style={{ fontSize: '11px', fontWeight: 'normal', color: '#b45309' }}>waiting for host to resume...</span>
+                                </>
+                              ) : isHighestBidder ? (
                                 <>
                                   <span style={{ fontSize: '14px', fontWeight: 'bold' }}>YOU HOLD HIGH BID</span>
                                   <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#34d399', textTransform: 'lowercase' }}>waiting for challengers...</span>
@@ -172,14 +179,14 @@ const AuctionRoom = ({
                               )}
                             </button>
                             
-                                                        {/* Timer Bar Below Button */}
+                            {/* Timer Bar Below Button */}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px', padding: '0 4px' }}>
-                              <span className={`text-xs font-bold font-display w-8 text-right ${timerColor.replace('bg-', 'text-')}`}>
-                                {timeLeft}s
+                              <span className={`text-xs font-bold font-display w-12 text-right ${roomState.status === 'paused' ? 'text-amber-500 animate-pulse' : timeLeft <= 5 ? 'text-red-500 animate-pulse' : 'text-slate-700'}`}>
+                                {timeLeft}s {roomState.status === 'paused' && '⏸️'}
                               </span>
                               <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '9999px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
                                 <div 
-                                  className={`h-full transition-all duration-200 ease-linear ${timerColor}`}
+                                  className={`h-full transition-all duration-200 ease-linear progress-timer-bar ${roomState.status === 'paused' ? 'paused' : timeLeft <= 5 ? 'warning' : ''}`}
                                   style={{ width: `${timerPercentage}%` }}
                                 />
                               </div>
@@ -187,27 +194,41 @@ const AuctionRoom = ({
                             
                             {/* Injected Admin Game Controls */}
                             {isHost && (
-                              <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#d97706', borderColor: '#fcd34d' }}>
-                                  <Pause size={12} /> Pause Time
+                              <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }} className="animate-fadeIn">
+                                <button 
+                                  onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} 
+                                  disabled={roomState.status === 'paused'}
+                                  className={`btn-secondary flex-1 font-bold transition-all duration-300 ${roomState.status === 'paused' ? 'opacity-40 cursor-not-allowed' : 'hover:bg-amber-50 hover:text-amber-700 hover:border-amber-400'}`} 
+                                  style={{ fontSize: '11px', padding: '8px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer' }}
+                                >
+                                  <Pause size={12} /> Pause
                                 </button>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
-                                  <Play size={12} /> Resume Time
+                                <button 
+                                  onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} 
+                                  disabled={roomState.status === 'active'}
+                                  className={`btn-secondary flex-1 font-bold transition-all duration-300 ${roomState.status === 'active' ? 'opacity-40 cursor-not-allowed' : 'pulse-green-glow hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400'}`} 
+                                  style={{ fontSize: '11px', padding: '8px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer' }}
+                                >
+                                  <Play size={12} /> Resume
                                 </button>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
-                                  <SkipForward size={12} /> Force Result
+                                <button 
+                                  onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} 
+                                  className="btn-secondary flex-1 font-bold hover:bg-rose-50 hover:text-rose-700 hover:border-rose-400" 
+                                  style={{ fontSize: '11px', padding: '8px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', border: '1px solid #cbd5e1', borderRadius: '8px', cursor: 'pointer', color: '#dc2626' }}
+                                >
+                                  <SkipForward size={12} /> Force
                                 </button>
                               </div>
                             )}
                           </>
                         ) : roomState.status === 'sold' ? (
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#ecfdf5', border: '1px solid #10b981', borderRadius: '12px', padding: '16px' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#ecfdf5', border: '1px solid #10b981', borderRadius: '12px', padding: '16px' }} className="animate-scaleIn">
                             <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#047857', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER SOLD</span>
                             <span className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#064e3b' }}>₹{roomState.current_bid} Cr</span>
                             <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#059669', marginTop: '4px' }}>to {roomState.current_bidder}</span>
                           </div>
                         ) : (
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fef2f2', border: '1px solid #ef4444', borderRadius: '12px', padding: '16px' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fef2f2', border: '1px solid #ef4444', borderRadius: '12px', padding: '16px' }} className="animate-scaleIn">
                             <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#b91c1c', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER UNSOLD</span>
                             <span style={{ fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>No bids received</span>
                           </div>
@@ -238,7 +259,7 @@ const AuctionRoom = ({
                 <h3 className="text-lg font-bold font-display text-white mb-4">FRANCHISE BOARD</h3>
                 
                 <div className="space-y-3">
-                  {participants.map(p => {
+                  {participants.map((p, index) => {
                     const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
                     const isUserTeam = p.team_name === selectedTeam;
                     const squadCount = getTeamSquadCount(p.team_name);
@@ -250,9 +271,12 @@ const AuctionRoom = ({
                     const arCount = teamSquad.filter(player => player.role === 'All-Rounder').length;
                     const wkCount = teamSquad.filter(player => player.role === 'Wicketkeeper').length;
 
+                    const delayClass = `stagger-item delay-${Math.min(5, index + 1) * 100}`;
+
                     return (
                       <div 
                         key={p.id} 
+                        className={`glass-card hover:-translate-y-1 hover:shadow-md ${delayClass}`}
                         style={{
                           padding: '14px 16px',
                           borderRadius: '12px',

@@ -28,7 +28,7 @@ const LandingPage = ({
   const [activeModal, setActiveModal] = useState(null);
 
   return (
-    <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-stretch">
+    <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-stretch view-enter-active">
       {/* Left side info */}
       <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden' }}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -202,6 +202,7 @@ const LandingPage = ({
                   <button
                     key={f.id}
                     onClick={() => setSelectedTeam(f.id)}
+                    className={`premium-btn-bounce ${f.id.toLowerCase()}-glow`}
                     style={{ padding: '10px 4px', borderRadius: '10px', fontWeight: 'bold', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: selectedTeam === f.id ? '2px solid #f59e0b' : '1px solid #e2e8f0', backgroundColor: selectedTeam === f.id ? '#fffbeb' : '#f8fafc', color: selectedTeam === f.id ? '#b45309' : '#64748b', transform: selectedTeam === f.id ? 'scale(1.05)' : 'scale(1)', boxShadow: selectedTeam === f.id ? '0 4px 12px rgba(245, 158, 11, 0.2)' : 'none' }}
                     title={f.name}
                   >
@@ -229,6 +230,7 @@ const LandingPage = ({
                             prev.includes(f.id) ? prev.filter(t => t !== f.id) : [...prev, f.id]
                           );
                         }}
+                        className={`premium-btn-bounce ${f.id.toLowerCase()}-glow`}
                         style={{ padding: '8px 4px', borderRadius: '8px', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: isSelected ? '2px solid #94a3b8' : '1px dashed #cbd5e1', backgroundColor: isSelected ? '#f8fafc' : '#ffffff', opacity: isSelected ? 1 : 0.5 }}
                         title={`${isSelected ? 'Remove' : 'Add'} ${f.name} Bot`}
                       >
@@ -303,8 +305,8 @@ const LandingPage = ({
 
       {/* Modals for Legal / Rules */}
       {activeModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(15, 23, 42, 0.8)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', width: '100%', maxWidth: '600px', maxHeight: '80vh', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(15, 23, 42, 0.4)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', transition: 'all 0.3s ease-in-out' }}>
+          <div className="animate-scaleIn" style={{ backgroundColor: '#ffffff', borderRadius: '24px', width: '100%', maxWidth: '600px', maxHeight: '80vh', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
             <div style={{ padding: '24px', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2 className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#0f172a', margin: 0, letterSpacing: '0.05em' }}>
                 {activeModal === 'rules' ? 'OFFICIAL GAME RULES' : activeModal === 'privacy' ? 'PRIVACY POLICY' : 'TERMS OF USE'}

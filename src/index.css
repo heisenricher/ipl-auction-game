@@ -522,7 +522,146 @@ button:active:not(:disabled) {
 .animate-fadeInUp {
   animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-  
-.custom-scroll::-webkit-scrollbar { width: 8px; }  
-.custom-scroll::-webkit-scrollbar-track { background: transparent; }  
-.custom-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; } 
+
+/* Progress Timer Bar custom colors & animation overrides */
+.progress-timer-bar {
+  background-color: #334155 !important;
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.2s linear, background-color 0.3s ease;
+}
+.progress-timer-bar.warning {
+  background-color: #ef4444 !important;
+  animation: timerWarningPulse 0.5s infinite alternate ease-in-out;
+}
+.progress-timer-bar.paused {
+  background-color: #f59e0b !important;
+}
+
+@keyframes timerWarningPulse {
+  0% { opacity: 0.6; filter: brightness(0.9); }
+  100% { opacity: 1; filter: brightness(1.2) drop-shadow(0 0 4px rgba(239, 68, 68, 0.5)); }
+}
+
+/* Green Pulsing glow for Resume and active buttons */
+.pulse-green-glow {
+  animation: greenGlowPulse 1.5s infinite alternate ease-in-out;
+  border-color: #10b981 !important;
+  color: #047857 !important;
+}
+
+@keyframes greenGlowPulse {
+  0% { box-shadow: 0 0 4px rgba(16, 185, 129, 0.2); }
+  100% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); }
+}
+
+/* Page View Transition Animations */
+.view-enter-active {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Luxury card glows for Marquee Players */
+.marquee-luxury-card {
+  border: 2px solid #f59e0b !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 253, 235, 0.95) 100%) !important;
+  box-shadow: 0 15px 45px -10px rgba(245, 158, 11, 0.3), 0 1px 3px rgba(245, 158, 11, 0.1) !important;
+  animation: luxuryGlow 3s infinite alternate ease-in-out;
+}
+
+@keyframes luxuryGlow {
+  0% { box-shadow: 0 15px 40px -10px rgba(245, 158, 11, 0.25); border-color: rgba(245, 158, 11, 0.4); }
+  100% { box-shadow: 0 15px 45px -5px rgba(245, 158, 11, 0.45); border-color: rgba(245, 158, 11, 0.8); }
+}
+
+/* Text reveal slide-up animation */
+@keyframes textReveal {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.text-reveal {
+  animation: textReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Bid Amount Pop effect */
+@keyframes amountPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); color: #10b981; }
+  100% { transform: scale(1); }
+}
+.bid-amount-pop {
+  animation: amountPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Custom Franchise badge styles */
+.badge-franchise-pill {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+.badge-franchise-pill:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Scale-in animations */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-scaleIn {
+  animation: scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Premium Button spring effect */
+.premium-btn-bounce {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.premium-btn-bounce:hover {
+  transform: translateY(-2px) scale(1.01) !important;
+}
+.premium-btn-bounce:active {
+  transform: translateY(1px) scale(0.97) !important;
+}
+
+/* Glow shadow effects for franchise selection buttons */
+.csk-glow:hover { box-shadow: 0 4px 15px rgba(247, 209, 23, 0.5) !important; border-color: var(--color-csk) !important; }
+.mi-glow:hover { box-shadow: 0 4px 15px rgba(0, 75, 160, 0.5) !important; border-color: var(--color-mi) !important; }
+.rcb-glow:hover { box-shadow: 0 4px 15px rgba(236, 28, 36, 0.5) !important; border-color: var(--color-rcb) !important; }
+.kkr-glow:hover { box-shadow: 0 4px 15px rgba(58, 34, 93, 0.5) !important; border-color: var(--color-kkr) !important; }
+.rr-glow:hover { box-shadow: 0 4px 15px rgba(234, 27, 133, 0.5) !important; border-color: var(--color-rr) !important; }
+.srh-glow:hover { box-shadow: 0 4px 15px rgba(242, 101, 34, 0.5) !important; border-color: var(--color-srh) !important; }
+.dc-glow:hover { box-shadow: 0 4px 15px rgba(27, 62, 143, 0.5) !important; border-color: var(--color-dc) !important; }
+.lsg-glow:hover { box-shadow: 0 4px 15px rgba(0, 169, 224, 0.5) !important; border-color: var(--color-lsg) !important; }
+.gt-glow:hover { box-shadow: 0 4px 15px rgba(11, 34, 64, 0.5) !important; border-color: var(--color-gt) !important; }
+.pbks-glow:hover { box-shadow: 0 4px 15px rgba(215, 25, 32, 0.5) !important; border-color: var(--color-pbks) !important; }
+
+/* Custom Scrollbar styled premium */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.02);
+  border-radius: 20px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(15, 23, 42, 0.12);
+  border-radius: 20px;
+  border: 1px solid transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(15, 23, 42, 0.24);
+}
+
+/* Stagger animation keys for lists */
+.stagger-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Set animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }

@@ -135,7 +135,7 @@ const SeasonDashboard = ({
   const userTeam = participants.find(p => p.user_id === userId)?.team_name;
 
   return (
-    <div className="max-w-6xl mx-auto w-full my-8 flex flex-col gap-8">
+    <div className="max-w-6xl mx-auto w-full my-8 flex flex-col gap-8 view-enter-active">
       {/* HEADER */}
       <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '32px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -197,8 +197,9 @@ const SeasonDashboard = ({
                   const isUser = row.team_name === userTeam;
                   const str = teamStrengths[row.team_name]?.overall.toFixed(1) || '0.0';
                   
+                  const delayClass = `stagger-item delay-${Math.min(5, idx + 1) * 100}`;
                   return (
-                    <tr key={row.team_name} style={{ backgroundColor: isUser ? '#f0fdf4' : 'transparent', fontWeight: isUser ? 'bold' : 'normal' }}>
+                    <tr key={row.team_name} className={delayClass} style={{ backgroundColor: isUser ? '#f0fdf4' : 'transparent', fontWeight: isUser ? 'bold' : 'normal', transition: 'all 0.2s' }}>
                       <td style={{ fontWeight: 'bold', color: idx === 0 ? '#d97706' : '#64748b' }}>{idx + 1}</td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

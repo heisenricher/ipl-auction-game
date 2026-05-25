@@ -54,9 +54,9 @@ const TradeMarket = ({
   const PlayerCard = ({ player, isSelected, onClick, isTarget }) => (
     <div 
       onClick={onClick}
-      className={`p-3 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-3 ${isSelected ? (isTarget ? 'border-rose-500 bg-rose-50' : 'border-emerald-500 bg-emerald-50') : 'border-slate-200 bg-white hover:border-amber-300'}`}
+      className={`p-3 rounded-xl border-2 cursor-pointer transition-all flex items-center gap-3 premium-btn-bounce ${isSelected ? (isTarget ? 'border-rose-500 bg-rose-50/50 shadow-md shadow-rose-200/50 scale-[1.02]' : 'border-emerald-500 bg-emerald-50/50 shadow-md shadow-emerald-200/50 scale-[1.02]') : 'border-slate-200 bg-white hover:border-amber-400 hover:shadow-sm'}`}
     >
-      <div className={`w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-lg ${isSelected ? (isTarget ? 'bg-rose-200 text-rose-700' : 'bg-emerald-200 text-emerald-700') : 'bg-slate-100 text-slate-600'}`}>
+      <div className={`w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-lg transition-all ${isSelected ? (isTarget ? 'bg-rose-200 text-rose-700' : 'bg-emerald-200 text-emerald-700') : 'bg-slate-100 text-slate-600'}`}>
         {player.rating}
       </div>
       <div className="flex-1">
@@ -67,7 +67,7 @@ const TradeMarket = ({
   );
 
   return (
-    <div className="max-w-6xl mx-auto w-full my-8 flex flex-col gap-8">
+    <div className="max-w-6xl mx-auto w-full my-8 flex flex-col gap-8 view-enter-active">
       {/* HEADER */}
       <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '32px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', justifyItems: 'space-between', alignItems: 'center' }}>
         <div className="flex justify-between items-center w-full">
@@ -128,7 +128,7 @@ const TradeMarket = ({
         {/* CENTER: TRADE ACTION */}
         <div className="flex flex-col items-center justify-center h-full gap-8 py-10 md:py-0">
            <div className="flex flex-col items-center">
-             <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center border-4 border-white shadow-xl z-10 relative">
+             <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center border-4 border-white shadow-xl z-10 relative hover:rotate-180 transition-all duration-500 cursor-pointer">
                <ArrowLeftRight size={32} className="text-slate-400" />
              </div>
              

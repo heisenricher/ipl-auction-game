@@ -1370,7 +1370,7 @@ export default function App() {
         {view === 'season' && (
           <SeasonDashboard 
             participants={participants}
-            allPlayers={allPlayers}
+            allPlayers={roomPlayers}
             userId={userId}
             handleLeaveRoom={handleLeaveRoom}
           />

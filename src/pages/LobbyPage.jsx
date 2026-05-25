@@ -21,7 +21,7 @@ const LobbyPage = ({
   const [showRetentionModal, setShowRetentionModal] = useState(false);
 
   return (
-    <div style={{ maxWidth: '42rem', margin: '32px auto', width: '100%', backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden' }}>
+    <div className="view-enter-active" style={{ maxWidth: '42rem', margin: '32px auto', width: '100%', backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden' }}>
       <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
       
       <div style={{ textAlign: 'center', marginBottom: '32px', position: 'relative', zIndex: 10 }}>
@@ -43,10 +43,11 @@ const LobbyPage = ({
         </h3>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {participants.map(p => {
+          {participants.map((p, index) => {
             const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
+            const delayClass = `stagger-item delay-${Math.min(5, index + 1) * 100}`;
             return (
-              <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', transition: 'all 0.2s' }}>
+              <div key={p.id} className={delayClass} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', transition: 'all 0.2s' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <TeamLogo teamId={teamInfo?.id} className="w-10 h-10" />
                   <div>
