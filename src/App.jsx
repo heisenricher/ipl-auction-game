@@ -402,7 +402,8 @@ export default function App() {
           team: b.team_name,
           text: `Bid ${b.bid_amount} Cr for ${p ? p.name : 'Player'}`,
           time: new Date(b.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-          type: 'bid'
+          type: 'bid',
+          player_id: b.player_id
         };
       });
       setComments(logs.reverse());
@@ -418,7 +419,8 @@ export default function App() {
       team: bid.team_name,
       text: `Bid ${bid.bid_amount} Cr for ${pName}`,
       time: new Date(bid.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-      type: 'bid'
+      type: 'bid',
+      player_id: bid.player_id
     };
     setComments(prev => [newComment, ...prev]);
   };
@@ -1381,7 +1383,8 @@ export default function App() {
         team: bidderTeam,
         text: bidAmount >= 15 ? `A massive statement! ${bidderTeam} breaks the bank with ${bidAmount} Cr!` : bidAmount === activePlayer.base_price ? `${bidderTeam} opens the bidding war at ${bidAmount} Cr!` : `${bidderTeam} raises the stakes to ${bidAmount} Cr.`,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-        type: 'bid'
+        type: 'bid',
+        player_id: playerId
       },
       ...comments
     ];

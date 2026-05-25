@@ -37,6 +37,12 @@ const AuctionRoom = ({
     const playersList = gameMode === 'online' ? roomPlayers : offlinePlayers;
     if (!playersList || playersList.length === 0) return;
 
+    // Filter only ongoing (current) and finished (sold/unsold/retained) players
+    const filteredPlayers = playersList.filter(p => {
+      const isCurrent = p.player_id === roomState.current_player_id || p.id === roomState.current_player_id;
+      return isCurrent || p.status === 'sold' || p.status === 'unsold' || p.status === 'retained';
+    });
+
     const headers = [
       'Player ID',
       'Name',
@@ -47,14 +53,51 @@ const AuctionRoom = ({
       'Sold To',
       'Sold Price (Cr)',
       'Base Price (Cr)',
-      'Set Name'
+      'Set Name',
+      'Bidding Trail'
     ];
 
-    const rows = playersList.map(p => {
+    const getBiddingHistoryForPlayer = (player) => {
+      const pId = player.id || player.player_id;
+      
+      // Filter bid comments belonging to this player
+      const bids = comments.filter(c => {
+        if (c.type !== 'bid') return false;
+        
+        // Match by player_id
+        if (c.player_id && (c.player_id.toString() === pId.toString())) {
+          return true;
+        }
+        
+        // Fallback: match by player name in text
+        if (c.text && c.text.includes(player.name)) {
+          return true;
+        }
+        
+        return false;
+      });
+
+      // Bids are unshifted (newest first), reverse to make it chronological
+      const chronoBids = [...bids].reverse();
+      if (chronoBids.length === 0) return 'No bids';
+
+      return chronoBids.map(b => {
+        let amtStr = '';
+        const match = b.text.match(/(\d+\.\d+|\d+)\s*Cr/i);
+        if (match) {
+          amtStr = ` (₹${match[1]} Cr)`;
+        }
+        return `${b.team}${amtStr}`;
+      }).join(' -> ');
+    };
+
+    const rows = filteredPlayers.map(p => {
       const bp = p.basePrice || p.base_price || 0.50;
       const sp = p.status === 'sold' ? (p.sold_price || bp) : 0;
-      const statusLabel = p.status === 'sold' ? 'SOLD' : (p.status === 'unsold' ? 'UNSOLD' : (p.status === 'current' ? 'CURRENT' : 'AVAILABLE'));
-      
+      const isCurrent = p.player_id === roomState.current_player_id || p.id === roomState.current_player_id;
+      const statusLabel = isCurrent ? 'CURRENT/ONGOING' : (p.status === 'sold' ? 'SOLD' : (p.status === 'unsold' ? 'UNSOLD' : 'RETAINED'));
+      const biddingTrail = getBiddingHistoryForPlayer(p);
+
       return [
         p.id || p.player_id,
         `"${p.name.replace(/"/g, '""')}"`,
@@ -65,7 +108,8 @@ const AuctionRoom = ({
         p.sold_to || 'N/A',
         sp,
         bp,
-        `"${(p.set_name || 'Set').replace(/"/g, '""')}"`
+        `"${(p.set_name || 'Set').replace(/"/g, '""')}"`,
+        `"${biddingTrail.replace(/"/g, '""')}"`
       ];
     });
 
@@ -468,27 +512,29 @@ const AuctionRoom = ({
               <div className="glass-panel p-6">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                   <h3 className="text-lg font-bold font-display text-white" style={{ margin: 0 }}>FRANCHISE BOARD</h3>
-                  <button 
-                    onClick={handleExportCSV}
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: '800',
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #d97706',
-                      backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                      color: '#fbbf24',
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#d97706'; e.currentTarget.style.color = '#ffffff'; }}
-                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.1)'; e.currentTarget.style.color = '#fbbf24'; }}
-                  >
-                    📥 Export Live CSV
-                  </button>
+                  {roomState.status === 'paused' && (
+                    <button 
+                      onClick={handleExportCSV}
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: '800',
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        color: '#fbbf24',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        transition: 'all 0.2s',
+                      }}
+                      onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#d97706'; e.currentTarget.style.color = '#ffffff'; }}
+                      onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.1)'; e.currentTarget.style.color = '#fbbf24'; }}
+                    >
+                      📥 Export Live CSV
+                    </button>
+                  )}
                 </div>
                 
                 <div className="space-y-3">
