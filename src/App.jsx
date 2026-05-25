@@ -274,6 +274,7 @@ export default function App() {
   const [participants, setParticipants] = useState([]);
   const [roomPlayers, setRoomPlayers] = useState([]);
   const [expectedPlayers, setExpectedPlayers] = useState(2);
+  const [numSets, setNumSets] = useState(8);
   const [roomState, setRoomState] = useState({
     status: 'lobby',
     current_player_id: null,
@@ -549,10 +550,15 @@ export default function App() {
       return;
     }
 
-    // 3. Populate players into room_players (shuffled to randomize auction)
-    const shuffledPlayers = [...initialPlayers]
-      .sort(() => Math.random() - 0.5)
-      .map((p, idx) => ({
+    // 3. Populate players into room_players (filtered by sets and shuffled within sets)
+    const filteredPlayers = initialPlayers.filter(p => p.set_index <= numSets);
+    const shuffled = [];
+    for (let s = 1; s <= numSets; s++) {
+      const setPlayers = filteredPlayers.filter(p => p.set_index === s).sort(() => Math.random() - 0.5);
+      shuffled.push(...setPlayers);
+    }
+
+    const shuffledPlayers = shuffled.map((p, idx) => ({
         room_id: roomData.id,
         player_id: p.id,
         name: p.name,
@@ -562,6 +568,8 @@ export default function App() {
         base_price: p.basePrice,
         stats: p.stats,
         description: p.description,
+        set_index: p.set_index,
+        set_name: p.set_name,
         status: 'available',
         order_index: idx
       }));
@@ -1009,13 +1017,18 @@ export default function App() {
     setOfflineParticipants(allParticipants);
     setParticipants(allParticipants);
 
-    // Shuffle offline players
-    const shuffled = [...initialPlayers]
-      .sort(() => Math.random() - 0.5)
-      .map(p => ({ ...p, base_price: p.basePrice, status: 'available', sold_price: null, sold_to: null }));
+    // Filter by sets and shuffle within each set
+    const filteredPlayers = initialPlayers.filter(p => p.set_index <= numSets);
+    const shuffled = [];
+    for (let s = 1; s <= numSets; s++) {
+      const setPlayers = filteredPlayers.filter(p => p.set_index === s).sort(() => Math.random() - 0.5);
+      shuffled.push(...setPlayers);
+    }
     
-    setRoomPlayers(shuffled);
-    setOfflinePlayers(shuffled);
+    const finalPlayers = shuffled.map((p, idx) => ({ ...p, base_price: p.basePrice, status: 'available', sold_price: null, sold_to: null, order_index: idx }));
+    
+    setRoomPlayers(finalPlayers);
+    setOfflinePlayers(finalPlayers);
 
     setRoomState({
       status: 'lobby',
@@ -1411,6 +1424,26 @@ export default function App() {
                     />
                   </div>
 
+                  {/* Sets Selection */}
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sets to Auction</label>
+                      <span style={{ fontSize: '10px', color: '#d97706', backgroundColor: '#fffbeb', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold' }}>{numSets === 8 ? 'ALL SETS' : `UP TO SET ${numSets}`}</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="1" 
+                      max="8" 
+                      value={numSets} 
+                      onChange={(e) => setNumSets(parseInt(e.target.value))}
+                      style={{ width: '100%', accentColor: '#d97706', cursor: 'pointer' }}
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: '#94a3b8', marginTop: '4px', fontWeight: 'bold' }}>
+                      <span>1 (Batters Only)</span>
+                      <span>8 (Full Pool)</span>
+                    </div>
+                  </div>
+
                   {gameMode === 'online' && (
                     <div>
                       <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Expected Real Players (Max 10)</label>
@@ -1666,9 +1699,14 @@ export default function App() {
 
                     <div>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 0' }}>
-                        <h2 className="font-display" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '24px', color: '#0f172a' }}>
-                          {currentPlayer.name}
-                        </h2>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
+                          <span style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+                            {currentPlayer.set_name || `SET ${currentPlayer.set_index}`}
+                          </span>
+                          <h2 className="font-display" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', color: '#0f172a', margin: 0, lineHeight: 1 }}>
+                            {currentPlayer.name}
+                          </h2>
+                        </div>
                         
                         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
                           {/* Role Box */}
@@ -1734,7 +1772,7 @@ export default function App() {
                                 isHighestBidder 
                                   ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 cursor-not-allowed' 
                                   : isUnderfunded 
-                                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                                    ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
                                     : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
                               }`}
                               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, padding: '16px', borderRadius: '12px' }}
@@ -1762,7 +1800,7 @@ export default function App() {
                               <span className={`text-xs font-bold font-display w-8 text-right ${timerColor.replace('bg-', 'text-')}`}>
                                 {timeLeft}s
                               </span>
-                              <div style={{ flex: 1, height: '8px', backgroundColor: '#0f172a', borderRadius: '9999px', overflow: 'hidden', border: '1px solid #1e293b' }}>
+                              <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '9999px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
                                 <div 
                                   className={`h-full transition-all duration-200 ease-linear ${timerColor}`}
                                   style={{ width: `${timerPercentage}%` }}
