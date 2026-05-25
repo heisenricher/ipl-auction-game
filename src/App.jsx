@@ -11,6 +11,12 @@ import TeamLogo from './components/TeamLogo';
 import { FRANCHISES, BOT_STRATEGIES } from './utils/constants';
 import { getBotValuation } from './utils/botLogic';
 import LivePurses from './components/LivePurses';
+import LandingPage from './pages/LandingPage';
+import LobbyPage from './pages/LobbyPage';
+import SummaryPage from './pages/SummaryPage';
+import AuctionRoom from './pages/AuctionRoom';
+import SeasonDashboard from './pages/SeasonDashboard';
+import TradeMarket from './pages/TradeMarket';
 
 
 
@@ -143,6 +149,7 @@ export default function App() {
   const bidsSubscriptionRef = useRef(null);
   const timerIntervalRef = useRef(null);
   const aiBidTimeoutRef = useRef(null);
+  const lastCommentedPlayerRef = useRef(null);
   const isProcessingRef = useRef(false);
   const roomStateRef = useRef(roomState);
 
@@ -294,6 +301,32 @@ export default function App() {
 
     return () => clearInterval(timerIntervalRef.current);
   }, [roomState.status, roomState.bid_timer_ends, roomState.current_player_id, isHost, gameMode]);
+
+  // Announcer commentary when a new player comes up
+  useEffect(() => {
+    if (roomState.status === 'active' && roomState.current_player_id) {
+      if (lastCommentedPlayerRef.current !== roomState.current_player_id) {
+        lastCommentedPlayerRef.current = roomState.current_player_id;
+        const curPlayer = roomPlayers.find(p => p.player_id === roomState.current_player_id || p.id === roomState.current_player_id);
+        if (curPlayer) {
+          let trivia = "An exciting prospect enters the auction room.";
+          if (curPlayer.rating >= 90) trivia = "A genuine superstar! Expect a massive bidding war for this marquee player.";
+          else if (curPlayer.rating >= 85) trivia = "A highly rated player. Franchises will definitely have their eyes on this one.";
+          else if (curPlayer.role === 'All-Rounder') trivia = "All-rounders are always in high demand. Let's see who opens the bidding.";
+          else if (curPlayer.country !== 'India') trivia = `The overseas star from ${curPlayer.country} goes under the hammer.`;
+
+          const msg = `Now up: ${curPlayer.name} (${curPlayer.role}). Base Price: ₹${curPlayer.base_price}Cr. ${trivia}`;
+          
+          setComments(prev => [
+            { id: Date.now() + Math.random(), text: msg, team: 'SYSTEM', time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'}), type: 'system' },
+            ...prev
+          ]);
+        }
+      }
+    } else {
+      lastCommentedPlayerRef.current = null;
+    }
+  }, [roomState.current_player_id, roomState.status, roomPlayers]);
 
   // Fetch functions for Online Mode
   const fetchRoomStateOnline = async () => {
@@ -1066,6 +1099,32 @@ export default function App() {
 
   // --- UNIVERSAL TRANSITIONS ---
 
+  // Handle Pre-Auction Retentions
+  const handleRetainPlayer = (playerId, teamId, price) => {
+    const pIdx = roomPlayers.findIndex(p => p.id === playerId);
+    if (pIdx === -1) return;
+    
+    const updatedPlayers = [...roomPlayers];
+    updatedPlayers[pIdx] = {
+      ...updatedPlayers[pIdx],
+      status: 'retained',
+      sold_to: teamId,
+      sold_price: price
+    };
+    
+    const updatedParticipants = participants.map(p => {
+      if (p.team_name === teamId) {
+        return { ...p, budget: Number((p.budget - price).toFixed(2)) };
+      }
+      return p;
+    });
+
+    setRoomPlayers(updatedPlayers);
+    setOfflinePlayers(updatedPlayers);
+    setParticipants(updatedParticipants);
+    setOfflineParticipants(updatedParticipants);
+  };
+
   // Handle exiting room back to landing
   const handleLeaveRoom = () => {
     if (aiBidTimeoutRef.current) clearTimeout(aiBidTimeoutRef.current);
@@ -1075,6 +1134,38 @@ export default function App() {
     setRoomId(null);
     setParticipants([]);
     setRoomPlayers([]);
+  };
+
+  // Move to Season Dashboard
+  const handleProceedToSeason = () => {
+    setView('season');
+  };
+
+  // Move to Trade Market
+  const handleProceedToTrade = () => {
+    setView('trade');
+  };
+
+  // Execute an agreed Trade
+  const executeTrade = (playerAId, playerBId) => {
+    const updatedPlayers = [...roomPlayers];
+    const aIdx = updatedPlayers.findIndex(p => p.id === playerAId);
+    const bIdx = updatedPlayers.findIndex(p => p.id === playerBId);
+    
+    if (aIdx === -1 || bIdx === -1) return;
+
+    // Swap sold_to and sold_price
+    const tempTeam = updatedPlayers[aIdx].sold_to;
+    const tempPrice = updatedPlayers[aIdx].sold_price;
+
+    updatedPlayers[aIdx].sold_to = updatedPlayers[bIdx].sold_to;
+    updatedPlayers[aIdx].sold_price = updatedPlayers[bIdx].sold_price;
+
+    updatedPlayers[bIdx].sold_to = tempTeam;
+    updatedPlayers[bIdx].sold_price = tempPrice;
+
+    setRoomPlayers(updatedPlayers);
+    setOfflinePlayers(updatedPlayers);
   };
 
   // Local Chat / Message Ticker input
@@ -1178,985 +1269,111 @@ export default function App() {
         
         {/* 1. LANDING SCREEN */}
         {view === 'landing' && (
-          <div className="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-stretch">
-            
-            {/* Left side info */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', position: 'relative', overflow: 'hidden' }}>
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div style={{ position: 'relative', zIndex: 10 }}>
-                <Trophy size={56} style={{ color: '#d97706', marginBottom: '24px' }} />
-                <h1 className="font-display" style={{ fontSize: '48px', fontWeight: '800', marginBottom: '16px', lineHeight: '1.1', color: '#0f172a', textTransform: 'uppercase' }}>
-                  Assemble Your <br /><span style={{ color: '#d97706' }}>Dream IPL Squad</span>
-                </h1>
-                <p style={{ color: '#475569', fontSize: '16px', marginBottom: '32px', lineHeight: '1.6' }}>
-                  Manage finances, bid strategically against bots or live players, and build a high-performance squad under standard IPL salary cap and team composition limits.
-                </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '15px', color: '#334155', fontWeight: '500' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <CheckCircle size={20} style={{ color: '#059669' }} />
-                    <span>₹120 Crore budget cap</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <CheckCircle size={20} style={{ color: '#059669' }} />
-                    <span>Real 2025/2026 player star pool</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <CheckCircle size={20} style={{ color: '#059669' }} />
-                    <span>Real-time multiplayer database synchronization</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <CheckCircle size={20} style={{ color: '#059669' }} />
-                    <span>Smart AI bidding agents (Sandbox mode)</span>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', fontSize: '13px', color: '#64748b', position: 'relative', zIndex: 10 }}>
-                Created with React, Vite, and Supabase.
-              </div>
-            </div>
-
-            {/* Right side form */}
-            <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <h2 className="font-display" style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '32px', color: '#0f172a', letterSpacing: '0.05em' }}>GET STARTED</h2>
-                
-                {/* Mode Selector */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '32px', backgroundColor: '#f8fafc', padding: '6px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                  <button 
-                    onClick={() => setGameMode('offline')}
-                    style={{ padding: '12px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', transition: 'all 0.2s', backgroundColor: gameMode === 'offline' ? '#ffffff' : 'transparent', color: gameMode === 'offline' ? '#d97706' : '#64748b', boxShadow: gameMode === 'offline' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', border: 'none', cursor: 'pointer' }}
-                  >
-                    Local Sandbox
-                  </button>
-                  <button 
-                    onClick={() => {
-                      if (!supabaseConnected) {
-                        alert("Supabase keys are not set up or configured. Running in Local Sandbox instead.");
-                        return;
-                      }
-                      setGameMode('online');
-                    }}
-                    style={{ padding: '12px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', backgroundColor: gameMode === 'online' ? '#ffffff' : 'transparent', color: gameMode === 'online' ? '#d97706' : '#64748b', boxShadow: gameMode === 'online' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', border: 'none', cursor: 'pointer' }}
-                  >
-                    Online Multiplayer
-                  </button>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  {/* Name field */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Manager Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="Enter your name" 
-                      value={userName} 
-                      onChange={(e) => setUserName(e.target.value)} 
-                      style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', transition: 'border-color 0.2s', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}
-                      onFocus={(e) => e.target.style.borderColor = '#d97706'}
-                      onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
-                    />
-                  </div>
-
-                  {/* Sets Selection */}
-                  {/* Sets Selection Grid */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sets to Auction (Multi-Select)</label>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
-                      {[1,2,3,4,5,6,7,8].map(s => (
-                        <div 
-                          key={s}
-                          onClick={() => {
-                            if (selectedSets.includes(s) && selectedSets.length > 1) {
-                              setSelectedSets(selectedSets.filter(x => x !== s));
-                            } else if (!selectedSets.includes(s)) {
-                              setSelectedSets([...selectedSets, s].sort());
-                            }
-                          }}
-                          style={{
-                            padding: '6px', textAlign: 'center', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s',
-                            backgroundColor: selectedSets.includes(s) ? '#d97706' : '#f1f5f9',
-                            color: selectedSets.includes(s) ? '#ffffff' : '#475569',
-                            border: selectedSets.includes(s) ? '1px solid #b45309' : '1px solid #cbd5e1'
-                          }}
-                        >
-                          <div style={{ fontSize: '13px', fontWeight: 'bold', marginBottom: '2px' }}>Set {s}</div>
-                          <div style={{ fontSize: '10px', fontWeight: 'normal', opacity: 0.9 }}>
-                            {s === 1 ? 'Batters' :
-                             s === 2 ? 'All-Rounders' :
-                             s === 3 ? 'Wicketkeepers' :
-                             s === 4 ? 'Fast Bowlers' :
-                             s === 5 ? 'Spinners' :
-                             s === 6 ? 'Uncapped' :
-                             s === 7 ? 'Accelerated' : 'Accelerated'}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Bid Timer Duration */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bid Timer</label>
-                    <select 
-                      value={timerDuration}
-                      onChange={(e) => setTimerDuration(parseInt(e.target.value))}
-                      style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', cursor: 'pointer', appearance: 'none' }}
-                    >
-                      <option value={10}>10 Seconds (Fast)</option>
-                      <option value={15}>15 Seconds (Standard)</option>
-                      <option value={20}>20 Seconds</option>
-                      <option value={25}>25 Seconds</option>
-                      <option value={30}>30 Seconds (Slow)</option>
-                    </select>
-                  </div>
-
-                  {gameMode === 'online' && (
-                    <div>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Expected Real Players (Max 10)</label>
-                      <input 
-                        type="number" 
-                        min="1" max="10"
-                        value={expectedPlayers} 
-                        onChange={(e) => setExpectedPlayers(parseInt(e.target.value) || 2)} 
-                        style={{ width: '100%', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '14px 16px', borderRadius: '10px', fontSize: '15px', outline: 'none', transition: 'border-color 0.2s', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}
-                        onFocus={(e) => e.target.style.borderColor = '#d97706'}
-                        onBlur={(e) => e.target.style.borderColor = '#cbd5e1'}
-                      />
-                    </div>
-                  )}
-
-                  {/* Franchise choice */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Select Your Franchise</label>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
-                      {FRANCHISES.map(f => (
-                        <button
-                          key={f.id}
-                          onClick={() => setSelectedTeam(f.id)}
-                          style={{ padding: '10px 4px', borderRadius: '10px', fontWeight: 'bold', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: selectedTeam === f.id ? '2px solid #f59e0b' : '1px solid #e2e8f0', backgroundColor: selectedTeam === f.id ? '#fffbeb' : '#f8fafc', color: selectedTeam === f.id ? '#b45309' : '#64748b', transform: selectedTeam === f.id ? 'scale(1.05)' : 'scale(1)', boxShadow: selectedTeam === f.id ? '0 4px 12px rgba(245, 158, 11, 0.2)' : 'none' }}
-                          title={f.name}
-                        >
-                          <TeamLogo teamId={f.id} className="w-10 h-10 mx-auto mb-2" />
-                          <span style={{ fontSize: '11px', letterSpacing: '0.05em' }}>{f.id}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {gameMode === 'offline' && selectedTeam && (
-                    <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginTop: '4px' }}>
-                      <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        <span>Select Opponent Bots ({selectedBotTeams.filter(t => t !== selectedTeam).length} Selected)</span>
-                        <span style={{ fontSize: '10px', backgroundColor: '#f1f5f9', padding: '2px 8px', borderRadius: '4px' }}>Max 9</span>
-                      </label>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px' }}>
-                        {FRANCHISES.filter(f => f.id !== selectedTeam).map(f => {
-                          const isSelected = selectedBotTeams.includes(f.id);
-                          return (
-                            <button
-                              key={`bot-${f.id}`}
-                              onClick={() => {
-                                setSelectedBotTeams(prev => 
-                                  prev.includes(f.id) ? prev.filter(t => t !== f.id) : [...prev, f.id]
-                                );
-                              }}
-                              style={{ padding: '8px 4px', borderRadius: '8px', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', border: isSelected ? '2px solid #94a3b8' : '1px dashed #cbd5e1', backgroundColor: isSelected ? '#f8fafc' : '#ffffff', opacity: isSelected ? 1 : 0.5 }}
-                              title={`${isSelected ? 'Remove' : 'Add'} ${f.name} Bot`}
-                            >
-                              <TeamLogo teamId={f.id} className="w-8 h-8 mx-auto mb-1" style={{ filter: isSelected ? 'none' : 'grayscale(100%)' }} />
-                              <span style={{ fontSize: '10px', fontWeight: 'bold', color: isSelected ? '#334155' : '#94a3b8' }}>{f.id}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {gameMode === 'online' && (
-                    <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginTop: '4px' }}>
-                      <label style={{ display: 'block', fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Room Code (To Join)</label>
-                      <input 
-                        type="text" 
-                        placeholder="ENTER 6-CHARACTER CODE" 
-                        value={roomCode} 
-                        onChange={(e) => setRoomCode(e.target.value.toUpperCase())} 
-                        style={{ width: '100%', backgroundColor: '#f8fafc', border: '1px dashed #94a3b8', color: '#d97706', padding: '16px', borderRadius: '10px', fontSize: '18px', fontWeight: 'bold', outline: 'none', textAlign: 'center', letterSpacing: '0.2em', textTransform: 'uppercase', transition: 'border-color 0.2s' }}
-                        onFocus={(e) => e.target.style.borderColor = '#d97706'}
-                        onBlur={(e) => e.target.style.borderColor = '#94a3b8'}
-                        maxLength={6}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: gameMode === 'online' ? '1fr 1fr' : '1fr', gap: '16px', marginTop: '40px' }}>
-                {gameMode === 'online' ? (
-                  <>
-                    <button 
-                      onClick={handleJoinRoomOnline} 
-                      disabled={!userName || !selectedTeam || !roomCode}
-                      className="btn-secondary"
-                      style={{ justifyContent: 'center', padding: '16px', fontSize: '14px', borderRadius: '12px' }}
-                    >
-                      JOIN LOBBY <Users size={18} />
-                    </button>
-                    <button 
-                      onClick={handleCreateRoomOnline} 
-                      disabled={!userName || !selectedTeam}
-                      className="btn-primary"
-                      style={{ justifyContent: 'center', padding: '16px', fontSize: '14px', borderRadius: '12px' }}
-                    >
-                      CREATE ROOM <Plus size={18} />
-                    </button>
-                  </>
-                ) : (
-                  <button 
-                    onClick={handleCreateRoomOffline} 
-                    disabled={!userName || !selectedTeam}
-                    className="btn-primary"
-                    style={{ justifyContent: 'center', padding: '16px', fontSize: '15px', borderRadius: '12px' }}
-                  >
-                    START SIMULATOR <Play size={20} />
-                  </button>
-                )}
-              </div>
-
-              {!supabaseConnected && (
-                <div className="mt-4 p-3 bg-amber-500/5 border border-amber-500/10 rounded-lg flex gap-2 items-start">
-                  <AlertTriangle size={16} className="text-amber-500 shrink-0 mt-0.5" />
-                  <span className="text-[10px] text-slate-400 leading-normal">
-                    Real-time online mode requires Supabase credentials in your project's `.env.local` file. Currently playing in local Sandbox Mode.
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
+          <LandingPage
+            gameMode={gameMode}
+            setGameMode={setGameMode}
+            supabaseConnected={supabaseConnected}
+            userName={userName}
+            setUserName={setUserName}
+            selectedSets={selectedSets}
+            setSelectedSets={setSelectedSets}
+            timerDuration={timerDuration}
+            setTimerDuration={setTimerDuration}
+            expectedPlayers={expectedPlayers}
+            setExpectedPlayers={setExpectedPlayers}
+            selectedTeam={selectedTeam}
+            setSelectedTeam={setSelectedTeam}
+            selectedBotTeams={selectedBotTeams}
+            setSelectedBotTeams={setSelectedBotTeams}
+            roomCode={roomCode}
+            setRoomCode={setRoomCode}
+            handleJoinRoomOnline={handleJoinRoomOnline}
+            handleCreateRoomOnline={handleCreateRoomOnline}
+            handleCreateRoomOffline={handleCreateRoomOffline}
+          />
         )}
 
         {/* 2. LOBBY SCREEN */}
         {view === 'lobby' && (
-          <div style={{ maxWidth: '42rem', margin: '32px auto', width: '100%', backgroundColor: '#ffffff', borderRadius: '24px', padding: '40px', border: '1px solid #e2e8f0', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.05)', position: 'relative', overflow: 'hidden' }}>
-            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-            
-            <div style={{ textAlign: 'center', marginBottom: '32px', position: 'relative', zIndex: 10 }}>
-              <Users size={48} style={{ color: '#d97706', margin: '0 auto 16px' }} />
-              <h2 className="font-display" style={{ fontSize: '36px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em', marginBottom: '8px' }}>AUCTION LOBBY</h2>
-              <p style={{ color: '#64748b', fontSize: '15px' }}>
-                Wait for managers to join and claim their franchises.
-              </p>
-              
-              <div style={{ marginTop: '24px', backgroundColor: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '12px', padding: '16px', display: 'inline-block' }}>
-                <span style={{ fontSize: '11px', color: '#64748b', display: 'block', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>ROOM CODE</span>
-                <span className="font-display" style={{ fontSize: '32px', fontWeight: 'bold', color: '#d97706', letterSpacing: '0.2em' }}>{roomCode}</span>
-              </div>
-            </div>
-
-            <div style={{ marginBottom: '32px', position: 'relative', zIndex: 10 }}>
-              <h3 style={{ fontSize: '12px', fontWeight: '800', color: '#64748b', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Joined Managers ({participants.length}/10)
-              </h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {participants.map(p => {
-                  const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
-                  return (
-                    <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderRadius: '16px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', transition: 'all 0.2s' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <TeamLogo teamId={teamInfo?.id} className="w-10 h-10" />
-                        <div>
-                          <span style={{ fontWeight: 'bold', color: '#0f172a', fontSize: '15px' }}>{p.user_name}</span>
-                          {p.user_id === userId && (
-                            <span style={{ marginLeft: '8px', fontSize: '10px', backgroundColor: '#f1f5f9', color: '#475569', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #cbd5e1' }}>YOU</span>
-                          )}
-                          {p.isBot && (
-                            <span style={{ marginLeft: '8px', fontSize: '10px', backgroundColor: '#fffbeb', color: '#b45309', padding: '2px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #fde68a' }}>BOT</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span className="font-display" style={{ fontSize: '13px', fontWeight: 'bold', padding: '4px 12px', borderRadius: '8px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}>
-                          {p.team_name}
-                        </span>
-                        {p.user_id === roomState.host_id && (
-                          <span style={{ fontSize: '10px', backgroundColor: '#d97706', color: '#ffffff', fontWeight: 'bold', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.05em' }}>HOST</span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', position: 'relative', zIndex: 10 }}>
-              <button onClick={handleLeaveRoom} className="btn-secondary" style={{ padding: '12px 24px' }}>
-                Cancel
-              </button>
-
-              {isHost ? (
-                <button 
-                  onClick={gameMode === 'online' ? handleStartAuctionOnline : handleStartAuctionOffline}
-                  disabled={gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers}
-                  className={`btn-primary ${gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  style={{ padding: '12px 24px' }}
-                >
-                  {gameMode === 'online' && participants.filter(p => !p.isBot).length < expectedPlayers ? (
-                    `WAITING FOR ${expectedPlayers - participants.filter(p => !p.isBot).length} MORE...`
-                  ) : (
-                    <>START AUCTION <ArrowRight size={18} /></>
-                  )}
-                </button>
-              ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#64748b', fontSize: '13px', fontStyle: 'italic', fontWeight: '500' }}>
-                  <RefreshCw size={16} className="animate-spin" style={{ color: '#d97706' }} />
-                  Waiting for host to start...
-                </div>
-              )}
-            </div>
-          </div>
+          <LobbyPage
+            roomCode={roomCode}
+            participants={participants}
+            userId={userId}
+            roomState={roomState}
+            handleLeaveRoom={handleLeaveRoom}
+            isHost={isHost}
+            gameMode={gameMode}
+            handleStartAuctionOnline={handleStartAuctionOnline}
+            handleStartAuctionOffline={handleStartAuctionOffline}
+            expectedPlayers={expectedPlayers}
+            roomPlayers={roomPlayers}
+            handleRetainPlayer={handleRetainPlayer}
+          />
         )}
 
         {/* 3. AUCTION ROOM SCREEN */}
         {(view === 'auction' || (view === 'lobby' && roomState.status === 'active')) && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6 items-start">
-            
-            {/* Top row: Active Bid Area (Spans full width) */}
-            <div className="lg:col-span-3">
-              
-              {/* CURRENT PLAYER CARD */}
-              {(() => {
-                const currentPlayer = roomPlayers.find(p => p.player_id === roomState.current_player_id || p.id === roomState.current_player_id);
-                if (!currentPlayer) {
-                  return (
-                    <div className="glass-panel p-16 text-center text-slate-400 flex flex-col items-center justify-center">
-                      <RefreshCw size={48} className="animate-spin text-amber-500 mb-4" />
-                      <h3 className="text-2xl font-bold font-display text-white">AUCTION RE-CONNECTING...</h3>
-                      <p className="text-sm">Fetching synchronized real-time data</p>
-                    </div>
-                  );
-                }
-
-                // Calculate next bid
-                const nextBidPrice = getNextBidAmount(roomState.current_bid, currentPlayer.base_price);
-                const currentBidderInfo = FRANCHISES.find(f => f.id === roomState.current_bidder);
-                
-                // Color formatting for role
-                const getRoleBadgeClass = (role) => {
-                  if (role === 'Batsman') return 'badge-batsman';
-                  if (role === 'Bowler') return 'badge-bowler';
-                  if (role === 'All-Rounder') return 'badge-ar';
-                  return 'badge-wk';
-                };
-
-                const myBidderRecord = participants.find(p => p.team_name === selectedTeam);
-                const oppBidderRecord = participants.find(p => p.team_name === roomState.current_bidder);
-                const isUnderfunded = myBidderRecord && myBidderRecord.budget < nextBidPrice;
-                const isHighestBidder = roomState.current_bidder === selectedTeam;
-
-                // Timer percentage
-                const timerPercentage = roomState.status === 'active' ? (timeLeft / timerDuration) * 100 : 0;
-                const timerColor = 'bg-slate-900';
-
-                return (
-                  <div className="glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow">
-                    {/* Background accent ring */}
-                    <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-
-                    <div>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px 0' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '24px' }}>
-                          <span style={{ backgroundColor: '#fffbeb', color: '#d97706', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
-                            {currentPlayer.set_name || `SET ${currentPlayer.set_index}`}
-                          </span>
-                          <h2 className="font-display" style={{ fontSize: '48px', fontWeight: 'bold', letterSpacing: '0.05em', textTransform: 'uppercase', color: '#0f172a', margin: 0, lineHeight: 1 }}>
-                            {currentPlayer.name}
-                          </h2>
-                        </div>
-                        
-                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-                          {/* Role Box */}
-                          <span style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-                            {currentPlayer.role}
-                          </span>
-                          
-                          {/* Nationality Box */}
-                          <span style={{ padding: '6px 16px', borderRadius: '8px', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-                            {currentPlayer.country === 'India' ? '🇮🇳 INDIAN' : '✈️ OVERSEAS'}
-                          </span>
-                          
-                          {/* Base Price Box */}
-                          <div style={{ display: 'flex', alignItems: 'stretch', borderRadius: '8px', overflow: 'hidden', border: '1px solid #f59e0b', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-                            <span style={{ padding: '6px 16px', backgroundColor: '#f59e0b', color: 'white', fontSize: '14px', letterSpacing: '0.1em', fontWeight: 'bold', textTransform: 'uppercase', display: 'flex', alignItems: 'center' }}>
-                              BASE
-                            </span>
-                            <span style={{ padding: '6px 16px', backgroundColor: '#fffbeb', color: '#b45309', fontSize: '14px', fontWeight: 'bold', letterSpacing: '0.05em', display: 'flex', alignItems: 'center' }}>
-                              ₹{currentPlayer.base_price} CR
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* LIVE BIDDING INFORMATION & PURSE */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #e2e8f0', alignItems: 'stretch' }}>
-                      
-                      {/* 1. Current highest bidder */}
-                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Current Highest Bid</span>
-                          {roomState.current_bid > 0 ? (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px' }}>
-                              <span className="font-display" style={{ fontSize: '28px', fontWeight: 'bold', color: '#059669', lineHeight: '1' }}>
-                                ₹{roomState.current_bid} <span style={{fontSize:'16px', fontWeight:'700', color: '#047857'}}>Cr</span>
-                              </span>
-                              <span 
-                                className="font-display"
-                                style={{ fontSize: '12px', fontWeight: 'bold', padding: '4px 10px', borderRadius: '6px', backgroundColor: currentBidderInfo?.color, color: currentBidderInfo?.text, letterSpacing: '0.05em' }}
-                              >
-                                {roomState.current_bidder}
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#94a3b8', marginTop: '4px', display: 'block' }}>
-                              No Bids Yet
-                            </span>
-                          )}
-                        </div>
-                        <div className={`${gavelStrike ? 'hammer-animation' : ''}`} style={{ fontSize: '40px', transformOrigin: 'bottom right' }}>
-                          🔨
-                        </div>
-                      </div>
-
-                      {/* 2. BIDDING BUTTON & TIMER */}
-                      <div style={{ flex: '1 1 30%', minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '12px', justifyContent: 'center' }}>
-                        {roomState.status === 'active' ? (
-                          <>
-                            <button
-                              onClick={gameMode === 'online' ? handlePlaceBidOnline : handlePlaceBidOffline}
-                              disabled={isUnderfunded || isHighestBidder}
-                              className={`w-full font-display uppercase tracking-wider transition border-none cursor-pointer ${
-                                isHighestBidder 
-                                  ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 cursor-not-allowed' 
-                                  : isUnderfunded 
-                                    ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:brightness-105 hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-amber-500/20'
-                              }`}
-                              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, padding: '16px', borderRadius: '12px' }}
-                            >
-                              {isHighestBidder ? (
-                                <>
-                                  <span style={{ fontSize: '14px', fontWeight: 'bold' }}>YOU HOLD HIGH BID</span>
-                                  <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#34d399', textTransform: 'lowercase' }}>waiting for challengers...</span>
-                                </>
-                              ) : isUnderfunded ? (
-                                <>
-                                  <span style={{ fontSize: '14px', fontWeight: 'bold' }}>INSUFFICIENT BUDGET</span>
-                                  <span style={{ fontSize: '12px', fontWeight: 'normal', color: '#64748b', textTransform: 'lowercase' }}>requires ₹{nextBidPrice} Cr</span>
-                                </>
-                              ) : (
-                                <>
-                                  <span style={{ fontSize: '20px', fontWeight: 'bold' }}>PLACE BID</span>
-                                  <span style={{ fontSize: '11px', fontWeight: 'normal', textTransform: 'lowercase', color: '#1e293b' }}>₹{nextBidPrice} Cr (+₹{(nextBidPrice - Math.max(roomState.current_bid, currentPlayer.base_price)).toFixed(2)} Cr)</span>
-                                </>
-                              )}
-                            </button>
-                            
-                                                        {/* Timer Bar Below Button */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '4px', padding: '0 4px' }}>
-                              <span className={`text-xs font-bold font-display w-8 text-right ${timerColor.replace('bg-', 'text-')}`}>
-                                {timeLeft}s
-                              </span>
-                              <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '9999px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
-                                <div 
-                                  className={`h-full transition-all duration-200 ease-linear ${timerColor}`}
-                                  style={{ width: `${timerPercentage}%` }}
-                                />
-                              </div>
-                            </div>
-                            
-                            {/* Injected Admin Game Controls */}
-                            {isHost && (
-                              <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#d97706', borderColor: '#fcd34d' }}>
-                                  <Pause size={12} /> Pause Time
-                                </button>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#059669', borderColor: '#34d399' }}>
-                                  <Play size={12} /> Resume Time
-                                </button>
-                                <button onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')} className="btn-secondary flex-1" style={{ fontSize: '11px', padding: '8px', color: '#dc2626', borderColor: '#fca5a5' }}>
-                                  <SkipForward size={12} /> Force Result
-                                </button>
-                              </div>
-                            )}
-                          </>
-                        ) : roomState.status === 'sold' ? (
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#ecfdf5', border: '1px solid #10b981', borderRadius: '12px', padding: '16px' }}>
-                            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#047857', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER SOLD</span>
-                            <span className="font-display" style={{ fontSize: '24px', fontWeight: 'bold', color: '#064e3b' }}>₹{roomState.current_bid} Cr</span>
-                            <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#059669', marginTop: '4px' }}>to {roomState.current_bidder}</span>
-                          </div>
-                        ) : (
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fef2f2', border: '1px solid #ef4444', borderRadius: '12px', padding: '16px' }}>
-                            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#b91c1c', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PLAYER UNSOLD</span>
-                            <span style={{ fontSize: '12px', color: '#991b1b', marginTop: '4px' }}>No bids received</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* 3. LIVE PURSE (RIGHT SIDE) */}
-                      <div style={{ flex: '1 1 30%', minWidth: '250px' }}>
-                        <LivePurses 
-                          selectedTeam={selectedTeam} 
-                          participants={participants} 
-                          roomState={roomState} 
-                          allPlayers={gameMode === 'online' ? roomPlayers : offlinePlayers} 
-                        />
-                      </div>
-
-                    </div>
-                  </div>
-                );
-              })()}
-
-              </div>
-
-            {/* Bottom Row - Left Column: Franchise Squad Board (Spans 2/3 width) */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* SQUAD BOARD / LEADERBOARD */}
-              <div className="glass-panel p-6">
-                <h3 className="text-lg font-bold font-display text-white mb-4">FRANCHISE BOARD</h3>
-                
-                <div className="space-y-3">
-                  {participants.map(p => {
-                    const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
-                    const isUserTeam = p.team_name === selectedTeam;
-                    const squadCount = getTeamSquadCount(p.team_name);
-                    const overseasCount = getOverseasCount(p.team_name);
-                    
-                    const teamSquad = roomPlayers.filter(player => player.sold_to === p.team_name);
-                    const batCount = teamSquad.filter(player => player.role === 'Batsman').length;
-                    const bowlCount = teamSquad.filter(player => player.role === 'Bowler').length;
-                    const arCount = teamSquad.filter(player => player.role === 'All-Rounder').length;
-                    const wkCount = teamSquad.filter(player => player.role === 'Wicketkeeper').length;
-
-                    return (
-                      <div 
-                        key={p.id} 
-                        style={{
-                          padding: '14px 16px',
-                          borderRadius: '12px',
-                          border: isUserTeam ? '2px solid #f59e0b' : '1px solid #e2e8f0',
-                          backgroundColor: '#ffffff',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '12px',
-                          boxShadow: isUserTeam ? '0 4px 6px -1px rgba(245, 158, 11, 0.1)' : '0 1px 2px rgba(0,0,0,0.05)',
-                          transition: 'all 0.2s ease-in-out'
-                        }}
-                      >
-                        {/* Top row: Logo, Name, Badge */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                            <div style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc', borderRadius: '10px', padding: '6px', border: '1px solid #f1f5f9' }}>
-                               <TeamLogo teamId={teamInfo?.id} style={{ width: '100%', height: '100%' }} />
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                              <span style={{ fontWeight: '800', fontSize: '15px', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', letterSpacing: '-0.02em' }}>
-                                {p.user_name}
-                                {isUserTeam && <span style={{ fontSize: '9px', backgroundColor: '#f59e0b', color: '#fff', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', letterSpacing: '0.05em' }}>YOU</span>}
-                              </span>
-                              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#e0f2fe', color: '#0369a1', borderRadius: '4px', letterSpacing: '0.05em' }}>{batCount} BAT</span>
-                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#f3e8ff', color: '#7e22ce', borderRadius: '4px', letterSpacing: '0.05em' }}>{wkCount} WK</span>
-                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#dcfce7', color: '#15803d', borderRadius: '4px', letterSpacing: '0.05em' }}>{arCount} AR</span>
-                                <span style={{ fontSize: '9px', fontWeight: 'bold', padding: '2px 6px', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '4px', letterSpacing: '0.05em' }}>{bowlCount} BOWL</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <span 
-                            style={{ fontSize: '11px', fontWeight: 'bold', padding: '4px 12px', borderRadius: '20px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}
-                          >
-                            {p.team_name}
-                          </span>
-                        </div>
-
-                        {/* Bottom row: Stats */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid #f1f5f9' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Budget</span>
-                            <span style={{ fontWeight: '800', fontSize: '16px', color: '#0f172a' }}>₹{p.budget} <span style={{fontSize:'12px', fontWeight:'700', color: '#475569'}}>Cr</span></span>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Squad</span>
-                            <span style={{ fontWeight: '800', fontSize: '15px', color: '#334155' }}>{squadCount}/25</span>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Overseas</span>
-                            <span style={{ fontWeight: '800', fontSize: '15px', color: overseasCount > 8 ? '#ef4444' : '#334155' }}>
-                              {overseasCount}/8
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Row - Right Column: Upcoming Queue, Controls, & Logs (Spans 1/3 width) */}
-            <div style={{ flex: '1 1 30%', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              {/* UPCOMING PLAYERS ACCORDION/LIST */}
-              <div style={{ padding: '24px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em' }}>UPCOMING PLAYER LIST</h3>
-                  <span style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>
-                    {roomPlayers.filter(p => p.status === 'available').length} remaining
-                  </span>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {roomPlayers
-                    .filter(p => p.status === 'available' && p.player_id !== roomState.current_player_id && p.id !== roomState.current_player_id)
-                    .map(p => (
-                      <div key={p.id || p.player_id} style={{ padding: '12px', backgroundColor: '#f8fafc', border: '1px solid #f1f5f9', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                          <span style={{ fontWeight: '700', color: '#0f172a', fontSize: '14px' }}>{p.name}</span>
-                          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '500' }}>{p.role}</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <span className="font-display" style={{ fontSize: '13px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#fffbeb', padding: '4px 10px', borderRadius: '6px' }}>
-                            Base: ₹{p.base_price} Cr
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-              
-              {/* GAME CONTROLS (FOR ALL HUMANS, SKIP IS HOST ONLY) */}
-              <div style={{ backgroundColor: '#fffbeb', padding: '24px', borderRadius: '16px', border: '1px solid #fde68a', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className="font-display" style={{ fontSize: '16px', fontWeight: 'bold', color: '#b45309', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
-                    <Settings size={18} /> GAME CONTROLS
-                  </h3>
-                  {isHost ? (
-                    <span className="font-display" style={{ fontSize: '10px', color: '#e11d48', backgroundColor: '#ffe4e6', border: '1px solid #fecdd3', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Host Admin
-                    </span>
-                  ) : (
-                    <span className="font-display" style={{ fontSize: '10px', color: '#64748b', backgroundColor: '#f1f5f9', border: '1px solid #e2e8f0', padding: '4px 8px', borderRadius: '6px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Participant Mode
-                    </span>
-                  )}
-                </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  <button 
-                    onClick={() => gameMode === 'online' ? handleHostControlOnline('pause') : handleHostControlOffline('pause')}
-                    style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#d97706', backgroundColor: '#ffffff', border: '1px solid #fcd34d', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(217, 119, 6, 0.05)' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef3c7'; e.currentTarget.style.borderColor = '#f59e0b'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fcd34d'; }}
-                  >
-                    <Square size={14} /> PAUSE TIMER
-                  </button>
-                  <button 
-                    onClick={() => gameMode === 'online' ? handleHostControlOnline('resume') : handleHostControlOffline('resume')}
-                    style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#059669', backgroundColor: '#ffffff', border: '1px solid #6ee7b7', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(5, 150, 105, 0.05)' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ecfdf5'; e.currentTarget.style.borderColor = '#34d399'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#6ee7b7'; }}
-                  >
-                    <Play size={14} /> RESUME TIMER
-                  </button>
-
-                  {isHost && (
-                    <button 
-                      onClick={() => gameMode === 'online' ? handleHostControlOnline('skip') : handleHostControlOffline('skip')}
-                      style={{ flex: '1', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', padding: '10px 16px', fontSize: '12px', fontWeight: 'bold', color: '#e11d48', backgroundColor: '#ffffff', border: '1px solid #fda4af', borderRadius: '10px', transition: 'all 0.2s', cursor: 'pointer', boxShadow: '0 2px 4px rgba(225, 29, 72, 0.05)' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#ffe4e6'; e.currentTarget.style.borderColor = '#fb7185'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#ffffff'; e.currentTarget.style.borderColor = '#fda4af'; }}
-                    >
-                      <SkipForward size={14} /> FORCE SELL/UNSOLD
-                    </button>
-                  )}
-                </div>
-              </div>
-              
-              {/* LIVE LOGS / COMMMENTARY / CHAT */}
-              <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '350px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                <div>
-                  <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em', marginBottom: '16px' }}>LIVE COMMENTARY & FEED</h3>
-                  
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'auto', paddingRight: '8px' }}>
-                    {comments.length === 0 ? (
-                      <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px 0', fontSize: '14px', fontStyle: 'italic' }}>
-                        Commentary box is quiet... Waiting for bidding war.
-                      </div>
-                    ) : (
-                      comments.map(c => {
-                        const teamInfo = FRANCHISES.find(f => f.id === c.team);
-                        
-                        let textColor = '#334155';
-                        if (c.type === 'system') {
-                          textColor = '#d97706';
-                        }
-
-                        return (
-                          <div key={c.id} style={{ fontSize: '13px', backgroundColor: '#f8fafc', padding: '12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                {c.team !== 'SYSTEM' && c.team !== 'SPECTATOR' ? (
-                                  <span 
-                                    className="font-display"
-                                    style={{ fontSize: '10px', fontWeight: 'bold', padding: '3px 8px', borderRadius: '4px', backgroundColor: teamInfo?.color, color: teamInfo?.text, letterSpacing: '0.05em' }}
-                                  >
-                                    {c.team}
-                                  </span>
-                                ) : (
-                                  <span className="font-display" style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 'bold', letterSpacing: '0.05em' }}>
-                                    {c.team}
-                                  </span>
-                                )}
-                                <span style={{ fontSize: '11px', color: '#94a3b8' }}>{c.time}</span>
-                              </div>
-                            </div>
-                            <p style={{ color: textColor, fontWeight: c.type === 'system' ? 'bold' : '500', lineHeight: '1.4' }}>{c.text}</p>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-
-                {/* Input text */}
-                <div style={{ display: 'flex', gap: '8px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #f1f5f9' }}>
-                  <input 
-                    type="text" 
-                    placeholder="Send message to room..." 
-                    value={commentInput} 
-                    onChange={(e) => setCommentInput(e.target.value)} 
-                    onKeyDown={(e) => e.key === 'Enter' && handleSendComment()}
-                    style={{ flex: 1, padding: '10px 16px', fontSize: '13px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#0f172a', outline: 'none' }}
-                  />
-                  <button 
-                    onClick={handleSendComment}
-                    style={{ padding: '10px 16px', borderRadius: '8px', border: 'none', backgroundColor: '#3b82f6', color: '#ffffff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >
-                    <Send size={16} />
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-
-            {/* FULL SQUAD VIEW DRAWER (WIDESPAN FOOTER) */}
-            <div style={{ backgroundColor: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', marginTop: '24px' }}>
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-                <h3 className="font-display" style={{ fontSize: '18px', fontWeight: 'bold', color: '#0f172a', letterSpacing: '0.05em' }}>ROSTER LISTING & SQUADS</h3>
-                
-                {/* Roster filter */}
-                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', maxWidth: '100%', paddingBottom: '4px' }}>
-                  <button 
-                    onClick={() => setShowRosterTeam('ALL')}
-                    style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === 'ALL' ? '#f59e0b' : '#e2e8f0', backgroundColor: showRosterTeam === 'ALL' ? '#f59e0b' : '#f8fafc', color: showRosterTeam === 'ALL' ? '#ffffff' : '#64748b', transition: 'all 0.2s' }}
-                  >
-                    All Sold
-                  </button>
-                  <button 
-                    onClick={() => setShowRosterTeam(selectedTeam)}
-                    style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === selectedTeam ? '#f59e0b' : '#e2e8f0', backgroundColor: showRosterTeam === selectedTeam ? '#f59e0b' : '#f8fafc', color: showRosterTeam === selectedTeam ? '#ffffff' : '#64748b', transition: 'all 0.2s' }}
-                  >
-                    My Squad
-                  </button>
-                  {FRANCHISES.filter(f => f.id !== selectedTeam).map(f => (
-                    <button
-                      key={f.id}
-                      onClick={() => setShowRosterTeam(f.id)}
-                      style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', border: '1px solid', borderColor: showRosterTeam === f.id ? '#cbd5e1' : '#e2e8f0', backgroundColor: showRosterTeam === f.id ? '#e2e8f0' : '#f8fafc', color: showRosterTeam === f.id ? '#0f172a' : '#64748b', transition: 'all 0.2s' }}
-                    >
-                      {f.id}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Roster display grid */}
-              {(() => {
-                const filteredRosters = roomPlayers.filter(p => {
-                  if (showRosterTeam === 'ALL') return p.status === 'sold';
-                  return p.status === 'sold' && p.sold_to === showRosterTeam;
-                });
-
-                if (filteredRosters.length === 0) {
-                  return (
-                    <div style={{ textAlign: 'center', color: '#94a3b8', padding: '40px 0', fontSize: '14px', fontStyle: 'italic', border: '1px dashed #cbd5e1', borderRadius: '12px' }}>
-                      No players purchased yet for this filter.
-                    </div>
-                  );
-                }
-
-                return (
-                  <div style={{ overflowX: 'auto', width: '100%', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                    <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
-                      <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-                        <tr>
-                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Player Name</th>
-                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Role</th>
-                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Country</th>
-                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Sold To</th>
-                          <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px', letterSpacing: '0.05em' }}>Price Paid</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredRosters.map((p, idx) => {
-                          const buyerInfo = FRANCHISES.find(f => f.id === p.sold_to);
-                          return (
-                            <tr key={p.id || p.player_id} style={{ borderBottom: idx === filteredRosters.length - 1 ? 'none' : '1px solid #f1f5f9' }}>
-                              <td style={{ padding: '12px 16px', fontWeight: '600', color: '#0f172a' }}>{p.name}</td>
-                              <td style={{ padding: '12px 16px' }}>
-                                <span className={`badge ${
-                                  p.role === 'Batsman' ? 'badge-batsman' : p.role === 'Bowler' ? 'badge-bowler' : p.role === 'All-Rounder' ? 'badge-ar' : 'badge-wk'
-                                }`}>
-                                  {p.role}
-                                </span>
-                              </td>
-                              <td style={{ padding: '12px 16px', color: '#64748b' }}>{p.country}</td>
-                              <td style={{ padding: '12px 16px' }}>
-                                <span 
-                                  className="font-display"
-                                  style={{ fontSize: '10px', fontWeight: 'bold', padding: '4px 10px', borderRadius: '6px', backgroundColor: buyerInfo?.color, color: buyerInfo?.text, letterSpacing: '0.05em' }}
-                                >
-                                  {p.sold_to}
-                                </span>
-                              </td>
-                              <td className="font-display" style={{ padding: '12px 16px', fontWeight: 'bold', color: '#0f172a', fontSize: '14px' }}>₹{p.sold_price} <span style={{fontSize:'11px', color:'#64748b'}}>Cr</span></td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                );
-              })()}
-            </div>
-          </div>
+          <AuctionRoom
+            roomState={roomState}
+            roomPlayers={roomPlayers}
+            participants={participants}
+            selectedTeam={selectedTeam}
+            timeLeft={timeLeft}
+            timerDuration={timerDuration}
+            gavelStrike={gavelStrike}
+            gameMode={gameMode}
+            isHost={isHost}
+            offlinePlayers={offlinePlayers}
+            comments={comments}
+            commentInput={commentInput}
+            setCommentInput={setCommentInput}
+            showRosterTeam={showRosterTeam}
+            setShowRosterTeam={setShowRosterTeam}
+            getNextBidAmount={getNextBidAmount}
+            getTeamSquadCount={getTeamSquadCount}
+            getOverseasCount={getOverseasCount}
+            handlePlaceBidOnline={handlePlaceBidOnline}
+            handlePlaceBidOffline={handlePlaceBidOffline}
+            handleHostControlOnline={handleHostControlOnline}
+            handleHostControlOffline={handleHostControlOffline}
+            handleSendComment={handleSendComment}
+          />
         )}
-
         {/* 4. SUMMARY / LEADERBOARD END SCREEN */}
         {view === 'summary' && (
-          <div className="max-w-4xl mx-auto w-full glass-panel p-8 my-8 relative">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-            
-            <div className="text-center mb-8">
-              <Trophy size={48} className="text-amber-500 mx-auto mb-2 animate-bounce" />
-              <h2 className="text-4xl font-bold font-display text-white">MEGA AUCTION SUMMARY</h2>
-              <p className="text-slate-400 text-sm">
-                All players have been auctioned. Here is the final board:
-              </p>
-            </div>
-
-            {/* Leaderboard Table */}
-            <div className="responsive-table-container mb-8">
-              <table className="premium-table">
-                <thead>
-                  <tr>
-                    <th>Rank</th>
-                    <th>Franchise / Manager</th>
-                    <th>Remaining Budget</th>
-                    <th>Squad Size</th>
-                    <th>Overseas</th>
-                    <th>Avg Squad Rating</th>
-                    <th>Squad Rating Check</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[...participants]
-                    .sort((a, b) => calculateSquadRating(b.team_name) - calculateSquadRating(a.team_name))
-                    .map((p, idx) => {
-                      const teamInfo = FRANCHISES.find(f => f.id === p.team_name);
-                      const squadRating = calculateSquadRating(p.team_name);
-                      const squadCount = getTeamSquadCount(p.team_name);
-                      const overseasCount = getOverseasCount(p.team_name);
-                      
-                      // Check constraints: min 18, max 8 overseas
-                      const complies = squadCount >= 18 && squadCount <= 25 && overseasCount <= 8;
-
-                      return (
-                        <tr key={p.id}>
-                          <td className="font-display font-bold text-lg text-white">#{idx + 1}</td>
-                          <td>
-                            <div className="flex items-center gap-2">
-                              <TeamLogo teamId={teamInfo?.id} className="w-8 h-8" />
-                              <div className="hidden items-center justify-center w-8 h-8 bg-slate-800 rounded-full text-[10px] font-bold">{teamInfo?.id}</div>
-                              <div>
-                                <span className="font-semibold text-white block">{p.user_name}</span>
-                                <span 
-                                  className="text-[9px] font-bold px-1.5 py-0.5 rounded font-display mt-0.5 inline-block"
-                                  style={{ backgroundColor: teamInfo?.color, color: teamInfo?.text }}
-                                >
-                                  {p.team_name}
-                                </span>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="font-bold text-white font-display">₹{p.budget} Cr</td>
-                          <td className="text-slate-300 font-display">{squadCount}/25</td>
-                          <td className="text-slate-300 font-display">{overseasCount}/8</td>
-                          <td className="text-amber-500 font-bold font-display text-lg">{squadRating}</td>
-                          <td>
-                            {complies ? (
-                              <span className="text-[10px] bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2 py-0.5 rounded font-bold uppercase">
-                                Valid Squad
-                              </span>
-                            ) : (
-                              <span className="text-[10px] bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2 py-0.5 rounded font-bold uppercase" title="Must have 18-25 players and max 8 overseas">
-                                Invalid Squad
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Individual Squad details */}
-            <div className="glass-panel p-6 mb-8">
-              <h3 className="text-lg font-bold font-display text-white mb-4">YOUR SQUAD ROSTER ({getTeamSquadCount(selectedTeam)} players)</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {roomPlayers
-                  .filter(p => p.sold_to === selectedTeam)
-                  .map(p => (
-                    <div key={p.id || p.player_id} className="p-3 bg-slate-900 border border-slate-800 rounded-xl flex flex-col justify-between">
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="font-semibold text-white text-xs block truncate max-w-[120px]">{p.name}</span>
-                        <span className={`text-[8px] badge ${p.role === 'Batsman' ? 'badge-batsman' : p.role === 'Bowler' ? 'badge-bowler' : p.role === 'All-Rounder' ? 'badge-ar' : 'badge-wk'}`}>
-                          {p.role}
-                        </span>
-                      </div>
-                      
-                      <div className="flex justify-between items-center text-[10px] pt-1.5 border-t border-slate-800/40">
-                        <span className="text-amber-500 font-bold font-display">Rating: {p.rating}</span>
-                        <span className="text-slate-400 font-display">Cost: ₹{p.sold_price} Cr</span>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            <div className="flex justify-center">
-              <button 
-                onClick={handleLeaveRoom}
-                className="btn-primary"
-              >
-                BACK TO HOME <RotateCcw size={18} />
-              </button>
-            </div>
-          </div>
+          <SummaryPage
+            participants={participants}
+            roomPlayers={roomPlayers}
+            selectedTeam={selectedTeam}
+            handleLeaveRoom={handleLeaveRoom}
+            calculateSquadRating={calculateSquadRating}
+            getTeamSquadCount={getTeamSquadCount}
+            getOverseasCount={getOverseasCount}
+            handleProceedToSeason={handleProceedToSeason}
+            handleProceedToTrade={handleProceedToTrade}
+          />
+        )}
+        
+        {/* 5. TRADE MARKET (Phase 5) */}
+        {view === 'trade' && (
+          <TradeMarket 
+            participants={participants}
+            roomPlayers={roomPlayers}
+            userId={userId}
+            handleLeaveRoom={handleLeaveRoom}
+            handleProceedToSeason={handleProceedToSeason}
+            executeTrade={executeTrade}
+          />
+        )}
+        
+        {/* 6. SEASON DASHBOARD (Phase 3) */}
+        {view === 'season' && (
+          <SeasonDashboard 
+            participants={participants}
+            allPlayers={allPlayers}
+            userId={userId}
+            handleLeaveRoom={handleLeaveRoom}
+          />
         )}
       </main>
 
