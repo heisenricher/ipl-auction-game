@@ -1707,7 +1707,7 @@ export default function App() {
 
                 // Timer percentage
                 const timerPercentage = roomState.status === 'active' ? (timeLeft / timerDuration) * 100 : 0;
-                const timerColor = timeLeft > 8 ? 'bg-emerald-500' : timeLeft > 4 ? 'bg-amber-500' : 'bg-rose-500';
+                const timerColor = 'bg-slate-900';
 
                 return (
                   <div className="glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow">
