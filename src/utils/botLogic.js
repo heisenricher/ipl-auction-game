@@ -52,9 +52,13 @@ export const getBotValuation = (player, teamName, roomPlayers, participants) => 
     else if (roleCount < targets[player.role]) {
       urgency = 1.0 + ((targets[player.role] - roleCount) * 0.15); // e.g., need 2 WK, have 0 -> 1.3x
     }
-    // Low Need: If they already have enough
-    else if (roleCount >= targets[player.role]) {
+    // Low Need: If they already have exactly enough
+    else if (roleCount === targets[player.role]) {
       urgency = 0.4; // Don't bid high on excess
+    }
+    // Hard Limit: Stop bidding if they have too many of a role (e.g. 8 batters when target is 6)
+    else if (roleCount > targets[player.role]) {
+      return 0; // Hard pass, save money for other roles
     }
     
     // Superstar Override: Always try for top players if budget allows
@@ -63,6 +67,18 @@ export const getBotValuation = (player, teamName, roomPlayers, participants) => 
     }
 
     baseValuation *= urgency;
+
+    // 2.5. Franchise Bias (Category 4 Expansion)
+    if (teamName === 'CSK' && player.rating >= 85) {
+      baseValuation *= 1.15; // CSK pays premium for experience/quality
+    } else if (teamName === 'RR' && player.rating < 85 && player.base_price <= 0.5) {
+      baseValuation *= 1.2; // RR overbids slightly on uncapped/cheap youth
+    } else if (teamName === 'MI' && player.rating >= 90) {
+      baseValuation *= 1.25; // MI aggressively pursues superstars
+    } else if (teamName === 'PBKS') {
+      // PBKS unpredictability (Panic buying)
+      if (squad.length < 5 && teamBudget > 80) baseValuation *= 1.3;
+    }
 
     // 3. Unpredictable Modifiers (Bluffing & Panicking)
     const randomSeed = Math.random();

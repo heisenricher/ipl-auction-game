@@ -1,8 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, Calendar, Play, ChevronRight, Award, Swords, Home } from 'lucide-react';
+import { Trophy, Calendar, Play, ChevronRight, Award, Swords, Home, Star } from 'lucide-react';
 import TeamLogo from '../components/TeamLogo';
 import { FRANCHISES } from '../utils/constants';
 import { generateSchedule, simulateMatch, calculateTeamStrength } from '../utils/simulationEngine';
+
+// Heuristic to pick the optimal valid playing XI
+const autoSelectBestXI = (squad) => {
+  if (squad.length === 0) return [];
+  const sorted = [...squad].sort((a, b) => b.rating - a.rating);
+  
+  // Find first Wicketkeeper
+  const wk = sorted.find(p => p.role === 'Wicketkeeper');
+  const selected = [];
+  if (wk) selected.push(wk);
+
+  // Add players prioritizing higher rating, respecting max 4 overseas
+  for (const p of sorted) {
+    if (selected.length === 11) break;
+    if (wk && p.id === wk.id) continue;
+
+    const isOverseas = p.country !== 'India';
+    const currentOverseasCount = selected.filter(sp => sp.country !== 'India').length;
+
+    if (isOverseas && currentOverseasCount >= 4) {
+      continue;
+    }
+    selected.push(p);
+  }
+
+  // Fill up if we still don't have 11 (e.g. if we skipped too many overseas)
+  if (selected.length < 11) {
+    for (const p of sorted) {
+      if (selected.length === 11) break;
+      if (!selected.find(sp => sp.id === p.id)) {
+        selected.push(p);
+      }
+    }
+  }
+
+  return selected.map(p => p.id);
+};
 
 const SeasonDashboard = ({
   participants,
@@ -16,6 +53,9 @@ const SeasonDashboard = ({
   
   // Calculate strengths once on load
   const [teamStrengths, setTeamStrengths] = useState({});
+  const [teamCaptains, setTeamCaptains] = useState({});
+  const [playerMorale, setPlayerMorale] = useState({});
+  const [teamPlayingXIs, setTeamPlayingXIs] = useState({});
 
   useEffect(() => {
     if (participants.length > 0) {
@@ -38,8 +78,31 @@ const SeasonDashboard = ({
 
       // Pre-calc strengths for UI display
       const strengths = {};
+      const initCaptains = {};
+      const initMorale = {};
+      const initPlayingXIs = {};
+      
       participants.forEach(p => {
-        strengths[p.team_name] = calculateTeamStrength(p.team_name, allPlayers);
+        // Auto-assign bots Captains
+        const squad = allPlayers.filter(pl => pl.sold_to === p.team_name).sort((a,b) => b.rating - a.rating);
+        if (squad.length > 1) {
+          initCaptains[p.team_name] = { captain: squad[0].id, viceCaptain: squad[1].id };
+        }
+        
+        // Morale
+        squad.forEach(pl => {
+           initMorale[pl.id] = Math.floor(Math.random() * 11) - 5; // -5 to +5
+        });
+
+        // Auto-assign Best XI
+        initPlayingXIs[p.team_name] = autoSelectBestXI(squad);
+      });
+      setTeamCaptains(initCaptains);
+      setPlayerMorale(initMorale);
+      setTeamPlayingXIs(initPlayingXIs);
+
+      participants.forEach(p => {
+        strengths[p.team_name] = calculateTeamStrength(p.team_name, allPlayers, initCaptains, initMorale, initPlayingXIs);
       });
       setTeamStrengths(strengths);
     }
@@ -50,7 +113,7 @@ const SeasonDashboard = ({
     if (nextMatchIdx === -1) return; // Season over
 
     const match = schedule[nextMatchIdx];
-    const simulatedMatch = simulateMatch(match, allPlayers);
+    const simulatedMatch = simulateMatch(match, allPlayers, teamCaptains, playerMorale, teamPlayingXIs);
 
     // Update Schedule
     const newSchedule = [...schedule];
@@ -69,7 +132,7 @@ const SeasonDashboard = ({
     const newPointsTable = [...pointsTable]; // Start from current
 
     unplayed.forEach(match => {
-      const simulated = simulateMatch(match, allPlayers);
+      const simulated = simulateMatch(match, allPlayers, teamCaptains, playerMorale, teamPlayingXIs);
       const idx = newSchedule.findIndex(m => m.id === match.id);
       newSchedule[idx] = simulated;
 
@@ -172,7 +235,190 @@ const SeasonDashboard = ({
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '24px', alignItems: 'start' }}>
         
-        {/* POINTS TABLE */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {/* SQUAD MANAGEMENT */}
+          {userTeam && (
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '28px', border: '1px solid #e2e8f0', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                <h2 className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+                  <Star size={24} style={{ color: '#f59e0b' }} /> MANAGE SQUAD & PLAYING XI
+                </h2>
+                <button
+                  onClick={() => {
+                    const squad = allPlayers.filter(pl => pl.sold_to === userTeam);
+                    const bestXI = autoSelectBestXI(squad);
+                    const newXIs = { ...teamPlayingXIs, [userTeam]: bestXI };
+                    setTeamPlayingXIs(newXIs);
+                    setTeamStrengths(prev => ({ ...prev, [userTeam]: calculateTeamStrength(userTeam, allPlayers, teamCaptains[userTeam], playerMorale, newXIs) }));
+                  }}
+                  className="font-display"
+                  style={{ fontSize: '12px', fontWeight: 'bold', padding: '8px 16px', backgroundColor: '#fffbeb', color: '#b45309', border: '1px solid #fde68a', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
+                  onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#fef3c7'; }}
+                  onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#fffbeb'; }}
+                >
+                  ⚡ Auto-Select Best XI
+                </button>
+              </div>
+
+              {/* Captain / Vice Captain row */}
+              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', backgroundColor: '#f8fafc', padding: '20px', borderRadius: '16px', border: '1px solid #cbd5e1' }}>
+                <div style={{ flex: 1, minWidth: '200px' }}>
+                  <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Select Captain (C)</label>
+                  <select 
+                    value={teamCaptains[userTeam]?.captain || ''}
+                    onChange={(e) => {
+                      const newCaptains = { ...teamCaptains, [userTeam]: { ...teamCaptains[userTeam], captain: e.target.value } };
+                      setTeamCaptains(newCaptains);
+                      setTeamStrengths(prev => ({ ...prev, [userTeam]: calculateTeamStrength(userTeam, allPlayers, newCaptains, playerMorale, teamPlayingXIs) }));
+                    }}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                  >
+                    <option value="">Select a player...</option>
+                    {allPlayers.filter(p => p.sold_to === userTeam).map(p => (
+                      <option key={p.id} value={p.id}>{p.name} (Rat: {p.rating})</option>
+                    ))}
+                  </select>
+                </div>
+                <div style={{ flex: 1, minWidth: '200px' }}>
+                  <label style={{ display: 'block', fontSize: '11px', fontWeight: '800', color: '#475569', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Select Vice-Captain (VC)</label>
+                  <select 
+                    value={teamCaptains[userTeam]?.viceCaptain || ''}
+                    onChange={(e) => {
+                      const newCaptains = { ...teamCaptains, [userTeam]: { ...teamCaptains[userTeam], viceCaptain: e.target.value } };
+                      setTeamCaptains(newCaptains);
+                      setTeamStrengths(prev => ({ ...prev, [userTeam]: calculateTeamStrength(userTeam, allPlayers, newCaptains, playerMorale, teamPlayingXIs) }));
+                    }}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none' }}
+                  >
+                    <option value="">Select a player...</option>
+                    {allPlayers.filter(p => p.sold_to === userTeam).map(p => (
+                      <option key={p.id} value={p.id}>{p.name} (Rat: {p.rating})</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* XI Selection Live validation board */}
+              {(() => {
+                const userXI = teamPlayingXIs[userTeam] || [];
+                const squad = allPlayers.filter(p => p.sold_to === userTeam);
+                const pickedSquad = squad.filter(p => userXI.includes(p.id));
+                const wkCount = pickedSquad.filter(p => p.role === 'Wicketkeeper').length;
+                const overseasCount = pickedSquad.filter(p => p.country !== 'India').length;
+
+                return (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    
+                    {/* Live stats dashboard */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
+                      
+                      {/* Count badge */}
+                      <div style={{ border: '1px solid', borderColor: userXI.length === 11 ? '#86efac' : '#fecaca', backgroundColor: userXI.length === 11 ? '#f0fdf4' : '#fef2f2', borderRadius: '12px', padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase' }}>Squad Size</span>
+                        <span style={{ fontSize: '18px', fontWeight: '800', color: userXI.length === 11 ? '#15803d' : '#b91c1c' }}>{userXI.length} / 11</span>
+                      </div>
+
+                      {/* WK badge */}
+                      <div style={{ border: '1px solid', borderColor: wkCount >= 1 ? '#86efac' : '#fecaca', backgroundColor: wkCount >= 1 ? '#f0fdf4' : '#fef2f2', borderRadius: '12px', padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase' }}>Wicketkeepers</span>
+                        <span style={{ fontSize: '18px', fontWeight: '800', color: wkCount >= 1 ? '#15803d' : '#b91c1c' }}>{wkCount} (Min 1)</span>
+                      </div>
+
+                      {/* OS badge */}
+                      <div style={{ border: '1px solid', borderColor: overseasCount <= 4 ? '#86efac' : '#fecaca', backgroundColor: overseasCount <= 4 ? '#f0fdf4' : '#fef2f2', borderRadius: '12px', padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold', textTransform: 'uppercase' }}>Overseas</span>
+                        <span style={{ fontSize: '18px', fontWeight: '800', color: overseasCount <= 4 ? '#15803d' : '#b91c1c' }}>{overseasCount} / 4</span>
+                      </div>
+                    </div>
+
+                    {/* Warning Messages */}
+                    {(userXI.length !== 11 || wkCount === 0 || overseasCount > 4) && (
+                      <div style={{ padding: '10px 16px', backgroundColor: '#fffbeb', border: '1px solid #fef3c7', borderRadius: '10px', fontSize: '12px', color: '#b45309', fontWeight: '600' }} className="animate-pulse">
+                        ⚠️ Warning: Your lineup is currently illegal. Simulating matches with an illegal lineup will apply a strength penalty (-10 batting & bowling overall).
+                      </div>
+                    )}
+
+                    {/* Grid of Players with Pick buttons */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px', maxHeight: '350px', overflowY: 'auto', paddingRight: '8px' }}>
+                      {squad.map(p => {
+                        const isPicked = userXI.includes(p.id);
+                        const isCap = teamCaptains[userTeam]?.captain == p.id;
+                        const isVc = teamCaptains[userTeam]?.viceCaptain == p.id;
+                        const moraleVal = playerMorale[p.id] || 0;
+
+                        return (
+                          <div 
+                            key={p.id}
+                            style={{ 
+                              padding: '12px', 
+                              borderRadius: '12px', 
+                              border: isPicked ? '2px solid #22c55e' : '1px solid #e2e8f0',
+                              backgroundColor: isPicked ? '#f0fdf4' : '#ffffff',
+                              boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '8px',
+                              transition: 'all 0.2s',
+                              opacity: isPicked ? 1 : 0.75
+                            }}
+                          >
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <span style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a' }}>{p.name}</span>
+                                <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 'bold' }}>{p.role} • {p.country === 'India' ? '🇮🇳' : '✈️'}</span>
+                              </div>
+                              <span style={{ fontSize: '13px', fontWeight: '800', color: '#0f172a', backgroundColor: '#f1f5f9', padding: '2px 6px', borderRadius: '4px' }}>
+                                {p.rating}
+                              </span>
+                            </div>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
+                              <div style={{ display: 'flex', gap: '4px' }}>
+                                {isCap && <span style={{ fontSize: '9px', backgroundColor: '#f59e0b', color: '#fff', padding: '1px 4px', borderRadius: '3px', fontWeight: 'bold' }}>C</span>}
+                                {isVc && <span style={{ fontSize: '9px', backgroundColor: '#3b82f6', color: '#fff', padding: '1px 4px', borderRadius: '3px', fontWeight: 'bold' }}>VC</span>}
+                                <span style={{ fontSize: '9px', color: moraleVal > 0 ? '#16a34a' : moraleVal < 0 ? '#dc2626' : '#64748b', fontWeight: 'bold' }}>
+                                  Morale: {moraleVal > 0 ? `+${moraleVal}` : moraleVal}
+                                </span>
+                              </div>
+
+                              <button
+                                onClick={() => {
+                                  let newXI = [...userXI];
+                                  if (isPicked) {
+                                    newXI = newXI.filter(id => id !== p.id);
+                                  } else {
+                                    newXI.push(p.id);
+                                  }
+                                  const newXIs = { ...teamPlayingXIs, [userTeam]: newXI };
+                                  setTeamPlayingXIs(newXIs);
+                                  setTeamStrengths(prev => ({ ...prev, [userTeam]: calculateTeamStrength(userTeam, allPlayers, teamCaptains[userTeam], playerMorale, newXIs) }));
+                                }}
+                                style={{ 
+                                  fontSize: '11px', 
+                                  fontWeight: 'bold', 
+                                  padding: '4px 10px', 
+                                  borderRadius: '6px', 
+                                  border: 'none', 
+                                  cursor: 'pointer',
+                                  backgroundColor: isPicked ? '#ef4444' : '#22c55e',
+                                  color: '#ffffff',
+                                  transition: 'background-color 0.2s'
+                                }}
+                              >
+                                {isPicked ? 'BENCH' : 'PLAY'}
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* POINTS TABLE */}
         <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', padding: '32px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
           <h2 className="font-display" style={{ fontSize: '20px', fontWeight: 'bold', color: '#0f172a', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Award size={24} style={{ color: '#059669' }} /> POINTS TABLE
@@ -221,6 +467,7 @@ const SeasonDashboard = ({
               </tbody>
             </table>
           </div>
+        </div>
         </div>
 
         {/* MATCH SCHEDULE & SIM CONTROLS */}

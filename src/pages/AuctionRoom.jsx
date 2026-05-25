@@ -27,7 +27,11 @@ const AuctionRoom = ({
   handlePlaceBidOffline,
   handleHostControlOnline,
   handleHostControlOffline,
-  handleSendComment
+  handleSendComment,
+  rtmState,
+  rtmCards,
+  handleRtmDecision,
+  getPreviousTeam
 }) => {
   return (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6 items-start">
@@ -37,6 +41,109 @@ const AuctionRoom = ({
               
               {/* CURRENT PLAYER CARD */}
               {(() => {
+                if (rtmState && rtmState.isActive) {
+                  const player = rtmState.player;
+                  const finalBid = rtmState.finalBid;
+                  const previousTeam = rtmState.previousTeam;
+                  const finalBidder = rtmState.finalBidder;
+                  const isMyRTM = previousTeam === selectedTeam;
+                  
+                  const prevTeamInfo = FRANCHISES.find(f => f.id === previousTeam);
+                  const bidderInfo = FRANCHISES.find(f => f.id === finalBidder);
+                  
+                  const rtmTimerPercentage = (rtmState.timeLeft / 12) * 100;
+                  const rtmCardsLeft = rtmCards[previousTeam] || 0;
+
+                  return (
+                    <div 
+                      key="rtm-panel"
+                      className="glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow animate-pulse"
+                      style={{ border: '3px solid #f59e0b', boxShadow: '0 0 25px rgba(245,158,11,0.25)', background: 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)', color: '#ffffff', borderRadius: '16px' }}
+                    >
+                      {/* Top banner */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f59e0b', margin: '-24px -24px 20px -24px', padding: '12px 24px', borderBottom: '1px solid #d97706', borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }}>
+                        <span className="font-display" style={{ color: '#1e1b4b', fontWeight: '900', fontSize: '14px', letterSpacing: '0.1em' }}>🚨 RIGHT TO MATCH (RTM) DECISION</span>
+                        <span className="font-display w-16 text-right" style={{ color: '#1e1b4b', fontWeight: '900', fontSize: '14px' }}>{rtmState.timeLeft}s</span>
+                      </div>
+
+                      {/* Animated progress bar */}
+                      <div style={{ width: 'calc(100% + 48px)', height: '4px', backgroundColor: '#334155', margin: '-20px -24px 24px -24px' }}>
+                        <div style={{ height: '100%', backgroundColor: '#f59e0b', width: `${rtmTimerPercentage}%`, transition: 'width 1s linear' }} />
+                      </div>
+
+                      {/* Main comparison layout */}
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '12px 0', textAlign: 'center' }}>
+                        <h4 style={{ color: '#94a3b8', fontSize: '12px', fontWeight: '800', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>PLAYER UP FOR RTM</h4>
+                        <h2 className="font-display text-white animate-fadeIn" style={{ fontSize: '40px', fontWeight: '900', letterSpacing: '0.05em', textTransform: 'uppercase', margin: 0 }}>
+                          {player.name}
+                        </h2>
+                        
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '12px', marginBottom: '24px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: 'bold', padding: '4px 12px', backgroundColor: '#1e293b', color: '#cbd5e1', borderRadius: '8px', border: '1px solid #334155' }}>{player.role}</span>
+                          <span style={{ fontSize: '12px', fontWeight: 'bold', padding: '4px 12px', backgroundColor: '#1e293b', color: '#cbd5e1', borderRadius: '8px', border: '1px solid #334155' }}>{player.country === 'India' ? '🇮🇳 INDIAN' : '✈️ OVERSEAS'}</span>
+                        </div>
+
+                        {/* RTM Duel details */}
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '24px', width: '100%', maxWidth: '600px', backgroundColor: 'rgba(30, 41, 59, 0.5)', padding: '20px', borderRadius: '16px', border: '1px solid #334155', backdropFilter: 'blur(8px)' }} className="animate-fadeInUp">
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>Winning Bidder</span>
+                            <span style={{ fontSize: '14px', fontWeight: 'bold', padding: '4px 12px', backgroundColor: bidderInfo?.color, color: bidderInfo?.text, borderRadius: '6px' }}>{finalBidder}</span>
+                          </div>
+
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>Final Bid Price</span>
+                            <span className="font-display" style={{ fontSize: '28px', fontWeight: '900', color: '#34d399' }}>₹{finalBid} Cr</span>
+                          </div>
+
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>Previous Team</span>
+                            <span style={{ fontSize: '14px', fontWeight: 'bold', padding: '4px 12px', backgroundColor: prevTeamInfo?.color, color: prevTeamInfo?.text, borderRadius: '6px' }}>{previousTeam}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Decision Options */}
+                      <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid #334155' }}>
+                        {isMyRTM ? (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }} className="animate-fadeIn">
+                            <div style={{ textAlign: 'center', color: '#fbbf24', fontSize: '13px', fontWeight: '600' }}>
+                              👉 You have {rtmCardsLeft} RTM card{rtmCardsLeft !== 1 ? 's' : ''} left. Do you want to match the ₹{finalBid} Cr bid to retain {player.name}?
+                            </div>
+                            <div style={{ display: 'flex', gap: '16px' }}>
+                              <button
+                                onClick={() => handleRtmDecision(true)}
+                                className="flex-1 font-display uppercase tracking-wider py-4 rounded-xl font-bold cursor-pointer border-none transition premium-btn-bounce"
+                                style={{ background: 'linear-gradient(to right, #fbbf24, #f59e0b)', color: '#0f172a', boxShadow: '0 4px 12px rgba(245,158,11,0.3)', fontSize: '16px' }}
+                              >
+                                Match Bid (₹{finalBid} Cr)
+                              </button>
+                              <button
+                                onClick={() => handleRtmDecision(false)}
+                                className="flex-1 font-display uppercase tracking-wider py-4 rounded-xl font-bold cursor-pointer transition"
+                                style={{ backgroundColor: '#1e293b', border: '1px solid #334155', color: '#cbd5e1', fontSize: '16px' }}
+                                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#334155'; e.currentTarget.style.color = '#ffffff'; }}
+                                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#1e293b'; e.currentTarget.style.color = '#cbd5e1'; }}
+                              >
+                                Decline RTM
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '12px', backgroundColor: 'rgba(30, 41, 59, 0.3)', borderRadius: '12px' }}>
+                            <RefreshCw size={24} className="animate-spin text-amber-500" />
+                            <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#fbbf24', textAlign: 'center' }}>
+                              ⌛ {previousTeam} Bot is deciding whether to match the bid and retain {player.name}...
+                            </span>
+                            <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+                              ({rtmCardsLeft} RTM cards remaining for {previousTeam})
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+
                 const currentPlayer = roomPlayers.find(p => p.player_id === roomState.current_player_id || p.id === roomState.current_player_id);
                 if (!currentPlayer) {
                   return (
@@ -70,7 +177,10 @@ const AuctionRoom = ({
                 const timerPercentage = isActiveOrPaused ? (timeLeft / timerDuration) * 100 : 0;
 
                 return (
-                  <div className={`glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow ${currentPlayer.rating >= 90 ? 'marquee-luxury-card' : ''}`}>
+                  <div 
+                    key={currentPlayer.id || currentPlayer.player_id}
+                    className={`glass-panel p-6 relative overflow-hidden flex flex-col justify-between min-h-[460px] active-bidder-glow animate-flipInY ${currentPlayer.rating >= 90 ? 'marquee-luxury-card' : ''}`}
+                  >
                     {/* Background accent ring */}
                     <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -251,6 +361,25 @@ const AuctionRoom = ({
               })()}
 
               </div>
+
+            {/* LIVE PURSE TICKER */}
+            <div className="lg:col-span-3 glass-panel overflow-hidden py-3 px-0 border-l-4 border-l-amber-500" style={{ margin: '-12px 0 12px 0', backgroundColor: '#fffbeb', borderColor: '#f59e0b' }}>
+              <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'scroll-ticker 25s linear infinite' }} className="ticker-wrapper">
+                {participants.map((p, idx) => {
+                  const activeBid = roomState.current_bidder === p.team_name ? roomState.current_bid : 0;
+                  const currentPurse = (p.budget - activeBid).toFixed(2);
+                  const squadCount = getTeamSquadCount(p.team_name);
+                  const osCount = getOverseasCount(p.team_name);
+                  return (
+                    <div key={p.id} style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', padding: '0 24px', borderRight: '1px solid #fcd34d' }}>
+                      <span className="font-display font-bold text-slate-800">{p.team_name}</span>
+                      <span className="font-bold text-amber-700">₹{currentPurse} Cr</span>
+                      <span className="text-xs text-amber-600 font-bold">({squadCount}/25, {osCount}/8 OS)</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Bottom Row - Left Column: Franchise Squad Board (Spans 2/3 width) */}
             <div className="lg:col-span-2 space-y-6">

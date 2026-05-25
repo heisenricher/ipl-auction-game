@@ -136,6 +136,18 @@ export default function App() {
   const [showRosterTeam, setShowRosterTeam] = useState('ALL');
   const [gavelStrike, setGavelStrike] = useState(false);
 
+  // RTM State
+  const [rtmCards, setRtmCards] = useState({ CSK: 2, MI: 2, RCB: 2, KKR: 2, RR: 2, SRH: 2, DC: 2, LSG: 2, GT: 2, PBKS: 2 });
+  const [rtmState, setRtmState] = useState({
+    isActive: false,
+    playerId: null,
+    player: null,
+    finalBidder: null,
+    finalBid: 0,
+    previousTeam: null,
+    timeLeft: 12
+  });
+
   // Offline Sandbox State (Only used when gameMode === 'offline')
   const [offlinePlayers, setOfflinePlayers] = useState(initialPlayers);
   const [offlineParticipants, setOfflineParticipants] = useState([]);
@@ -214,6 +226,41 @@ export default function App() {
         const updated = payload.new;
         setRoomState(updated);
         
+        if (updated.status === 'rtm_resolved' && isHost) {
+          const fetchAndNext = async () => {
+            const { data: updatedPlayers } = await supabase
+              .from('room_players')
+              .select('*')
+              .eq('room_id', roomId)
+              .eq('status', 'available');
+
+            const nextPlayer = updatedPlayers?.length > 0 ? updatedPlayers[0] : null;
+
+            setTimeout(async () => {
+              isProcessingRef.current = false;
+              if (nextPlayer) {
+                const nextTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString();
+                await supabase
+                  .from('rooms')
+                  .update({
+                    status: 'active',
+                    current_player_id: nextPlayer.player_id,
+                    current_bid: 0,
+                    current_bidder: null,
+                    bid_timer_ends: nextTimerEnds
+                  })
+                  .eq('id', roomId);
+              } else {
+                await supabase
+                  .from('rooms')
+                  .update({ status: 'finished' })
+                  .eq('id', roomId);
+              }
+            }, 3000);
+          };
+          fetchAndNext();
+        }
+        
         // Trigger sounds on updates
         if (updated.current_bid > roomStateRef.current.current_bid) {
           triggerSound('bid');
@@ -277,7 +324,7 @@ export default function App() {
 
   // Timers: ticking countdown
   useEffect(() => {
-    if (roomState.status !== 'active' || !roomState.bid_timer_ends) {
+    if (roomState.status !== 'active' || !roomState.bid_timer_ends || rtmState.isActive) {
       if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
       return;
     }
@@ -300,7 +347,7 @@ export default function App() {
     }, 200);
 
     return () => clearInterval(timerIntervalRef.current);
-  }, [roomState.status, roomState.bid_timer_ends, roomState.current_player_id, isHost, gameMode]);
+  }, [roomState.status, roomState.bid_timer_ends, roomState.current_player_id, isHost, gameMode, rtmState.isActive]);
 
   // Announcer commentary when a new player comes up
   useEffect(() => {
@@ -450,6 +497,8 @@ export default function App() {
       return;
     }
 
+    setRtmCards({ CSK: 2, MI: 2, RCB: 2, KKR: 2, RR: 2, SRH: 2, DC: 2, LSG: 2, GT: 2, PBKS: 2 });
+    setRtmState({ isActive: false, playerId: null, player: null, finalBidder: null, finalBid: 0, previousTeam: null, timeLeft: 12 });
     setRoomCode(code);
     setRoomId(roomData.id);
     setIsHost(true);
@@ -506,6 +555,8 @@ export default function App() {
       return;
     }
 
+    setRtmCards({ CSK: 2, MI: 2, RCB: 2, KKR: 2, RR: 2, SRH: 2, DC: 2, LSG: 2, GT: 2, PBKS: 2 });
+    setRtmState({ isActive: false, playerId: null, player: null, finalBidder: null, finalBid: 0, previousTeam: null, timeLeft: 12 });
     setRoomId(roomData.id);
     setIsHost(roomData.host_id === userId);
     setView('lobby');
@@ -628,6 +679,12 @@ export default function App() {
 
     const bidder = roomState.current_bidder;
     const price = roomState.current_bid;
+
+    // Check RTM eligibility first
+    if (bidder && price > 0) {
+      const didTrigger = triggerRTMIfEligible(curPlayer, bidder, price);
+      if (didTrigger) return;
+    }
 
     setGavelStrike(true);
     setTimeout(() => setGavelStrike(false), 800);
@@ -764,6 +821,365 @@ export default function App() {
     }
   };
 
+  // Helper to get previous franchise of a player
+  const getPreviousTeam = (playerName) => {
+    const mapping = {
+      "Virat Kohli": "RCB", "Rohit Sharma": "MI", "MS Dhoni": "CSK",
+      "Suryakumar Yadav": "MI", "Yashasvi Jaiswal": "RR", "Heinrich Klassen": "SRH",
+      "Heinrich Klaasen": "SRH", "Travis Head": "SRH", "Jasprit Bumrah": "MI", 
+      "Rashid Khan": "GT", "Pat Cummins": "SRH", "Sunil Narine": "KKR", 
+      "Andre Russell": "KKR", "Rinku Singh": "KKR", "Shubman Gill": "GT", 
+      "Rishabh Pant": "DC", "KL Rahul": "LSG", "Sanju Samson": "RR", 
+      "Hardik Pandya": "MI", "Ravindra Jadeja": "CSK", "Ruturaj Gaikwad": "CSK", 
+      "Shivam Dube": "CSK", "Matheesha Pathirana": "CSK", "Shreyas Iyer": "KKR", 
+      "Mitchell Starc": "KKR", "Yuzvendra Chahal": "RR", "Trent Boult": "RR", 
+      "Nicholas Pooran": "LSG", "Axar Patel": "DC", "Kuldeep Yadav": "DC", 
+      "Quinton de Kock": "LSG", "Mohammed Siraj": "RCB", "Rajat Patidar": "RCB", 
+      "Dinesh Karthik": "RCB", "Faf du Plessis": "RCB", "Glenn Maxwell": "RCB", 
+      "Cameron Green": "RCB", "Will Jacks": "RCB", "Ishan Kishan": "MI", 
+      "Tilak Varma": "MI", "Tim David": "MI", "Gerald Coetzee": "MI", 
+      "Piyush Chawla": "MI", "Phil Salt": "KKR", "Venkatesh Iyer": "KKR", 
+      "Ramandeep Singh": "KKR", "Harshit Rana": "KKR", "Varun Chakaravarthy": "KKR", 
+      "Jos Buttler": "RR", "Riyan Parag": "RR", "Shimron Hetmyer": "RR", 
+      "Dhruv Jurel": "RR", "Ravichandran Ashwin": "RR", "Avesh Khan": "RR", 
+      "Sandeep Sharma": "RR", "Abhishek Sharma": "SRH", "Nitish Kumar Reddy": "SRH", 
+      "T Natarajan": "SRH", "Bhuvneshwar Kumar": "SRH", "Mayank Agarwal": "SRH", 
+      "Marco Jansen": "SRH", "David Warner": "DC", "Prithvi Shaw": "DC", 
+      "Jake Fraser-McGurk": "DC", "Tristan Stubbs": "DC", "Khaleel Ahmed": "DC", 
+      "Mukesh Kumar": "DC", "Marcus Stoinis": "LSG", "Ayush Badoni": "LSG", 
+      "Krunal Pandya": "LSG", "Ravi Bishnoi": "LSG", "Naveen-ul-Haq": "LSG", 
+      "Devdutt Padikkal": "LSG", "Sai Sudharsan": "GT", "David Miller": "GT", 
+      "Rahul Tewatia": "GT", "Shahrukh Khan": "GT", "Sai Kishore": "GT", 
+      "Mohit Sharma": "GT", "Mohammed Shami": "GT", "Sam Curran": "PBKS", 
+      "Shikhar Dhawan": "PBKS", "Liam Livingstone": "PBKS", "Arshdeep Singh": "PBKS", 
+      "Jitesh Sharma": "PBKS", "Shashank Singh": "PBKS", "Ashutosh Sharma": "PBKS", 
+      "Harshal Patel": "PBKS", "Prabhsimran Singh": "PBKS"
+    };
+    if (mapping[playerName]) return mapping[playerName];
+    let hash = 0;
+    for (let i = 0; i < playerName.length; i++) hash += playerName.charCodeAt(i);
+    const franchises = ["CSK", "MI", "RCB", "KKR", "RR", "SRH", "DC", "LSG", "GT", "PBKS"];
+    return franchises[hash % franchises.length];
+  };
+
+  const triggerRTMIfEligible = (currentPlayer, finalBidder, finalBid) => {
+    if (!finalBidder || finalBid <= 0) return false;
+    const prevTeam = getPreviousTeam(currentPlayer.name);
+    
+    // Check if previous team is an active participant in this auction
+    const prevTeamParticipant = participants.find(p => p.team_name === prevTeam);
+    const rtmCount = rtmCards[prevTeam] || 0;
+    
+    if (prevTeamParticipant && prevTeam !== finalBidder && rtmCount > 0) {
+      // Check if they have enough budget to match + safety reserve for minimum squad size
+      const squad = roomPlayers.filter(p => p.sold_to === prevTeam);
+      const minSquadShortfall = Math.max(0, 18 - squad.length - 1);
+      const safetyReserve = minSquadShortfall * 0.20;
+      const canAfford = prevTeamParticipant.budget >= finalBid + safetyReserve;
+
+      if (canAfford) {
+        setRtmState({
+          isActive: true,
+          playerId: currentPlayer.id || currentPlayer.player_id,
+          player: currentPlayer,
+          finalBidder: finalBidder,
+          finalBid: finalBid,
+          previousTeam: prevTeam,
+          timeLeft: 12
+        });
+
+        // Pause normal timer timeouts
+        if (aiBidTimeoutRef.current) clearTimeout(aiBidTimeoutRef.current);
+
+        // Add RTM alert commentary
+        setComments(prev => [
+          {
+            id: Math.random().toString(),
+            team: 'SYSTEM',
+            text: `🚨 RTM ALERT: ${prevTeam} has the option to match the winning bid of ₹${finalBid} Cr by ${finalBidder} for ${currentPlayer.name}!`,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+            type: 'system'
+          },
+          ...prev
+        ]);
+
+        if (gameMode === 'online' && isHost) {
+          supabase.from('rooms').update({
+            status: 'rtm',
+            bid_timer_ends: new Date(new Date().getTime() + 12000).toISOString()
+          }).eq('id', roomId).then();
+        }
+
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleRtmDecision = async (matched) => {
+    setRtmState(prev => ({ ...prev, isActive: false }));
+
+    const { player, finalBidder, finalBid, previousTeam } = rtmState;
+    const winningTeam = matched ? previousTeam : finalBidder;
+    const price = finalBid;
+
+    // Trigger gavel animation
+    setGavelStrike(true);
+    setTimeout(() => setGavelStrike(false), 800);
+
+    // Comment log
+    const commentId = Math.random().toString();
+    const commentText = matched 
+      ? `🚨 RTM EXERCISED! ${previousTeam} matches the bid of ₹${price} Cr to retain ${player.name}! 🎓` 
+      : `🔨 RTM DECLINED! ${previousTeam} passes. ${player.name} is sold to ${finalBidder} for ₹${price} Cr.`;
+
+    setComments(prev => [
+      {
+        id: commentId,
+        team: matched ? previousTeam : finalBidder,
+        text: commentText,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        type: matched ? 'rtm' : 'system'
+      },
+      ...prev
+    ]);
+
+    if (matched) {
+      setRtmCards(prev => ({
+        ...prev,
+        [previousTeam]: prev[previousTeam] - 1
+      }));
+    }
+
+    if (gameMode === 'online') {
+      // 1. Update player status in DB
+      await supabase
+        .from('room_players')
+        .update({ status: 'sold', sold_price: price, sold_to: winningTeam })
+        .eq('room_id', roomId)
+        .eq('player_id', player.player_id);
+
+      // 2. Fetch winning team's budget and subtract
+      const { data: buyer } = await supabase
+        .from('participants')
+        .select('budget')
+        .eq('room_id', roomId)
+        .eq('team_name', winningTeam)
+        .single();
+        
+      if (buyer) {
+        const newBudget = Number((buyer.budget - price).toFixed(2));
+        await supabase
+          .from('participants')
+          .update({ budget: newBudget })
+          .eq('room_id', roomId)
+          .eq('team_name', winningTeam);
+      }
+
+      // Play sound and trigger confetti
+      triggerSound('sold');
+      if (price >= 10.0) {
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      } else {
+        confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
+      }
+
+      // Only host handles drawing next player
+      if (isHost) {
+        const { data: updatedPlayers } = await supabase
+          .from('room_players')
+          .select('*')
+          .eq('room_id', roomId)
+          .eq('status', 'available');
+
+        const nextPlayer = updatedPlayers?.length > 0 ? updatedPlayers[0] : null;
+
+        setTimeout(async () => {
+          isProcessingRef.current = false;
+          if (nextPlayer) {
+            const nextTimerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).toISOString();
+            await supabase
+              .from('rooms')
+              .update({
+                status: 'active',
+                current_player_id: nextPlayer.player_id,
+                current_bid: 0,
+                current_bidder: null,
+                bid_timer_ends: nextTimerEnds
+              })
+              .eq('id', roomId);
+          } else {
+            await supabase
+              .from('rooms')
+              .update({ status: 'finished' })
+              .eq('id', roomId);
+          }
+        }, 3000);
+      } else {
+        // Non-host: update room status to rtm_resolved to signal the host
+        await supabase
+          .from('rooms')
+          .update({ status: 'rtm_resolved' })
+          .eq('id', roomId);
+      }
+
+    } else {
+      // Offline local
+      const updatedPlayers = roomPlayers.map(p => {
+        if (p.id === player.id) {
+          return {
+            ...p,
+            status: 'sold',
+            sold_price: price,
+            sold_to: winningTeam
+          };
+        }
+        return p;
+      });
+
+      setRoomPlayers(updatedPlayers);
+      setOfflinePlayers(updatedPlayers);
+
+      const updatedParts = participants.map(p => {
+        if (p.team_name === winningTeam) {
+          return { ...p, budget: Number((p.budget - price).toFixed(2)) };
+        }
+        return p;
+      });
+      setParticipants(updatedParts);
+      setOfflineParticipants(updatedParts);
+
+      triggerSound('sold');
+      
+      if (price >= 10.0) {
+        const duration = 3000;
+        const end = Date.now() + duration;
+        const frame = () => {
+          confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f59e0b', '#d97706', '#fbbf24'] });
+          confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f59e0b', '#d97706', '#fbbf24'] });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        };
+        frame();
+      } else if (price >= 5.0) {
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      } else {
+        confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
+      }
+
+      const nextPlayer = updatedPlayers.find(p => p.status === 'available');
+
+      setTimeout(() => {
+        isProcessingRef.current = false;
+        if (nextPlayer) {
+          const timerEnds = new Date(new Date().getTime() + (timerDuration * 1000)).getTime();
+          setRoomState(prev => ({
+            ...prev,
+            status: 'active',
+            current_player_id: nextPlayer.id,
+            current_bid: 0,
+            current_bidder: null,
+            bid_timer_ends: timerEnds
+          }));
+          setTimeLeft(timerDuration);
+          
+          setComments(prev => [
+            {
+              id: Math.random().toString(),
+              team: 'SYSTEM',
+              text: `Hammer down! Bidding starts for ${nextPlayer.name} (Base Price: ${nextPlayer.basePrice} Cr)`,
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+              type: 'system'
+            },
+            ...prev
+          ]);
+        } else {
+          setRoomState(prev => ({ ...prev, status: 'finished' }));
+          setView('summary');
+        }
+      }, 3000);
+    }
+  };
+
+  // RTM Timer tick and Bot choice logic
+  useEffect(() => {
+    if (!rtmState.isActive) return;
+
+    const rtmTimer = setInterval(() => {
+      setRtmState(prev => {
+        if (prev.timeLeft <= 1) {
+          clearInterval(rtmTimer);
+          // RTM Timeout - auto-decline
+          handleRtmDecision(false);
+          return { ...prev, timeLeft: 0, isActive: false };
+        }
+        return { ...prev, timeLeft: prev.timeLeft - 1 };
+      });
+    }, 1000);
+
+    const prevTeamParticipant = participants.find(p => p.team_name === rtmState.previousTeam);
+    const isBot = prevTeamParticipant?.isBot || (prevTeamParticipant?.user_id && prevTeamParticipant.user_id.startsWith('bot_'));
+    
+    if (isBot) {
+      const decisionDelay = Math.random() * 2000 + 1500; // 1.5s to 3.5s delay
+      const botTimeout = setTimeout(() => {
+        const player = rtmState.player;
+        const price = rtmState.finalBid;
+        const botTeam = rtmState.previousTeam;
+        
+        // Bot decision logic
+        const valuation = getBotValuation(player, botTeam, roomPlayers, participants);
+        const squad = roomPlayers.filter(p => p.sold_to === botTeam);
+        const minSquadShortfall = Math.max(0, 18 - squad.length - 1);
+        const safetyReserve = minSquadShortfall * 0.20;
+        
+        const strategy = BOT_STRATEGIES[botTeam] || { type: 'BALANCED' };
+        let matchThreshold = valuation * 1.1; // Default: match up to 10% premium
+        if (strategy.type === 'AGGRESSIVE' && player.rating >= 88) matchThreshold = valuation * 1.25;
+        if (botTeam === 'CSK' && player.rating >= 85) matchThreshold = valuation * 1.25;
+        
+        const canAfford = prevTeamParticipant.budget >= price + safetyReserve;
+        const wantsToMatch = price <= matchThreshold;
+        
+        const shouldMatch = canAfford && wantsToMatch;
+        handleRtmDecision(shouldMatch);
+      }, decisionDelay);
+
+      return () => {
+        clearInterval(rtmTimer);
+        clearTimeout(botTimeout);
+      };
+    }
+
+    return () => clearInterval(rtmTimer);
+  }, [rtmState.isActive, rtmState.playerId, participants, roomPlayers]);
+
+  // Sync online RTM state for non-hosts
+  useEffect(() => {
+    if (gameMode !== 'online' || isHost) return;
+
+    if (roomState.status === 'rtm') {
+      const currentPlayer = roomPlayers.find(p => p.player_id === roomState.current_player_id);
+      if (currentPlayer) {
+        const prevTeam = getPreviousTeam(currentPlayer.name);
+        const ends = new Date(roomState.bid_timer_ends).getTime();
+        const now = new Date().getTime();
+        const diff = Math.max(0, Math.ceil((ends - now) / 1000));
+
+        setRtmState({
+          isActive: true,
+          playerId: currentPlayer.player_id,
+          player: currentPlayer,
+          finalBidder: roomState.current_bidder,
+          finalBid: roomState.current_bid,
+          previousTeam: prevTeam,
+          timeLeft: diff
+        });
+      }
+    } else {
+      setRtmState(prev => prev.isActive ? { ...prev, isActive: false } : prev);
+    }
+  }, [roomState.status, roomState.current_player_id, roomState.bid_timer_ends, gameMode, isHost, roomPlayers]);
+
   // --- UNIFIED AI BIDDING ENGINE ---
 
   const runAIBidding = () => {
@@ -896,6 +1312,8 @@ export default function App() {
     
     setRoomPlayers(finalPlayers);
     setOfflinePlayers(finalPlayers);
+    setRtmCards({ CSK: 2, MI: 2, RCB: 2, KKR: 2, RR: 2, SRH: 2, DC: 2, LSG: 2, GT: 2, PBKS: 2 });
+    setRtmState({ isActive: false, playerId: null, player: null, finalBidder: null, finalBid: 0, previousTeam: null, timeLeft: 12 });
 
     setRoomState({
       status: 'lobby',
@@ -1000,6 +1418,12 @@ export default function App() {
     const bidder = roomState.current_bidder;
     const price = roomState.current_bid;
 
+    // Check RTM eligibility first
+    if (bidder && price > 0) {
+      const didTrigger = triggerRTMIfEligible(curPlayer, bidder, price);
+      if (didTrigger) return;
+    }
+
     setGavelStrike(true);
     setTimeout(() => setGavelStrike(false), 800);
 
@@ -1031,7 +1455,24 @@ export default function App() {
       setOfflineParticipants(updatedParts);
 
       triggerSound('sold');
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+      
+      if (price >= 10.0) {
+        // Massive Celebration for >10Cr
+        const duration = 3000;
+        const end = Date.now() + duration;
+        const frame = () => {
+          confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f59e0b', '#d97706', '#fbbf24'] });
+          confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f59e0b', '#d97706', '#fbbf24'] });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        };
+        frame();
+      } else if (price >= 5.0) {
+        // Moderate celebration
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      } else {
+        // Standard sell
+        confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
+      }
     } else {
       triggerSound('unsold');
     }
@@ -1087,13 +1528,14 @@ export default function App() {
   };
 
 
-  // General Bid Calculator
+  // General Bid Calculator (IPL Tiered Rules)
   const getNextBidAmount = (currentBid, basePrice) => {
     const activePrice = Math.max(currentBid, basePrice);
+    if (activePrice < 1.0) return Number((activePrice + 0.05).toFixed(2));
     if (activePrice < 2.0) return Number((activePrice + 0.10).toFixed(2));
-    if (activePrice < 5.0) return Number((activePrice + 0.20).toFixed(2));
-    if (activePrice < 10.0) return Number((activePrice + 0.50).toFixed(2));
-    return Number((activePrice + 1.00).toFixed(2));
+    if (activePrice < 3.0) return Number((activePrice + 0.20).toFixed(2));
+    if (activePrice < 5.0) return Number((activePrice + 0.25).toFixed(2));
+    return Number((activePrice + 0.50).toFixed(2));
   };
 
 
@@ -1337,6 +1779,10 @@ export default function App() {
             handleHostControlOnline={handleHostControlOnline}
             handleHostControlOffline={handleHostControlOffline}
             handleSendComment={handleSendComment}
+            rtmState={rtmState}
+            rtmCards={rtmCards}
+            handleRtmDecision={handleRtmDecision}
+            getPreviousTeam={getPreviousTeam}
           />
         )}
         {/* 4. SUMMARY / LEADERBOARD END SCREEN */}
